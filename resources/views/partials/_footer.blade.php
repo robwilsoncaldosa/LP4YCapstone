@@ -1,0 +1,1 @@
+<footer class="footer ">© 2022 by Host 4 Change Cebu</footer>
