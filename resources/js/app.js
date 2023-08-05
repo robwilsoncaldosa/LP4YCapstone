@@ -72,3 +72,39 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
+
+// --------------------------START BOOK------------------
+
+function redirectToRoomDetails(roomId) {
+    const roomContainer = document.getElementById(roomId);
+    const roomName = roomContainer.querySelector('.room-name').textContent;
+    const roomDescription = roomContainer.querySelector('.room-description').textContent;
+    const roomPrice = roomContainer.querySelector('.room-price').textContent;
+    const roomImage = roomContainer.querySelector('.room-image img').getAttribute('src');
+
+    const urlParams = new URLSearchParams();
+    urlParams.append('name', roomName);
+    urlParams.append('description', roomDescription);
+    urlParams.append('price', roomPrice);
+    urlParams.append('image', roomImage);
+
+    window.location.href = `room_details.html?${urlParams.toString()}`;
+}
+
+// --------------------END BOOK----------------
+
+// --------------------STARTS BOOK_DETAILS---------------
+
+window.onload = function () {
+    const urlParams = new URLSearchParams(window.location.search);
+    const roomName = urlParams.get('name');
+    const roomDescription = urlParams.get('description');
+    const roomPrice = urlParams.get('price');
+    const roomImage = urlParams.get('image');
+
+    document.getElementById('room-name').textContent = roomName;
+    document.getElementById('room-image').src = roomImage;
+    document.querySelector('.room-description').textContent = roomDescription;
+    document.querySelector('.room-details-price').textContent = roomPrice;
+};
+
