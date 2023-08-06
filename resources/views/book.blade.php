@@ -234,6 +234,27 @@
 
     </div>
 
+
+    
+
+    <script>
+       function redirectToRoomDetails(roomId) {
+        const roomContainer = document.getElementById(roomId);
+        const roomName = roomContainer.querySelector('.room-name').textContent;
+        const roomDescription = roomContainer.querySelector('.room-description').textContent;
+        const roomPrice = roomContainer.querySelector('.room-price').textContent;
+        const roomImage = roomContainer.querySelector('.room-image img').getAttribute('src');
+
+        const urlParams = new URLSearchParams();
+        urlParams.append('name', roomName);
+        urlParams.append('description', roomDescription);
+        urlParams.append('price', roomPrice);
+        urlParams.append('image', roomImage);
+
+        window.location.href = `/room_details?${urlParams.toString()}`; // Using relative path
+    }
+    </script>
+
     <!--******************************************  Contact  ***********************************************-->
     @include('partials._contact')
 

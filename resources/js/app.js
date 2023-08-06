@@ -88,7 +88,7 @@ function redirectToRoomDetails(roomId) {
     urlParams.append('price', roomPrice);
     urlParams.append('image', roomImage);
 
-    window.location.href = `room_details.html?${urlParams.toString()}`;
+    window.location.href = `room_details.blade.php?${urlParams.toString()}`;
 }
 
 // --------------------END BOOK----------------
