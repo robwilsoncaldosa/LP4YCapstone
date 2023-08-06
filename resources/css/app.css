@@ -340,6 +340,8 @@ footer {
 }
 
 
+
+
 /* *************************************** Book A Room***************************************** */
 
 .book_container {
@@ -417,7 +419,7 @@ footer {
     padding-top: 30px;
 }
 
-.room-image {
+/* .room-image {
     flex: 0 0 40%;
     margin-right: 50px;
 }
@@ -426,8 +428,51 @@ footer {
     width: 100%;
     height: auto;
     border-radius: 2px;
+} */
+
+.room-image {
+    flex: 0 0 40%;
+    margin-right: 50px;
+    width: 200px; /* Set a fixed width for the image container */
+    height: 250px; /* Set a fixed height for the image container */
+    overflow: hidden;
 }
 
+.room-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Crop or stretch the image to fit the container */
+    border-radius: 2px;
+}
+/* ----------------- */
+.room-container {
+    position: relative;
+  }
+  
+  .room-image {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .room-image:hover .more-info-hov {
+    opacity: 1;
+  }
+  
+  .more-info-hov {
+    text-align: center;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 40%;
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    cursor: pointer;
+  }
+  
+/* --------------- */
 .room-name {
     font-size: 24px;
     font-weight: bold;

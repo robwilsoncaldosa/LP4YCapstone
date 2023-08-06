@@ -27,7 +27,7 @@
             <!-- ---room details---- -->
             <div class="room-details-deets" id="room_details">
                 <div class="room-name-container">
-                    <a href="main.html#rooms" class="back-btn"><i class="fas fa-arrow-left"></i></a>
+                    <a href="/book?" class="back-btn"><i class="fas fa-arrow-left"></i></a>
                     <h3 id="room-name">Room Name</h3>
                 </div>
 
@@ -47,7 +47,7 @@
                         </div>
                     </div>
                     <hr class="divider">
-                    <div class="more-info">
+                    <div class="more-info_deets">
                         <div class="more-info-text">
                             <h5 style="margin-right: 5px; margin-top: 0px;">More Info:</h5>
                         </div>

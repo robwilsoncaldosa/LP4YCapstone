@@ -66,8 +66,8 @@
 <!-- 1st room container -->
 <div class="room-container" id="room1">
     <div class="room-image">
-        <img src="img/sample_gallery_image (1).jpg" alt="Room Image">
-        <div class="more-info-hov">
+        <img src="img/sample_gallery_image (1).jpg" alt="Room Image" onclick="redirectToRoomDetails('room1')">
+        <div class="more-info-hov" onclick="redirectToRoomDetails('room1')">
             More Info
         </div>
     </div>
@@ -116,8 +116,8 @@
 <!-- 2nd room container -->
 <div class="room-container" id="room2">
     <div class="room-image">
-        <img src="img/sample_gallery_image (2).jpg" alt="Room Image">
-        <div class="more-info-hov">
+        <img src="img/sample_gallery_image (2).jpg" alt="Room Image" onclick="redirectToRoomDetails('room2')">
+        <div class="more-info-hov" onclick="redirectToRoomDetails('room2')">
             More Info
         </div>
     </div>
@@ -175,8 +175,8 @@
 <!-- 3rd room container -->
 <div class="room-container" id="room3">
     <div class="room-image">
-        <img src="img/sample_gallery_image (3).jpg" alt="Room Image">
-        <div class="more-info-hov">
+        <img src="img/sample_gallery_image (3).jpg" alt="Room Image" onclick="redirectToRoomDetails('room3')">
+        <div class="more-info-hov" onclick="redirectToRoomDetails('room3')">
             More Info
         </div>
     </div>
@@ -251,7 +251,7 @@
         urlParams.append('price', roomPrice);
         urlParams.append('image', roomImage);
 
-        window.location.href = `/room_details?${urlParams.toString()}`; // Using relative path
+        window.location.href = `/room_details?${urlParams.toString()}`; 
     }
     </script>
 
