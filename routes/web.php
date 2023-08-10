@@ -22,4 +22,9 @@ use Illuminate\Support\Facades\Route;
         return view('book');
     })->name('book');
 
+    Route::get('/room_details', function () {
+        return view('room_details');
+    })->name('room_details');
+
+
 
