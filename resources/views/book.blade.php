@@ -1,5 +1,5 @@
 @extends('layouts.layout')
-@section('title','Book A Room')
+@section('title', 'Book A Room')
 
 @section('content')
 
@@ -29,14 +29,14 @@
             <div class="position-relative col-2">
                 <div class="input-container">
                     <label for="check-in">Check In</label>
-                    <input type="date" class="form-control" id="check-in" placeholder="Check In"
+                    <input type="text" class="form-control" id="check-in" placeholder="Check In"
                         onchange="updateLabel(this)">
                 </div>
             </div>
             <div class="position-relative col-2">
                 <div class="input-container">
                     <label for="check-out">Check Out</label>
-                    <input type="date" class="form-control" id="check-out" placeholder="Check Out"
+                    <input type="text" class="form-control" id="check-out" placeholder="Check Out"
                         onchange="updateLabel(this)">
                 </div>
             </div>
@@ -62,170 +62,217 @@
 
         <!--------------------------- Start room -------------------------->
         <div class="room">
+            @foreach ($rooms as $room)
+                <!-- 1st room container -->
+                <div class="room-container" id="room1">
+                    <div class="room-image">
+                        <img src="{{ $room->image_path }}" alt="Room Image" width="100%"
+                            onclick="redirectToRoomDetails(this)">
+                        <div class="more-info-hov" onclick="redirectToRoomDetails(this)">
+                            More Info
+                        </div>
+                    </div>
+                    <!-- starts room-details -->
+                    <div class="room-details">
+                        <!-- start l_content -->
+                        <div class="l_content">
+                            <h2 class="room-name">{{ $room->room_name }}</h2>
+                            <p class="room-description">Spacious and bright room with private bathroom. Possibility of
+                                having two single beds or a double bed.</p>
+                            <!-- <p class="room-features"></p> -->
+                            <p class="room-beds"><span class="circle"></span> {{ $room->bed_type }}</p>
+                            <hr class="divider">
 
-<!-- 1st room container -->
-<div class="room-container" id="room1">
-    <div class="room-image">
-        <img src="img/sample_gallery_image (1).jpg" alt="Room Image" onclick="redirectToRoomDetails('room1')">
-        <div class="more-info-hov" onclick="redirectToRoomDetails('room1')">
-            More Info
+                            <!-- start i_content -->
+                            <div class="i_content">
+                                <i class="fas fa-snowflake"></i>
+                                <i class="fas fa-wifi"></i>
+                                <i class="fas fa-shower"></i>
+                                <i class="fas fa-bath"></i>
+                            </div>
+                            <!-- end i_content -->
+                        </div>
+                        <!-- end l_content -->
+                        <!-- start r_content -->
+                        <div class="r_content">
+                            <p class="from">From</p>
+                            <p class="room-price">₱ {{ $room->price_per_night }} </p>
+
+                            <div class="more-info">
+                                <!-- <button class="more-info-button" onclick="redirectToRoomDetails('room1')">More Info</button> -->
+                                <button class="more-info-button" onclick="redirectToRoomDetails(this)">More Info</button>
+
+                            </div>
+                        </div>
+                        <!-- end r_content -->
+
+                    </div>
+                    <!-- end room-details -->
+
+                </div>
+                <dialog autofocus="false">
+                    <!-- ************************************** Content *************************************************** -->
+
+
+                    <div class="container">
+
+
+                        <div class="room-details-container">
+                            <!-- ---room details---- -->
+                            <div class="room-details-deets" id="room_details">
+                                <h2 class="text-center">BOOK A ROOM</h2>
+
+                                <div class="room-name-container d-flex align-items-center justify-content-around mb-2"
+                                    style="width:30%">
+                                    <a href="/book?" class="back-btn text-decoration-none"><i class="fas fa-arrow-left"
+                                            style="font-size: 25px;color:#242323;"></i></a>
+                                    <div class="separator"></div>
+                                    <h3 id="room-name">{{ $room->room_name }} Room</h3>
+                                </div>
+
+                                <img src="{{ $room->image_path }}" alt="Room Image" id="room-image">
+
+                                <div class="room-details-con">
+                                    <div class="property-details">
+                                        <h5>Properties:</h5>
+                                        <div class="properties-deets-container">
+                                            <div class="prop-menu">
+                                                <p id="accommodates">Accommodates: </p>
+                                            </div>
+
+                                            <div class="prop-menu">
+                                                <p id="beds">Beds:{{ $room->bed_type }} </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr class="divider">
+                                    <div class="more-info_deets d-flex justify-content-between align-items-center">
+                                        <div class="more-info-text">
+                                            <h5 style="margin-right: 5px; margin-top: 0px;">More Info:
+                                            </h5>
+                                        </div>
+                                        <div class="more-info-details"></div>
+                                        <p class="room-description">Spacious and bright room with private bathroom.
+                                            Possibility of having two single beds or a double bed.
+
+                                        </p>
+                                    </div>
+                                    <hr class="divider">
+
+                                    <div class="amenities">
+                                        <h5>Amenities:</h5>
+                                        <div class="amenit-icons-container">
+                                            <div class="amenit">
+
+                                                <div>
+                                                    <i class="fas fa-snowflake"></i>
+                                                    <li>A/C</li>
+                                                </div>
+                                                <div>
+                                                    <i class="fas fa-wifi"></i>
+                                                    <li>WiFi</li>
+                                                </div>
+                                            </div>
+
+                                            <div class="amenit">
+                                                <div>
+                                                    <i class="fas fa-shower"></i>
+                                                    <li>Shower</li>
+                                                </div>
+
+                                                <div>
+                                                    <i class="fas fa-bath"></i>
+                                                    <li>Towels</li>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <hr class="divider">
+
+                                    <div class="check-in-out">
+                                        <h5>Check-In and Out:</h5>
+                                        <div class="check-deets-container">
+
+                                            <div class="check-deets">
+                                                <p id="check-in">Check-In: 12:00PM</p>
+                                            </div>
+
+                                            <div class="check-deets" style="margin-left: 110px">
+                                                <p id="check-out">Check-Out: 02:00PM</p>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    <hr class="divider">
+
+                                    <div class="terms">
+                                        <h5>Terms:</h5>
+                                        <div class="terms-deets-container">
+                                            <div class="terms-deets">
+                                                <p id="maximum-nights">Maximum nights: 4</p>
+                                            </div>
+
+                                            <div class="terms-deets" style="margin-left: 110px">
+                                                <a href="#">Read Our Policies</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr class="divider">
+
+
+                                    <div class="map-container">
+                                        <iframe
+                                            src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d490.68891707319847!2d123.9490603791058!3d10.300900522871656!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x33a9999278be73df%3A0x375659c7ec469226!2sLife%20Project%204%20Youth%20(LP4Y)%20-%20Center%20and%20Guest%20houses!5e0!3m2!1sen!2sph!4v1688547750578!5m2!1sen!2sph"
+                                            width="100%" height="450" style="border:0;" allowfullscreen=""
+                                            loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="room-details-content">
+                                <div class="room-details-box">
+
+                                    <p>From</p>
+                                    <p class="room-details-price" style="font-size:30px">1000 ₱</p>
+                                    <p>Per Night</p>
+                                    <hr>
+
+                                    <div class="input-container position-relative">
+                                        <input type="text" class="form-control rounded-0" id="check-in"
+                                            placeholder="Check In" onchange="updateLabel(this)">
+                                        <i class="far fa-calendar position-absolute"
+                                            style="top:10px;right:20px;pointer-events: none;"></i>
+
+                                    </div>
+
+                                    <div class="input-container position-relative">
+                                        <input type="text" class="form-control rounded-0" id="check-out"
+                                            placeholder="Check Out" onchange="updateLabel(this)">
+                                        <i class="far fa-calendar position-absolute"
+                                            style="top:10px;right:20px;pointer-events: none;"></i>
+
+                                    </div>
+
+                                    <div class="input-container">
+                                        <input type="number" class="form-control rounded-0" id="adults"
+                                            placeholder="Adults">
+                                    </div>
+
+                                    <button class="btn btn-dark w-100 rounded-0" style="margin-top:20px;">Book Now</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </dialog>
+                <!-- End room-container -->
+                <hr class="divider">
+
+
+                <!-- End room -->
+            @endforeach
         </div>
-    </div>
-
-    <!-- starts room-details -->
-    <div class="room-details">
-        <!-- start l_content -->
-        <div class="l_content">
-            <h2 class="room-name">Camiguin Room</h2>
-            <p class="room-description">Spacious and bright room with private bathroom. Possibility of
-                having two single beds or a double bed.</p>
-            <!-- <p class="room-features"></p> -->
-            <p class="room-beds"><span class="circle"></span> Beds: 1 Double(s)</p>
-            <hr class="divider">
-
-            <!-- start i_content -->
-            <div class="i_content">
-                <i class="fas fa-snowflake"></i>
-                <i class="fas fa-wifi"></i>
-                <i class="fas fa-shower"></i>
-                <i class="fas fa-bath"></i>
-            </div>
-            <!-- end i_content -->
-        </div>
-        <!-- end l_content -->
-        <!-- start r_content -->
-        <div class="r_content">
-            <p class="from">From</p>
-            <p class="room-price">1000 ₱</p>
-
-            <div class="more-info">
-                <!-- <button class="more-info-button" onclick="redirectToRoomDetails('room1')">More Info</button> -->
-                <button class="more-info-button" onclick="redirectToRoomDetails('room1')">More Info</button>
-
-            </div>
-        </div>
-        <!-- end r_content -->
-
-    </div>
-    <!-- end room-details -->
-
-</div>
-<!-- End room-container -->
-<hr class="divider">
-<!-- __________________________________________________________________________________________ -->
-<!-- 2nd room container -->
-<div class="room-container" id="room2">
-    <div class="room-image">
-        <img src="img/sample_gallery_image (2).jpg" alt="Room Image" onclick="redirectToRoomDetails('room2')">
-        <div class="more-info-hov" onclick="redirectToRoomDetails('room2')">
-            More Info
-        </div>
-    </div>
-    <!-- <div class="room-content"> -->
-
-    <!-- starts room-details -->
-    <div class="room-details">
-        <!-- start l_content -->
-        <div class="l_content">
-                  <h2 class="room-name">Mantique Room</h2>
-            <p class="room-description">Spacious and bright room with private bathroom. Possibility of
-                having two single beds or a double bed.</p>
-            <!-- <p class="room-features"></p> -->
-            <p class="room-beds"><span class="circle"></span> Beds: 1 Double(s)</p>
-            <hr class="divider">
-
-            <!-- start i_content -->
-            <div class="i_content">
-                <i class="fas fa-snowflake"></i>
-                <i class="fas fa-wifi"></i>
-                <i class="fas fa-shower"></i>
-                <i class="fas fa-bath"></i>
-            </div>
-            <!-- end i_content -->
-        </div>
-        <!-- end l_content -->
-        <!-- start r_content -->
-        <div class="r_content">
-            <p class="from">From</p>
-            <p class="room-price">1000 ₱</p>
-
-            <div class="more-info">
-                <button class="more-info-button" onclick="redirectToRoomDetails('room2')">More Info</button>
-                <!-- <button class="more-info-button" onclick="redirectToRoomDetails('room1')">More Info</button> -->
-
-                <!-- <button href=room_details.html class="more-info-button">More Info</button> -->
-            </div>
-        </div>
-        <!-- end r_content -->
-
-    </div>
-    <!-- end room-details -->
-
-     <!-- More Info text -->
-
-    <!-- </div> -->
-</div>
-<!-- End room-container -->
-<!-- <hr class="h_line"> -->
-<hr class="divider">
-
-
-
-<!-- __________________________________________________________________________________ -->
-<!-- 3rd room container -->
-<div class="room-container" id="room3">
-    <div class="room-image">
-        <img src="img/sample_gallery_image (3).jpg" alt="Room Image" onclick="redirectToRoomDetails('room3')">
-        <div class="more-info-hov" onclick="redirectToRoomDetails('room3')">
-            More Info
-        </div>
-    </div>
-
-    
-    <!-- starts room-details -->
-    <div class="room-details">
-        <!-- start l_content -->
-        <div class="l_content">
-            <h2 class="room-name">Malapascua Room</h2>
-            <p class="room-description">Spacious and bright room with private bathroom. Possibility of
-                having two single beds or a double bed.</p>
-            <!-- <p class="room-features"></p> -->
-            <p class="room-beds"><span class="circle"></span> Beds: 1 Double(s)</p>
-            <!-- <p class="room-beds">Beds: 1 Double(s)</p> -->
-            <hr class="divider">
-
-            <!-- start i_content -->
-            <div class="i_content">
-                <i class="fas fa-snowflake"></i>
-                <i class="fas fa-wifi"></i>
-                <i class="fas fa-shower"></i>
-                <i class="fas fa-bath"></i>
-            </div>
-            <!-- end i_content -->
-        </div>
-        <!-- end l_content -->
-        <!-- start r_content -->
-        <div class="r_content">
-            <p class="from">From</p>
-            <p class="room-price">1200 ₱</p>
-
-            <div class="more-info">
-                <button class="more-info-button" onclick="redirectToRoomDetails('room3')">More Info</button>
-                <!-- <button class="more-info-button">More Info</button> -->
-            </div>
-        </div>
-        <!-- end r_content -->
-
-    </div>
-    <!-- end room-details -->
-
-</div>
-<!-- End room-container -->
-<hr class="divider">
-
-</div>
-        <!-- End room -->
-
 
     </div>
     <!-- End book_container -->
@@ -235,24 +282,25 @@
     </div>
 
 
-    
+
 
     <script>
-       function redirectToRoomDetails(roomId) {
-        const roomContainer = document.getElementById(roomId);
-        const roomName = roomContainer.querySelector('.room-name').textContent;
-        const roomDescription = roomContainer.querySelector('.room-description').textContent;
-        const roomPrice = roomContainer.querySelector('.room-price').textContent;
-        const roomImage = roomContainer.querySelector('.room-image img').getAttribute('src');
+        function redirectToRoomDetails() {
+            const dialog = document.querySelector("dialog");
+            dialog.showModal();
+            dialog.addEventListener("click", e => {
+                const dialogDimensions = dialog.getBoundingClientRect()
+                if (
+                    e.clientX < dialogDimensions.left ||
+                    e.clientX > dialogDimensions.right ||
+                    e.clientY < dialogDimensions.top ||
+                    e.clientY > dialogDimensions.bottom
+                ) {
 
-        const urlParams = new URLSearchParams();
-        urlParams.append('name', roomName);
-        urlParams.append('description', roomDescription);
-        urlParams.append('price', roomPrice);
-        urlParams.append('image', roomImage);
-
-        window.location.href = `/room_details?${urlParams.toString()}`; 
-    }
+                    dialog.close()
+                }
+            })
+        }
     </script>
 
     <!--******************************************  Contact  ***********************************************-->
@@ -263,5 +311,4 @@
     @include('partials._footer')
 
 
-    @endsection
-
+@endsection

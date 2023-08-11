@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\RoomController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -18,9 +19,7 @@ use Illuminate\Support\Facades\Route;
         return view('app');
     })->name('app');
 
-    Route::get('/book', function () {
-        return view('book');
-    })->name('book');
+    Route::get('/book', [RoomController::class,'showBookingView'])->name('book');
 
     Route::get('/room_details', function () {
         return view('room_details');

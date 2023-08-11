@@ -22,7 +22,7 @@
         </div>
     </div>
     <div class=" position-relative col-12 col-lg-2 mt-5 mt-lg-0 ">
-        <label for="adults">Adults</label> nng
+        <label for="adults">Adults</label> 
         <input type="number" class="form-control" id="adults">
     </div>
     <div class=" position-relative col-12 col-lg-2 mt-5 mt-lg-0 ">

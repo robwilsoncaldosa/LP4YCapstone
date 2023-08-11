@@ -136,12 +136,12 @@
 
                     <div class="input-container">
                         <label for="check-in">Check In</label>
-                        <input type="date" class="form-control" id="check-in" placeholder="Check In" onchange="updateLabel(this)">
+                        <input type="text" class="form-control" id="check-in" placeholder="Check In" onchange="updateLabel(this)">
                     </div>
 
                     <div class="input-container">
                         <label for="check-out">Check Out</label>
-                        <input type="date" class="form-control" id="check-out" placeholder="Check Out" onchange="updateLabel(this)">
+                        <input type="text" class="form-control" id="check-out" placeholder="Check Out" onchange="updateLabel(this)">
                     </div>
 
                     <div class="input-container">
