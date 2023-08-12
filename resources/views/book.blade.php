@@ -66,9 +66,8 @@
                 <!-- 1st room container -->
                 <div class="room-container" id="room1">
                     <div class="room-image">
-                        <img src="{{ $room->image_path }}" alt="Room Image" width="100%"
-                            onclick="redirectToRoomDetails(this)">
-                        <div class="more-info-hov" onclick="redirectToRoomDetails(this)">
+                        <img src="{{ $room->image_path }}" alt="Room Image" width="100%" data-room_name="{{$room->room_name}}">
+                        <div class="more-info-hov" data-room_name="{{$room->room_name}}">
                             More Info
                         </div>
                     </div>
@@ -100,7 +99,7 @@
 
                             <div class="more-info">
                                 <!-- <button class="more-info-button" onclick="redirectToRoomDetails('room1')">More Info</button> -->
-                                <button class="more-info-button" onclick="redirectToRoomDetails(this)">More Info</button>
+                                <button class="more-info-button" data-room_name="{{$room->room_name}}">More Info</button>
 
                             </div>
                         </div>
@@ -110,7 +109,7 @@
                     <!-- end room-details -->
 
                 </div>
-                <dialog autofocus="false">
+                <dialog autofocus="false" id="modal-{{$room->room_name}}">
                     <!-- ************************************** Content *************************************************** -->
 
 
@@ -195,11 +194,11 @@
                                         <div class="check-deets-container">
 
                                             <div class="check-deets">
-                                                <p id="check-in">Check-In: 12:00PM</p>
+                                                <p class="check-in">Check-In: 12:00PM</p>
                                             </div>
 
                                             <div class="check-deets" style="margin-left: 110px">
-                                                <p id="check-out">Check-Out: 02:00PM</p>
+                                                <p class="check-out">Check-Out: 02:00PM</p>
                                             </div>
 
                                         </div>
@@ -240,16 +239,15 @@
                                     <hr>
 
                                     <div class="input-container position-relative">
-                                        <input type="text" class="form-control rounded-0" id="check-in"
-                                            placeholder="Check In" onchange="updateLabel(this)">
+                                        <input type="text" class="form-control rounded-0 check-in m-5"                                             placeholder="Check In" >
                                         <i class="far fa-calendar position-absolute"
                                             style="top:10px;right:20px;pointer-events: none;"></i>
 
                                     </div>
 
                                     <div class="input-container position-relative">
-                                        <input type="text" class="form-control rounded-0" id="check-out"
-                                            placeholder="Check Out" onchange="updateLabel(this)">
+                                        <input type="text" class="form-control rounded-0 check-out m-5" 
+                                            placeholder="Check Out" >
                                         <i class="far fa-calendar position-absolute"
                                             style="top:10px;right:20px;pointer-events: none;"></i>
 
@@ -285,11 +283,23 @@
 
 
     <script>
-        function redirectToRoomDetails() {
-            const dialog = document.querySelector("dialog");
-            dialog.showModal();
-            dialog.addEventListener("click", e => {
-                const dialogDimensions = dialog.getBoundingClientRect()
+    $(".check-in, .check-out").datepicker();
+
+
+
+            const showModalButtons = document.querySelectorAll('.room-image img, .more-info-hov,.more-info-button');
+
+            showModalButtons.forEach(function (button) {
+            button.addEventListener('click', function () {
+                const roomName = button.getAttribute('data-room_name');
+                const modal = document.getElementById('modal-' + roomName);
+
+                if (modal) {
+                    modal.showModal();
+                }
+
+                modal.addEventListener("click", e => {
+                const dialogDimensions = modal.getBoundingClientRect()
                 if (
                     e.clientX < dialogDimensions.left ||
                     e.clientX > dialogDimensions.right ||
@@ -297,10 +307,17 @@
                     e.clientY > dialogDimensions.bottom
                 ) {
 
-                    dialog.close()
+                    modal.close()
                 }
             })
-        }
+            });
+        });
+
+
+
+
+
+
     </script>
 
     <!--******************************************  Contact  ***********************************************-->
