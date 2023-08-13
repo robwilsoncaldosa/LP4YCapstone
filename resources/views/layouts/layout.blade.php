@@ -28,4 +28,6 @@
 </html>
 <script>
     $("#check-in,#check-out").datepicker();
+
+
 </script>
