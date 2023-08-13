@@ -28,27 +28,27 @@
         <div class="search_book d-flex m-auto" style="width: 64%;">
             <div class="position-relative col-2">
                 <div class="input-container">
-                    <label for="check-in">Check In</label>
+                    <!-- <label for="check-in">Check In</label> -->
                     <input type="text" class="form-control" id="check-in" placeholder="Check In"
                         onchange="updateLabel(this)">
                 </div>
             </div>
             <div class="position-relative col-2">
                 <div class="input-container">
-                    <label for="check-out">Check Out</label>
+                    <!-- <label for="check-out">Check Out</label> -->
                     <input type="text" class="form-control" id="check-out" placeholder="Check Out"
                         onchange="updateLabel(this)">
                 </div>
             </div>
             <div class="position-relative col-3">
                 <div class="input-container">
-                    <label for="adults">Adults</label>
+                    <!-- <label for="adults">Adults</label> -->
                     <input type="number" class="form-control" id="adults" placeholder="Adults">
                 </div>
             </div>
             <div class="position-relative col-3">
                 <div class="input-container">
-                    <label for="kids">Kids</label>
+                    <!-- <label for="kids">Kids</label> -->
                     <input type="number" class="form-control" id="kids" placeholder="Kids">
                 </div>
             </div>
