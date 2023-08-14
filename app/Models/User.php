@@ -30,6 +30,11 @@ class User extends Authenticatable
         return $this->hasMany(Review::class);
     }
 
+    public function adminUser()
+    {
+        return $this->belongsTo(Admin_User::class, 'admin_id');
+    }
+
     /**
      * The attributes that should be cast.
      *

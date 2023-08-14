@@ -25,5 +25,10 @@ class Reservation extends Model
     public function review()
     {
         return $this->hasOne(Review::class);
+    
+    }
+    public function adminUser()
+    {
+        return $this->belongsTo(Admin_User::class, 'admin_id');
     }
 }

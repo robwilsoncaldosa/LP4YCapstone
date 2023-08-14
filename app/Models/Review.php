@@ -21,4 +21,9 @@ class Review extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function adminUser()
+    {
+        return $this->belongsTo(Admin_User::class, 'admin_id');
+    }
 }
