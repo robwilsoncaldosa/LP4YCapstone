@@ -3,7 +3,7 @@
     <div class="container d-flex flex-column flex-lg-row justify-content-center  ">
         <a class="navbar-brand  d-flex align-items-center" href="{{route('app')}}">
             <div class="border-white border  border-1 d-lg-none  m-4 m-lg-0 w-100"></div>
-            <img src="./img/LP4Y_Logo.webp" alt="Logo" width="75px">
+            <img src="../img/LP4Y_Logo.webp" alt="Logo" width="75px">
             <div class="border-white border  border-1 d-lg-none  m-4 m-lg-0 w-100">
             </div>
         </a>

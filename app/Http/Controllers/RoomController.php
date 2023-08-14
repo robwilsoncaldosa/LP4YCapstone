@@ -35,9 +35,12 @@ class RoomController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function moreinfo(string $name)
     {
-        //
+        $room = Room::where('room_name', $name)->firstOrFail(); // Retrieve the room by name
+
+        return view('more_info', compact('room')); // Pass the room data to the view
+
     }
 
     /**
