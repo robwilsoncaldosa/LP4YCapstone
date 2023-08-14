@@ -21,9 +21,8 @@ use Illuminate\Support\Facades\Route;
 
     Route::get('/book', [RoomController::class,'showBookingView'])->name('book');
 
-    Route::get('/room_details', function () {
-        return view('room_details');
-    })->name('room_details');
 
+
+    Route::get('/rooms/{name}', [RoomController::class,'moreinfo'])->name('moreinfo');
 
 
