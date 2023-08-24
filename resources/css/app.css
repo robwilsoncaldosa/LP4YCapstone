@@ -887,18 +887,6 @@ f .more-info p {
 
 /* Adjust the Datepicker's position */
 
-.ui-datepicker {
-    transform: translateX(150%);
-}
-
-
-/* If you want to adjust the position of the calendar */
-
-.ui-datepicker-calendar {
-    margin-left: 5px;
-    /* Adjust as needed */
-}
-
 @media only screen and (max-width: 768px) {
     g .room-details-container {
         flex-direction: column;

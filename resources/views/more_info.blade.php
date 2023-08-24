@@ -29,7 +29,7 @@
                 <div class="room-details-deets" id="room_details">
                     <h2 class="text-center">BOOK A ROOM</h2>
 
-                    <div class="room-name-container d-flex align-items-center justify-content-around mb-2"
+                    <div class="room-name-container d-flex align-items-center justify-content-around mb-2 mt-5"
                         style="width:30%">
                         <a href="{{ route('book') }}" class="back-btn text-decoration-none"><i class="fas fa-arrow-left"
                                 style="font-size: 25px;color:#242323;"></i></a>
@@ -101,11 +101,11 @@
                             <div class="check-deets-container">
 
                                 <div class="check-deets">
-                                    <p class="check-in">Check-In: 12:00PM</p>
+                                    <p class="check-in">Check-In: 12:00 PM</p>
                                 </div>
 
                                 <div class="check-deets" style="margin-left: 110px">
-                                    <p class="check-out">Check-Out: 02:00PM</p>
+                                    <p class="check-out">Check-Out: 02:00 PM</p>
                                 </div>
 
                             </div>
@@ -137,7 +137,7 @@
                     </div>
                 </div>
 
-                <div class="room-details-content">
+                <div class="room-details-content mt-5">
                     <div class="room-details-box">
 
                         <p>From</p>
@@ -147,14 +147,14 @@
                         <form method="dialog">
 
                             <div class="input-container p-2 position-relative ">
-                                <input type="text" class="form-control rounded-0 check-in " placeholder="Check In">
+                                <input type="text" class="form-control rounded-0 check-in " id="check-in" placeholder="Check In">
                                 <i class="far fa-calendar position-absolute"
                                     style="top:20px;right:20px;pointer-events: none;"></i>
 
                             </div>
 
                             <div class="input-container p-2 position-relative">
-                                <input type="text" class="form-control rounded-0 check-out " placeholder="Check Out">
+                                <input type="text" class="form-control rounded-0 check-out " id="check-out" placeholder="Check Out">
                                 <i class="far fa-calendar position-absolute"
                                     style="top:20px;right:20px;pointer-events: none;"></i>
 

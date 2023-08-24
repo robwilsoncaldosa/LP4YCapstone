@@ -8,9 +8,6 @@ import '~jquery-ui';
 import '~jquery-ui-css';
 
 
-$("#check-in,#check-out").datepicker();
-
-
 
 const reviewRadios = document.querySelectorAll('input[name="review-radio"]');
 const reviews = document.querySelectorAll('.review');
