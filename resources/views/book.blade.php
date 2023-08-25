@@ -24,41 +24,7 @@
             <div class="h_line"></div>
         </div>
         <!-- End book_t_content -->
-        <!-- Start search_book -->
-        <div class="search_book d-flex m-auto" style="width: 64%;">
-            <div class="position-relative col-2">
-                <div class="input-container">
-                    <!-- <label for="check-in">Check In</label> -->
-                    <input type="text" class="form-control" id="check-in" placeholder="Check In"
-                        onchange="updateLabel(this)">
-                </div>
-            </div>
-            <div class="position-relative col-2">
-                <div class="input-container">
-                    <!-- <label for="check-out">Check Out</label> -->
-                    <input type="text" class="form-control" id="check-out" placeholder="Check Out"
-                        onchange="updateLabel(this)">
-                </div>
-            </div>
-            <div class="position-relative col-3">
-                <div class="input-container">
-                    <!-- <label for="adults">Adults</label> -->
-                    <input type="number" class="form-control" id="adults" placeholder="Adults">
-                </div>
-            </div>
-            <div class="position-relative col-3">
-                <div class="input-container">
-                    <!-- <label for="kids">Kids</label> -->
-                    <input type="number" class="form-control" id="kids" placeholder="Kids">
-                </div>
-            </div>
-            <div class="position-relative search-button col-2 btn btn-dark">Search</div>
-        </div>
-        <!-- End search_book -->
 
-        <div class="book_t_content">
-            <div class="h_line"></div>
-        </div>
 
         <!--------------------------- Start room -------------------------->
         <div class="room">
@@ -136,11 +102,6 @@
 
 
 
-
-
-    <script>
-        $(".check-in, .check-out").datepicker();
-    </script>
 
     <!--******************************************  Contact  ***********************************************-->
     @include('partials._contact')

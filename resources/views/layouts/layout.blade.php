@@ -8,6 +8,7 @@
     <title>@yield('title','Default Title')</title>
     <script src="{{ asset('jquery/jquery.min.js') }}"></script>
     <script src="{{ asset('jquery/jquery-ui.js') }}"></script>
+    <link rel="icon" href="../img/LP4Y_Logo.webp" type="image/webp">
     <link rel="stylesheet" href="{{ asset('jquery/jquery-ui.css') }}">
     <link rel="stylesheet" href="{{ asset('jquery/jquery-ui.theme.css') }}">
      @vite(['resources/js/app.js']) @vite(['resources/css/app.css'])
@@ -22,12 +23,11 @@
 
 
 
-
 </body>
 
 </html>
 <script>
-    $("#check-in,#check-out").datepicker();
+
 
 
 </script>
