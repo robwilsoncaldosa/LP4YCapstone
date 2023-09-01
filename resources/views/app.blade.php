@@ -92,26 +92,26 @@
             <div class="carousel-item active">
                 <div class="row">
                     <div class="col-4">
-                        <img src="./img/sample_gallery_image (1).jpg" class="d-block w-100 carousel-image" alt="Image 1">
+                        <img src="./img/lunch_together_with_guest.png" class="d-block w-100 carousel-image" alt="Image 1">
                     </div>
                     <div class="col-4">
-                        <img src="./img/sample_gallery_image (2).jpg" class="d-block w-100 carousel-image" alt="Image 2">
+                        <img src="./img/guitar_training_with_guest.png" class="d-block w-100 carousel-image" alt="Image 2">
                     </div>
                     <div class="col-4">
-                        <img src="./img/sample_gallery_image (3).jpg" class="d-block w-100 carousel-image" alt="Image 3">
+                        <img src="./img/lessons_with_john_delaporte.png" class="d-block w-100 carousel-image" alt="Image 3">
                     </div>
                 </div>
             </div>
             <div class="carousel-item">
                 <div class="row">
                     <div class="col-4">
-                        <img src="./img/sample_gallery_image (4).jpg" class="d-block w-100 carousel-image" alt="Image 4">
+                        <img src="./img/catalyst_eating_breakfast2.png" class="d-block w-100 carousel-image" alt="Image 4">
                     </div>
                     <div class="col-4">
-                        <img src="./img/sample_gallery_image (5).jpg" class="d-block w-100 carousel-image" alt="Image 5">
+                        <img src="./img/bisaya_training_with_guest.png" class="d-block w-100 carousel-image" alt="Image 5">
                     </div>
                     <div class="col-4">
-                        <img src="./img/sample_gallery_image (6).jpg" class="d-block w-100 carousel-image" alt="Image 6">
+                        <img src="./img/catalyst_eating_breakfast.png" class="d-block w-100 carousel-image" alt="Image 6">
                     </div>
                 </div>
             </div>
