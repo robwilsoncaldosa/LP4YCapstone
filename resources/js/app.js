@@ -8,8 +8,43 @@ import '~jquery-ui';
 import '~jquery-ui-css';
 
 
-$("#check-in,#check-out").datepicker();
 
+
+
+$(document).ready(function() {
+    const today = new Date();
+    const defaultCheckoutDays = 3;
+    $.datepicker.setDefaults({
+        dateFormat: "MM d, yy"
+    })
+    $('#check-in').datepicker({
+        minDate: today,
+        beforeShowDay: function(date) {
+            const day = date.getDay();
+            return [(day !== 0 && day !== 1)];
+        },
+        onSelect: function(selectedDate) {
+            const selected = new Date(selectedDate);
+            const checkoutDate = new Date(selected.getTime() + defaultCheckoutDays * 24 * 60 * 60 * 1000);
+
+            $('#check-out').datepicker("option", "minDate", selected);
+            $('#check-out').datepicker("option", "maxDate", checkoutDate);
+
+            $('#check-out').datepicker("option", "beforeShowDay", function(date) {
+                const day = date.getDay();
+                const isWithin3Days = date >= selected && date <= checkoutDate;
+                const isCheckin = date.getTime() === selected.getTime();
+                return [(day !== 0 && day !== 1) && isWithin3Days && !isCheckin];
+            });
+        }
+    });
+    $('#check-out').datepicker({
+        beforeShowDay: function(date) {
+            const day = date.getDay();
+            return [(day !== 0 && day !== 1)];
+        }
+    })
+})
 
 
 const reviewRadios = document.querySelectorAll('input[name="review-radio"]');
@@ -72,11 +107,3 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
-
-// // --------------------------START BOOK------------------
-
-// function redirectToRoomDetails($this) {
-//     const dialog = ($this).closest("dialog");
-//     dialog.showModal();
-
-// }

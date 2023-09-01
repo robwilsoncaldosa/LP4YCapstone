@@ -1,6 +1,9 @@
 <?php
 
 use App\Http\Controllers\RoomController;
+use App\Http\Controllers\ContactController;
+use App\Http\Controllers\MailController;
+
 use Illuminate\Support\Facades\Route;
 
 
@@ -25,4 +28,8 @@ use Illuminate\Support\Facades\Route;
 
     Route::get('/rooms/{name}', [RoomController::class,'moreinfo'])->name('moreinfo');
 
+
+    Route::post('/send-email', [ContactController::class,'sendEmail'])->name('sendemail');
+
+    Route::get('/send-mail', [MailController::class, 'index']);
 

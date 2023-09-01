@@ -7,30 +7,7 @@
 <section class="home d-flex justify-content-center mt-5" id="home" style="background-image: url('./img/sample_home_background.jpg');">
     <div class="text-center container w-75 m-auto ">HOST 4 <br> CHANGE <br> CEBU <br><span class="fst-italic">Guesthouse & Training center </span></div>
 </section>
-<div class="row m-auto mt-5 w-75">
-    <div class=" position-relative col-6 col-lg-3 position-relative">
-        <label for="check-in">Check In</label>
-        <input type="text" class="form-control" id="check-in">
-        <i class="fas fa-calendar position-absolute" style="top:10px;right:20px;pointer-events: none;"></i>
-    </div>
-    <div class=" position-relative col-6 col-lg-3 position-relative ">
-        <label for="check-out">Check Out</label>
-        <div>
-            <input type="text" class="form-control" id="check-out">
 
-            <i class="fas fa-calendar position-absolute" style="top:10px;right:20px;pointer-events: none;"></i>
-        </div>
-    </div>
-    <div class=" position-relative col-12 col-lg-2 mt-5 mt-lg-0 ">
-        <label for="adults">Adults</label> 
-        <input type="number" class="form-control" id="adults">
-    </div>
-    <div class=" position-relative col-12 col-lg-2 mt-5 mt-lg-0 ">
-        <label for="kids">Kids</label>
-        <input type="number" class="form-control" id="kids">
-    </div>
-    <div class="position-relative search-button col-12 col-lg-2 mt-5 btn btn-dark mt-lg-0  ">Search</div>
-</div>
 <!--***************************************About************************************************-->
 <section class="about text-center mt-5 " id="about">
     <h2>ABOUT</h2>
