@@ -72,7 +72,6 @@
                                 <a href="{{ route('moreinfo', ['name' => $room->room_name]) }}">
                                     <button class="more-info-button" data-room_name="{{ $room->room_name }}">More
                                         Info</button></a>
-
                             </div>
                         </div>
                         <!-- end r_content -->

@@ -9,9 +9,7 @@
         <h5>host4change.cebu@lp4y.org</h5>
         <h5>/</h5>
         <h5>A. Tumulak street, Barangay Gun-Ob<br>
-
             Lapu-Lapu Cebu, Cebu, 6015
-
         </h5>
         <h5>/</h5>
         <h5>Tel: 0910 451 0420</h5>

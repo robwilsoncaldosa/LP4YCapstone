@@ -44,7 +44,8 @@ class AdminUserController extends Controller
         return redirect()->route('admin.reservations')->with('success', 'Reservation deleted successfully.');
     }
 
-//WHERE WE MUST PUT THE "STORE RESERVATION FUNCTION"?
-
 }
+
+
+
 

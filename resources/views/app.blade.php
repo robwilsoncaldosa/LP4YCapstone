@@ -32,9 +32,15 @@
         <h5><i>Spacious and comfortable, you will <br>
                     appreciate your stay in our Guesthouse.</i></h5>
         <br>
-        <a class="btn-sm btn  btn-book-room  p-2" href="#"><span>Book a Room</span></a>
+        <a class="btn-sm btn  btn-book-room  p-2" href="{{ route('book') }}"><span>Book a Room</span></a>
     </div>
 </section>
+
+
+
+
+
+
 <!--***************************************Services**********************************************-->
 <section class="services mt-5 m-auto" id="services">
     <h2 class="text-center mb-5  ">Our Services</h2>
@@ -104,32 +110,36 @@
     </div>
 
 
-    <h2 class="text-center mt-5">SEE & DO ON CEBU ISLAND</h2>
+    <h2 class="text-center mt-5">SEE & DO ON LP4Y GUEST HOUSE</h2>
     <br>
     <br>
     <div class="gallery-card  d-flex justify-content-between">
         <div class="card border-0 w-100 align-items-center  ">
-            <h5>Scuba Diving</h5>
-            <p class="text-center ">Cebu is known worldwide for the<br> coral, turtles and the fishes, don't<br> miss the opportunity.
+            <h5>Guitar Training</h5>
+            <p class="text-center ">
+                <!-- Cebu is known worldwide for the<br> coral, turtles and the fishes, don't<br> miss the opportunity. -->
+                Guest can play guitar with the youth to have fun.
+            </p>
             </p>
         </div>
 
         <div class="card border-0 w-100  align-items-center">
-            <h5>Boat</h5>
-            <p class="text-center ">Spend a day on a boat on the<br> transparent sea !</p>
+            <h5>Bisaya Training</h5>
+            <p class="text-center ">
+                Guest can learn bisaya dialect with the youth.
+            </p>
         </div>
         <div class="card border-0 w-100  align-items-center">
-            <h5>Hiking & Canyoning </h5>
+            <h5>Lunch Together with the youth </h5>
             <p class="text-center ">
-
-                Enjoy the jungle and rivers.<br> Discover the plants and canyons, and<br> appreciate the landscape.</p>
+            Guest can have fun<br> Having lunch together with youth brings joy to the guest, and<br> appreciate the landscape.</p>
         </div>
     </div>
     <br>
     <div class="gallery-card  d-flex justify-content-between ">
         <div class="card border-0 w-100 align-items-center  ">
-            <h5>Swim with Whale sharks</h5>
-            <p class="text-center ">Meet the giant !
+            <h5>Catalyst eating breakfast</h5>
+            <p class="text-center ">Breakfast with youth makes your stay in guest house special and memorable
             </p>
         </div>
 
