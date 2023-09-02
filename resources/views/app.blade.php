@@ -132,7 +132,7 @@
         <div class="card border-0 w-100  align-items-center">
             <h5>Lunch Together with the youth </h5>
             <p class="text-center ">
-            Guest can have fun<br> Having lunch together with youth brings joy to the guest, and<br> appreciate the landscape.</p>
+            Guest can have fun<br> Having lunch together with youth brings joy to the guest, and<br> appreciate good atmosphere.</p>
         </div>
     </div>
     <br>
@@ -144,11 +144,11 @@
         </div>
 
         <div class="card border-0 w-100  align-items-center">
-            <h5>Freediving</h5>
-            <p class="text-center ">Live an unique experience, sport and relaxation.</p>
+            <h5>Lessons with John delaporte</h5>
+            <p class="text-center ">Have a great and knowledgeable experience with youth.</p>
         </div>
         <div class="card border-0 w-100  align-items-center">
-            <h5>Beaches & Massages
+            <h5>Quality Rest
             </h5>
             <p class="text-center ">Time to relax !</p>
         </div>
