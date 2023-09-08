@@ -110,15 +110,15 @@
     </div>
 
 
-    <h2 class="text-center mt-5">SEE & DO ON LP4Y GUEST HOUSE</h2>
+    <h2 class="text-center mt-5">Explore & Engage at LP4Y Guest House: Where Experiences Come to Life!</h2>
     <br>
     <br>
     <div class="gallery-card  d-flex justify-content-between">
         <div class="card border-0 w-100 align-items-center  ">
             <h5>Guitar Training</h5>
             <p class="text-center ">
-                <!-- Cebu is known worldwide for the<br> coral, turtles and the fishes, don't<br> miss the opportunity. -->
-                Guest can play guitar with the youth to have fun.
+    
+                Strum and Shine: Jam with the Youth for Guitar Training Fun!
             </p>
             </p>
         </div>
@@ -126,26 +126,26 @@
         <div class="card border-0 w-100  align-items-center">
             <h5>Bisaya Training</h5>
             <p class="text-center ">
-                Guest can learn bisaya dialect with the youth.
+            Unlock the Beauty of Bisaya: Join our Youth-led Bisaya Dialect Training!
             </p>
         </div>
         <div class="card border-0 w-100  align-items-center">
             <h5>Lunch Together with the youth </h5>
             <p class="text-center ">
-            Guest can have fun<br> Having lunch together with youth brings joy to the guest, and<br> appreciate good atmosphere.</p>
+            Guest can have fun<br> Lunching with the Youth: A Delightful Fusion of Fun, Good Vibes, and <br> Cherished Moments.</p>
         </div>
     </div>
     <br>
     <div class="gallery-card  d-flex justify-content-between ">
         <div class="card border-0 w-100 align-items-center  ">
             <h5>Catalyst eating breakfast</h5>
-            <p class="text-center ">Breakfast with youth makes your stay in guest house special and memorable
+            <p class="text-center ">Start Your Day Right: Savor Breakfast with the Youth for a Special and Unforgettable Guest House Experience.
             </p>
         </div>
 
         <div class="card border-0 w-100  align-items-center">
             <h5>Lessons with John delaporte</h5>
-            <p class="text-center ">Have a great and knowledgeable experience with youth.</p>
+            <p class="text-center ">Enriching Lessons with John Delaporte: Embark on a Journey of Knowledge and Excellence with the Youth.</p>
         </div>
         <div class="card border-0 w-100  align-items-center">
             <h5>Quality Rest
