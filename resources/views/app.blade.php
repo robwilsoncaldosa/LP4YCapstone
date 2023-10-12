@@ -128,7 +128,7 @@
     </div>
 
 
-    <h2 class="text-center mt-5">Explore & Engage at LP4Y Guest House: Where Experiences Come to Life!</h2>
+    <h2 class="text-center mt-5">Explore & Engage at LP4Y Guest House Where Experiences Come to Life!</h2>
     <br>
     <br>
     <div class="gallery-card  d-flex justify-content-between">
