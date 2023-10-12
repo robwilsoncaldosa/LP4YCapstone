@@ -940,3 +940,14 @@ f .more-info p {
 }
 
 /* =================================== */
+/* to display towel image  */
+.i_content {
+    display: flex;
+    align-items: center;
+  }
+  .icon {
+    width: 25px; 
+    height: 25px;
+  }
+/* ========= */
+
