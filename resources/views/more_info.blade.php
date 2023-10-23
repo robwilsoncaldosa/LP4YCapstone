@@ -87,8 +87,11 @@
                                     </div>
 
                                     <div>
+
+
+                                    
                                         <i class="fas fa-bath"></i>
-                                         <!-- <img src="img/towel.png" alt="Towel/Bath Icon" class="icon"> -->
+                                        <!-- <img src="img/towel.png" class="icon"> -->
                                        
                                         <li>Towels</li>
                                     </div>
