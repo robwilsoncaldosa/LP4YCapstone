@@ -11,40 +11,167 @@ import '~jquery-ui-css';
 
 
 
+function updateTotal() {
+    const checkInDate = $('#check-in').datepicker('getDate');
+    const checkOutDate = $('#check-out').datepicker('getDate');
+    const pricePerNight = parseFloat($('.room-details-price').text()); // Get the price per night as a float
+
+    if (checkInDate && checkOutDate && !isNaN(pricePerNight)) {
+        const timeDifference = checkOutDate.getTime() - checkInDate.getTime();
+        const daysDifference = Math.ceil(timeDifference / (1000 * 3600 * 24));
+
+        // Calculate the total price
+        const totalPrice = pricePerNight * daysDifference;
+
+        // Update the element with the class "total" to display the total price
+        $('.total').val(`${totalPrice.toFixed(0)}`);
+        $('.total-display').text(`₱${totalPrice.toFixed(0)}`);
+
+
+    } else {
+        // If either date is not selected or price is not valid, clear the "total" element
+        $('.total').val('');
+        $('.total-display').text('');
+
+
+    }
+}
+
 $(document).ready(function() {
-    const today = new Date();
-    const defaultCheckoutDays = 3;
-    $.datepicker.setDefaults({
-        dateFormat: "MM d, yy"
-    })
-    $('#check-in').datepicker({
-        minDate: today,
-        beforeShowDay: function(date) {
-            const day = date.getDay();
-            return [(day !== 0 && day !== 1)];
-        },
-        onSelect: function(selectedDate) {
-            const selected = new Date(selectedDate);
-            const checkoutDate = new Date(selected.getTime() + defaultCheckoutDays * 24 * 60 * 60 * 1000);
+    // Get the downpayment and total input elements
+    const $downpaymentInput = $('.downpaymentinput');
+    const $totalInput = $('.total');
+    const $bookNowButton = $('.book_now'); // Get the book-now button
 
-            $('#check-out').datepicker("option", "minDate", selected);
-            $('#check-out').datepicker("option", "maxDate", checkoutDate);
+    // Add a click event listener to the book-now button
+    $bookNowButton.on('click', function() {
+        // Calculate 15% of the total
+        const minDownpayment = parseFloat($totalInput.val()) * 0.15;
+        $downpaymentInput.val(minDownpayment);
 
-            $('#check-out').datepicker("option", "beforeShowDay", function(date) {
-                const day = date.getDay();
-                const isWithin3Days = date >= selected && date <= checkoutDate;
-                const isCheckin = date.getTime() === selected.getTime();
-                return [(day !== 0 && day !== 1) && isWithin3Days && !isCheckin];
-            });
-        }
+        // Set the minimum value for the downpayment input
+        $downpaymentInput.attr('min', minDownpayment);
     });
-    $('#check-out').datepicker({
-        beforeShowDay: function(date) {
+});
+
+
+const checkInButton = $('#check-in');
+const checkOutButton = $('#check-out');
+const dialogContent = $('#dialog-content');
+const closeDialogButton = $('#close-dialog');
+const dialog = $("dialog");
+const book_now = $(".book_now")
+
+book_now.click(function() {
+    if (checkInButton.val() && checkInButton.val().trim() !== '' &&
+        checkOutButton.val() && checkOutButton.val().trim() !== '') {
+        $('.showmodal').click();
+        $('.modal-body .check-in').val(checkInButton.val());
+        $('.modal-body .check-out').val(checkOutButton.val());
+
+
+    } else {
+        checkInButton.focus();
+
+    }
+});
+
+checkInButton.focus(function() {
+    dialogContent.text('Check-in is available from Tuesday to Saturday.');
+    dialog.show();
+});
+
+checkOutButton.focus(function() {
+    dialogContent.text('Check-out is available from Tuesday to Saturday, and the maximum stay is 4 nights.');
+    dialog.show();
+});
+
+closeDialogButton.click(function() {
+    dialog.hide();
+});
+// Attach a click event handler to the check-in element
+$("#check-in").click(function() {
+    // Clear the value of the check-out element
+    $("#check-out").val("");
+    $('.total').text("");
+
+
+});
+
+const today = new Date();
+const defaultCheckoutDays = 3;
+$.datepicker.setDefaults({
+    dateFormat: "MM d, yy"
+});
+
+$('#check-in').datepicker({
+    minDate: today,
+    beforeShow: function(input, inst) {
+        // Position the datepicker to the left of the input field
+        var inputWidth = $(input).outerWidth();
+        inst.dpDiv.css({
+            top: $(input).offset().top + $(input).outerHeight(),
+            left: $(input).offset().left - inputWidth + 5 // Adjust as needed
+        });
+    },
+    beforeShowDay: function(date) {
+        const day = date.getDay();
+        return [(day !== 0 && day !== 1)];
+    },
+    onSelect: function(selectedDate) {
+        const selected = new Date(selectedDate);
+        const checkoutDate = new Date(selected.getTime() + defaultCheckoutDays * 24 * 60 * 60 * 1000);
+
+        $('#check-out').datepicker('option', 'minDate', selected);
+        $('#check-out').datepicker('option', 'maxDate', checkoutDate);
+
+        $('#check-out').datepicker('option', 'beforeShowDay', function(date) {
             const day = date.getDay();
-            return [(day !== 0 && day !== 1)];
-        }
-    })
-})
+            const isWithin3Days = date >= selected && date <= checkoutDate;
+            const isCheckin = date.getTime() === selected.getTime();
+            return [(day !== 0 && day !== 1) && isWithin3Days && !isCheckin];
+        });
+
+        // Delay showing the check-out datepicker by a small amount of time
+        setTimeout(function() {
+            $("#check-out").datepicker("show");
+        }, 100);
+
+        // Update the total when the check-in date is selected
+        updateTotal();
+    }
+
+});
+
+$('#check-out').datepicker({
+    beforeShow: function(input, inst) {
+        // Calculate the position of the datepicker relative to the input field
+        var inputOffset = $(input).offset();
+        var inputWidth = $(input).outerWidth();
+        var dpWidth = $(inst.dpDiv).outerWidth();
+
+        // Position the datepicker to the left of the input field
+        $(inst.dpDiv).css({
+            top: inputOffset.top + $(input).outerHeight(),
+            left: inputOffset.left - dpWidth + inputWidth,
+        });
+    },
+    beforeShowDay: function(date) {
+        const day = date.getDay();
+        return [(day !== 0 && day !== 1)];
+    },
+    onSelect: function() {
+        updateTotal();
+    }
+});
+
+
+
+
+
+
+
+
 
 
 const reviewRadios = document.querySelectorAll('input[name="review-radio"]');
@@ -105,5 +232,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             }
         });
+
     });
 });

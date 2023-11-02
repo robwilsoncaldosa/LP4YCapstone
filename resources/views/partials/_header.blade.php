@@ -43,7 +43,7 @@
                 </li>
 
                 <li class="nav-item d-none d-lg-block ">
-                    <a class="nav-link btn btn-book-room p-2" href="{{ route('book') }}">
+                    <a href="{{route('book')}}" class="nav-link btn btn-book-room p-2">
                         <span class="p-4">Book a Room</span>
                     </a>
                 </li>
