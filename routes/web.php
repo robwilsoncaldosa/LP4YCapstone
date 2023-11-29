@@ -3,7 +3,8 @@
 use App\Http\Controllers\RoomController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\MailController;
-
+use App\Http\Controllers\PersonnelController;
+use App\Http\Controllers\StripeController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -18,18 +19,37 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-    Route::get('/', function () {
-        return view('app');
-    })->name('app');
-
-    Route::get('/book', [RoomController::class,'showBookingView'])->name('book');
+Route::get('/', function () {
+    return view('app');
+})->name('app');
 
 
+Route::get('/login', [PersonnelController::class, 'showlogin'])->name('showlogin');
 
-    Route::get('/rooms/{name}', [RoomController::class,'moreinfo'])->name('moreinfo');
+Route::post('/login', [PersonnelController::class, 'login'])->name('login');
+
+Route::post('/logout', [PersonnelController::class, 'logout'])->name('logout');
+
+Route::middleware(['auth'])->group(function () {
+    // Routes that require authentication
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
+
+    // Other authenticated routes...
+});
+
+Route::get('/book', [RoomController::class, 'showBookingView'])->name('book');
+
+Route::get('/rooms/{name}', [RoomController::class, 'moreinfo'])->name('moreinfo');
+
+Route::post('/send-email', [ContactController::class, 'sendEmail'])->name('sendemail');
+
+Route::get('/send-mail', [MailController::class, 'index']);
 
 
-    Route::post('/send-email', [ContactController::class,'sendEmail'])->name('sendemail');
+Route::post('/session', [StripeController::class, 'session'])->name('session');
+Route::post('/downpayment', [StripeController::class, 'createDownpaymentSession'])->name('downpayment');
 
-    Route::get('/send-mail', [MailController::class, 'index']);
+Route::get('/success', [StripeController::class, 'success'])->name('success');
 
