@@ -73,51 +73,6 @@
                             <div>
                                 <i class="fas fa-wifi"></i>
                                 <li>WiFi</li>
-                        </div>
-                        <hr class="divider">
-                        <div class="more-info_deets d-flex justify-content-between align-items-center">
-                            <div class="more-info-text">
-                                <h5 style="margin-right: 5px; margin-top: 0px;">More Info:
-                                </h5>
-                            </div>
-                            <div class="more-info-details"></div>
-                            <p class="room-description">{{$room->description}}
-
-                            </p>
-                        </div>
-                        <hr class="divider">
-
-                        <div class="amenities">
-                            <h5>Amenities:</h5>
-                            <div class="amenit-icons-container">
-                                <div class="amenit">
-
-                                    <div>
-                                        <i class="fas fa-snowflake"></i>
-                                        <li>A/C</li>
-                                    </div>
-                                    <div>
-                                        <i class="fas fa-wifi"></i>
-                                        <li>WiFi</li>
-                                    </div>
-                                </div>
-
-                                <div class="amenit">
-                                    <div>
-                                        <i class="fas fa-shower"></i>
-                                        <li>Shower</li>
-                                    </div>
-
-                                    <div>
-
-
-
-                                        <i class="fas fa-bath"></i>
-                                        <!-- <img src="img/towel.png" class="icon"> -->
-
-                                        <li>Towels</li>
-                                    </div>
-                                </div>
                             </div>
                         </div>
 
