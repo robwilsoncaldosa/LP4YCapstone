@@ -1,4 +1,4 @@
-    @font-face {
+@font-face {
         font-family: 'Colfax';
         src: url('../Colfax-Light.otf') format('opentype');
         /* Adjust the path */
@@ -927,3 +927,22 @@
         font-size: 25px;
         padding: 5px;
     }
+}
+.i_content i {
+    font-size: 25px;
+    padding: 5px;
+}
+
+/* =================================== */
+
+/* to display towel image  */
+.i_content {
+    display: flex;
+    align-items: center;
+}
+.icon {
+    width: 25px;
+    height: 25px;
+}
+
+/* ========= */

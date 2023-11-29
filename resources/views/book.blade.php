@@ -57,7 +57,8 @@
                                 <i class="fas fa-snowflake"></i>
                                 <i class="fas fa-wifi"></i>
                                 <i class="fas fa-shower"></i>
-                                <i class="fas fa-bath"></i>
+                                <!-- <i class="fas fa-bath"></i> -->
+                                <img src="img/towel.png" alt="Towel/Bath Icon" class="icon">
                             </div>
                             <!-- end i_content -->
                         </div>
@@ -72,7 +73,6 @@
                                 <a href="{{ route('moreinfo', ['name' => $room->room_name]) }}">
                                     <button class="more-info-button" data-room_name="{{ $room->room_name }}">More
                                         Info</button></a>
-
                             </div>
                         </div>
                         <!-- end r_content -->

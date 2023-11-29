@@ -24,6 +24,24 @@
     <h5><i>Your booking is considered as donations and will finance the development of the project.</i></h5>
 
 </section>
+
+<!-- <section class="home d-flex justify-content-center mt-5" id="home" style="background-image: url('./img/sample_home_background.jpg');">
+        <div class="text-center container w-75 m-auto">
+            <h1 class="display-4">HOST 4 CHANGE</h1>
+            <h2 class="h4">CEBU</h2>
+            <h3 class="h5"><i>Guesthouse & Training center</i></h3>
+        </div>
+    </section>
+
+    <section class="about text-center mt-5" id="about">
+        <div class="container">
+            <h2>ABOUT</h2>
+            <br>
+            <p class="lead"><i>Looking for a unique experience? Welcome to our guesthouse HOST 4 CHANGE!</i></p>
+            <p class="lead"><i>We have 3 spacious rooms with private bathrooms, located near the international Airport of Cebu. More than a guesthouse, HOST 4 CHANGE is a Training center. So the service is different from a "classic" hotel, and during the day, the team is in training. By booking your room, you also support the Youth professional integration.</i></p>
+            <p class="lead"><i>Your booking is considered as donations and will finance the development of the project.</i></p>
+        </div>
+    </section> -->
 <!--***************************************Rooms***********************************************-->
 <section class="rooms" id="rooms" style="background-image: url('./img/sample_room_background.jpg'); ">
     <div class="container card">
@@ -32,9 +50,15 @@
         <h5><i>Spacious and comfortable, you will <br>
                     appreciate your stay in our Guesthouse.</i></h5>
         <br>
-        <a class="btn-sm btn  btn-book-room  p-2" href="#"><span>Book a Room</span></a>
+        <a class="btn-sm btn  btn-book-room  p-2" href="{{ route('book') }}"><span>Book a Room</span></a>
     </div>
 </section>
+
+
+
+
+
+
 <!--***************************************Services**********************************************-->
 <section class="services mt-5 m-auto" id="services">
     <h2 class="text-center mb-5  ">Our Services</h2>
@@ -69,26 +93,26 @@
             <div class="carousel-item active">
                 <div class="row">
                     <div class="col-4">
-                        <img src="./img/sample_gallery_image (1).jpg" class="d-block w-100 carousel-image" alt="Image 1">
+                        <img src="./img/lunch_together_with_guest.png" class="d-block w-100 carousel-image" alt="Image 1">
                     </div>
                     <div class="col-4">
-                        <img src="./img/sample_gallery_image (2).jpg" class="d-block w-100 carousel-image" alt="Image 2">
+                        <img src="./img/guitar_training_with_guest.png" class="d-block w-100 carousel-image" alt="Image 2">
                     </div>
                     <div class="col-4">
-                        <img src="./img/sample_gallery_image (3).jpg" class="d-block w-100 carousel-image" alt="Image 3">
+                        <img src="./img/lessons_with_john_delaporte.png" class="d-block w-100 carousel-image" alt="Image 3">
                     </div>
                 </div>
             </div>
             <div class="carousel-item">
                 <div class="row">
                     <div class="col-4">
-                        <img src="./img/sample_gallery_image (4).jpg" class="d-block w-100 carousel-image" alt="Image 4">
+                        <img src="./img/catalyst_eating_breakfast2.png" class="d-block w-100 carousel-image" alt="Image 4">
                     </div>
                     <div class="col-4">
-                        <img src="./img/sample_gallery_image (5).jpg" class="d-block w-100 carousel-image" alt="Image 5">
+                        <img src="./img/bisaya_training_with_guest.png" class="d-block w-100 carousel-image" alt="Image 5">
                     </div>
                     <div class="col-4">
-                        <img src="./img/sample_gallery_image (6).jpg" class="d-block w-100 carousel-image" alt="Image 6">
+                        <img src="./img/catalyst_eating_breakfast.png" class="d-block w-100 carousel-image" alt="Image 6">
                     </div>
                 </div>
             </div>
@@ -104,41 +128,48 @@
     </div>
 
 
-    <h2 class="text-center mt-5">SEE & DO ON CEBU ISLAND</h2>
+    <h2 class="text-center mt-5">Explore & Engage at LP4Y Guest House Where Experiences Come to Life!</h2>
     <br>
     <br>
     <div class="gallery-card  d-flex justify-content-between">
         <div class="card border-0 w-100 align-items-center  ">
-            <h5>Scuba Diving</h5>
-            <p class="text-center ">Cebu is known worldwide for the<br> coral, turtles and the fishes, don't<br> miss the opportunity.
+            <h5>Guitar Training</h5>
+            <p class="text-center ">
+    
+                Strum and Shine: Jam with the Youth for Guitar Training Fun!
+            </p>
             </p>
         </div>
 
         <div class="card border-0 w-100  align-items-center">
-            <h5>Boat</h5>
-            <p class="text-center ">Spend a day on a boat on the<br> transparent sea !</p>
+            <h5>Bisaya
+                
+            
+            Training</h5>
+            <p class="text-center ">
+            Unlock the Beauty of Bisaya: Join our Youth-led Bisaya Dialect Training!
+            </p>
         </div>
         <div class="card border-0 w-100  align-items-center">
-            <h5>Hiking & Canyoning </h5>
+            <h5>Lunch Together with the youth </h5>
             <p class="text-center ">
-
-                Enjoy the jungle and rivers.<br> Discover the plants and canyons, and<br> appreciate the landscape.</p>
+            Guest can have fun<br> Lunching with the Youth: A Delightful Fusion of Fun, Good Vibes, and <br> Cherished Moments.</p>
         </div>
     </div>
     <br>
     <div class="gallery-card  d-flex justify-content-between ">
         <div class="card border-0 w-100 align-items-center  ">
-            <h5>Swim with Whale sharks</h5>
-            <p class="text-center ">Meet the giant !
+            <h5>Catalyst eating breakfast</h5>
+            <p class="text-center ">Start Your Day Right: Savor Breakfast with the Youth for a Special and Unforgettable Guest House Experience.
             </p>
         </div>
 
         <div class="card border-0 w-100  align-items-center">
-            <h5>Freediving</h5>
-            <p class="text-center ">Live an unique experience, sport and relaxation.</p>
+            <h5>Lessons with John delaporte</h5>
+            <p class="text-center ">Enriching Lessons with John Delaporte: Embark on a Journey of Knowledge and Excellence with the Youth.</p>
         </div>
         <div class="card border-0 w-100  align-items-center">
-            <h5>Beaches & Massages
+            <h5>Quality Rest
             </h5>
             <p class="text-center ">Time to relax !</p>
         </div>
