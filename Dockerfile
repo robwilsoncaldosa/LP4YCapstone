@@ -1,6 +1,16 @@
 FROM richarvey/nginx-php-fpm:latest
 
 COPY . .
+RUN apk update
+
+# Install the `npm` package
+RUN apk add --no-cache npm
+
+# Install NPM dependencies
+RUN npm install
+
+# Build Vite assets
+RUN npm run build
 
 # Image config
 ENV SKIP_COMPOSER 1
@@ -17,16 +27,7 @@ ENV LOG_CHANNEL stderr
 # Allow composer to run as root
 ENV COMPOSER_ALLOW_SUPERUSER 1
 
-RUN apk update
 
-# Install the `npm` package
-RUN apk add --no-cache npm
-
-# Install NPM dependencies
-RUN npm install
-
-# Build Vite assets
-RUN npm run dev
 
 
 CMD ["/start.sh"]
