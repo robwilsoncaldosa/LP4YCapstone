@@ -5,6 +5,8 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Routing\UrlGenerator;
+
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -20,11 +22,10 @@ class AppServiceProvider extends ServiceProvider
      * Bootstrap any application services.
      */
 
-    public function boot()
-    {
-        View::composer('dashboard', function ($view) {
-            $user = Auth::user();
-            $view->with('user', $user);
-        });
-    }
+public function boot(UrlGenerator $url)
+ {
+     if (env('APP_ENV') == 'production') {
+         $url->forceScheme('https');
+     }
+ }
 }
