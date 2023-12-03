@@ -16,7 +16,7 @@
     </div>
     <br>
     <br>
-    {{-- <!-- Include any error messages -->
+    <!-- Include any error messages -->
 @if ($errors->any())
 <div class="alert alert-danger">
     <ul>
@@ -25,7 +25,7 @@
         @endforeach
     </ul>
 </div>
-@endif --}}
+@endif
     <div class="container">
         <form class="contact-form" action="{{ route('sendemail') }}" method="POST" >
             @csrf

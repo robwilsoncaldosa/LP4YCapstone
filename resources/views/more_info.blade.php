@@ -76,7 +76,7 @@
                             </div>
                         </div>
 
-                        <div class="amenit">
+                        <div class="amenit"> 
                             <div>
                                 <i class="fas fa-shower"></i>
                                 <li>Shower</li>

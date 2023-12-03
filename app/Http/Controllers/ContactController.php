@@ -21,7 +21,7 @@ class ContactController extends Controller
         try {
             // Send the email
             Mail::to($validatedData['email'])->send(new ContactFormEmail($validatedData));
-            
+
             return redirect()->back()->with('success', 'Email sent successfully!');
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Failed to send email. Please try again later.');
