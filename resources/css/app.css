@@ -2,6 +2,7 @@
                                    font-family: 'Poppins';
                                    font-style: normal;
                                    font-weight: 400;
+                                   color: #212529!important;
                                }
                                
                                section {
@@ -1084,7 +1085,6 @@
                                        color: #000;
                                        font-size: 30px;
                                    }
-                                   .gallery-card .card {}
                                    .contact-details {
                                        display: flex;
                                        flex-direction: column;
