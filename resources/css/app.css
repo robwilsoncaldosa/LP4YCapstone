@@ -16,6 +16,11 @@
                                     width: 100%;
                                     min-height: 440px;
                                     margin: auto;
+                                    overflow-y: hidden!important;
+                                }
+                                
+                                .services {
+                                    overflow-y: unset!important;
                                 }
                                 /* *********************************  FACEBOOK & INSTAGRAM ICONS ON THE RIGHT  *********************************************** */
                                 
@@ -927,6 +932,7 @@
                                     position: static;
                                     display: block;
                                     font-weight: bolder;
+                                    font-size: 12px;
                                 }
                                 
                                 #downpayment .modal-body form {
@@ -973,7 +979,6 @@
                                         line-height: 32px;
                                     }
                                     .gallery-card .card {
-                                        margin: 20px;
                                         text-align: justify;
                                     }
                                 }
@@ -1087,9 +1092,7 @@
                                         color: #000;
                                         font-size: 30px;
                                     }
-                                    .gallery-card .card {
-                                        margin: 20px
-                                    }
+                                    .gallery-card .card {}
                                     .contact-details {
                                         display: flex;
                                         flex-direction: column;
@@ -1328,6 +1331,7 @@
                                     }
                                     .gallery {
                                         width: 90%;
+                                        overflow-y: hidden;
                                     }
                                     .gallery-card h5 {
                                         text-align: center;

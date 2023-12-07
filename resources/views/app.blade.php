@@ -28,23 +28,6 @@
 
 </section>
 
-<!-- <section class="home d-flex justify-content-center mt-5" id="home" style="background-image: url('./img/sample_home_background.jpg');">
-        <div class="text-center container w-75 m-auto">
-            <h1 class="display-4">HOST 4 CHANGE</h1>
-            <h2 class="h4">CEBU</h2>
-            <h3 class="h5"><i>Guesthouse & Training center</i></h3>
-        </div>
-    </section>
-
-    <section class="about text-center mt-5" id="about">
-        <div class="container">
-            <h2>ABOUT</h2>
-            <br>
-            <p class="lead"><i>Looking for a unique experience? Welcome to our guesthouse HOST 4 CHANGE!</i></p>
-            <p class="lead"><i>We have 3 spacious rooms with private bathrooms, located near the international Airport of Cebu. More than a guesthouse, HOST 4 CHANGE is a Training center. So the service is different from a "classic" hotel, and during the day, the team is in training. By booking your room, you also support the Youth professional integration.</i></p>
-            <p class="lead"><i>Your booking is considered as donations and will finance the development of the project.</i></p>
-        </div>
-    </section> -->
 <!--***************************************Rooms***********************************************-->
 <section class="rooms" id="rooms" style="background-image: url('./img/sample_room_background.jpg'); ">
     <div class="container card">

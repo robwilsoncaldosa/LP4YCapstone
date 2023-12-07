@@ -99,31 +99,25 @@ class StripeController extends Controller
         // Calculate the remaining total
         $remainingTotal = $totalPrice - $downpayment;
 
-        $totalPriceFormatted = number_format($totalPrice, 2, '.', ''); // Format total price
-        $remainingTotalFormatted = number_format($remainingTotal, 2, '.', ''); // Format remaining total
+        // Convert the formatted amounts to cents (integer)
+        $totalPriceInCents = intval($totalPrice * 100);
+        $downpaymentInCents = intval($downpayment * 100);
+        $remainingTotalInCents = intval($remainingTotal * 100);
 
         $session = \Stripe\Checkout\Session::create([
             'line_items' => [
+
                 [
                     'price_data' => [
                         'currency' => 'PHP',
                         'product_data' => [
-                            'name' => $productName,
+                            'name' => "Downpayment of Room {$productName}",
                         ],
-                        'unit_amount' => $totalPriceFormatted,
+                        'unit_amount' => $downpaymentInCents, // Set the unit_amount to the downpayment
                     ],
                     'quantity' => 1,
                 ],
-                [
-                    'price_data' => [
-                        'currency' => 'PHP',
-                        'product_data' => [
-                            'name' => 'Remaining Total',
-                        ],
-                        'unit_amount' => $remainingTotalFormatted,
-                    ],
-                    'quantity' => 1,
-                ],
+
             ],
             'mode' => 'payment',
             'success_url' => route('success'),
@@ -131,9 +125,10 @@ class StripeController extends Controller
         ]);
 
         return redirect()->away($session->url)->with([
-            'totalPrice' => $totalPriceFormatted,
-            'remainingTotal' => $remainingTotalFormatted,
+            'totalPrice' => $downpaymentInCents,
+            'remainingTotal' => $remainingTotal,
         ]);
+
     }
 
     public function success()

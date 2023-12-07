@@ -23,6 +23,9 @@ Route::get('/', function () {
     return view('app');
 })->name('app');
 
+Route::get('/policy',function(){
+    return view('policy');
+})->name('policy');
 
 Route::get('/login', [PersonnelController::class, 'showlogin'])->name('showlogin');
 

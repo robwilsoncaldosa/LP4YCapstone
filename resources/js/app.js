@@ -246,4 +246,14 @@ document.addEventListener('DOMContentLoaded', function() {
         });
 
     });
+
+
+
+
+});
+
+$(document).ready(function() {
+    $(".navbar-nav .nav-link").on("click", function() {
+        $(".navbar-toggler").click();
+    });
 });

@@ -123,7 +123,7 @@
                         </div>
 
                         <div class="terms-deets">
-                            <a href="#">Read Our Policies</a>
+                            <a href="{{route('policy')}}" target="_blank">Read Our Policies</a>
                         </div>
                     </div>
                 </div>
@@ -230,7 +230,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title text-center " id="exampleModalLabel">Enter Downpayment Amount </h5>
+                <h5 class="modal-title text-center " id="exampleModalLabel">Downpayment</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -241,12 +241,12 @@
                     <input type="text" name="check-in" autocomplete="off" class="form-control rounded-0 check-in" id="check-in" placeholder="Check In" readonly required hidden>
                     <input readonly type="text" class="form-control rounded-0 check-out" id="check-out" placeholder="Check Out" name="check-out" autocomplete="off" required hidden>
                     <span style="color: crimson;font-weight: bold;text-align:justify;">
-                        <i class="fas fa-info-circle"></i> Minimum Downpayment is 15% of the total price of <br> ₱<input type="number" id="total" name="total" class="total"  style="all:unset" disabled >
+                        <i class="fas fa-info-circle"></i> Minimum Downpayment is 15% of the total price of <br> ₱<input type="number" id="total" name="total" class="total"  >
                     </span>
 
 
 
-                    <label for="downpayment">Downpayment Amount:</label>
+                    <label for="downpayment">Enter Downpayment Amount:</label>
                     <input type="number" id="downpaymentinput" class="downpaymentinput room-details-price" name="downpayment" required>
                     <br><br>
                     <button type="submit" class="btn btn-dark">Confirm Payment</button>
