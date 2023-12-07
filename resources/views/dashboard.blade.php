@@ -1,4 +1,6 @@
 @extends('layouts.layout') @section('title', 'Dashboard') @section('content')
+
+
 <style>
     .nav-link,
     p {
@@ -40,10 +42,7 @@
     }
 </style>
 
-
-
-
-<nav class="container-fluid row p-0 m-0" style="height: 100vh;">
+<nav class="container-fluid row p-0 m-0 dashboard-nav">
     <div class="col-lg-2  h-100 position-relative p-0 m-0" style="background-color: white;">
         <div class="container mt-3">
             <img src="../img/HostLogo.png" width="100px" />
@@ -62,7 +61,7 @@
                 </li>
 
                 <li class="nav-item w-100 p-2">
-                    <a class="nav-link" href="#"><i class="fas fa-clock"></i> CHECK-IN/ CHECK-OUT</a>
+                    <a class="nav-link" href="#"><i class="fas fa-clock"></i> CHECK-IN/ OUT</a>
                 </li>
 
                 <li class="nav-item w-100 p-2">
@@ -96,7 +95,7 @@
             </div>
         @endif
 
-        <div class="container position-absolute  bottom-0 pb-3 ps-4">
+        <div class="profile-section container position-absolute  bottom-0">
             <h5 class="text-uppercase fw-bold" style="color: #776061">Profile</h5>
             <div class="container mt-3">
 
@@ -134,18 +133,18 @@
 
     </div>
     <div class="content col-10 p-0">
-        <header class="w-100 bg-white d-flex justify-content-between " style="height: 15%;">
-            <div class="welcome p-4">
+        <header class="w-100 bg-white d-flex justify-content-between ">
+            <div class="welcome p-4 pb-0">
                 <h1 class="fw-bold p-2">Welcome, {{ $user->name }}🎉</h1>
                 <h4 class="p-2" style="color:#776061">Here's what's happening in your account today.</h4>
             </div>
 
-            <div class="notification p-4">
+            <div class="notification p-4 pb-0">
                 <ul class="navbar-nav flex-row  p-4">
-                    <li class="nav-item p-3">
+                    {{-- <li class="nav-item p-3">
                         <a class="nav-link" href="#"><i class="far fa-envelope"
                                 style="color:black;font-size: 35px;"></i> </a>
-                    </li>
+                    </li> --}}
                     <li class="nav-item p-3">
                         <a class="nav-link" href="#"><i class="far fa-bell"
                                 style="color:black;font-size: 35px;"></i> </a>

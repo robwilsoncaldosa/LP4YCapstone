@@ -77,12 +77,12 @@ book_now.click(function() {
 });
 
 checkInButton.focus(function() {
-    dialogContent.text('Check-in is available from Tuesday to Saturday.');
+    dialogContent.html(` <i class="fas fa-info-circle" style="font-size:15px"></i> Check-in is available from Tuesday to Saturday.`);
     dialog.show();
 });
 
 checkOutButton.focus(function() {
-    dialogContent.text('Check-out is available from Tuesday to Saturday, and the maximum stay is 4 nights.');
+    dialogContent.html(` <i class="fas fa-info-circle"  style="font-size:15px"></i> Check-out is available from Tuesday to Saturday, and the maximum stay is 4 nights.`);
     dialog.show();
 });
 
@@ -169,7 +169,19 @@ $('#check-out').datepicker({
 
 
 
+document.addEventListener('DOMContentLoaded', function() {
+    // Get all h5 elements
+    var h5Elements = document.querySelectorAll('h5');
 
+    // Loop through each h5 element
+    h5Elements.forEach(function(element) {
+        // Check if the text content contains "/"
+        if (element.textContent.includes('/')) {
+            // Hide the element
+            element.style.display = 'none';
+        }
+    });
+});
 
 
 

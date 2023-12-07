@@ -4,24 +4,27 @@
 <!--***************************************Header***********************************************-->
 @include('partials._header')
 <!--***************************************Home***********************************************-->
-<section class="home d-flex justify-content-center mt-5" id="home" style="background-image: url('./img/sample_home_background.jpg');">
+<section class="home d-flex justify-content-center" id="home">
     <div class="text-center container w-75 m-auto ">HOST 4 <br> CHANGE <br> CEBU <br><span class="fst-italic">Guesthouse & Training center </span></div>
 </section>
 
 <!--***************************************About************************************************-->
 <section class="about text-center mt-5 " id="about">
-    <h2>ABOUT</h2>
-    <br>
-    <h5><i>Looking for an unique experience ? Welcome in our guest house HOST 4 CHANGE !</i></h5>
-    <br>
-    <h5>
-        <i>We have 3 spacious rooms with private bathrooms, located near the international Airport of Cebu. More
-                than a guest House, HOST 4 CHANGE is a Training center. So the service is different from a "classic"
-                hotel, and during the day the team are in training. By booking your room, you also support the Youth
-                professional integration.</i>
-    </h5>
-    <br>
-    <h5><i>Your booking is considered as donations and will finance the development of the project.</i></h5>
+    <div style="width:60%;display: block;">
+        <h1 style="font-size: 25px;font-weight: bolder;color:black">ABOUT</h1>
+        <br>
+        <h5><i>Looking for an unique experience? Welcome in our guest house HOST 4 CHANGE !</i></h5>
+        <br>
+        <h5>
+            <i>We have 3 spacious rooms with private bathrooms, located near the international Airport of Cebu. More
+                    than a guest House, HOST 4 CHANGE is a Training center. So the service is different from a "classic"
+                    hotel, and during the day the team are in training. By booking your room, you also support the Youth
+                    professional integration.</i>
+        </h5>
+        <br>
+        <h5><i>Your booking is considered as donations and will finance the development of the project.</i></h5>
+    </div>
+
 
 </section>
 
@@ -47,7 +50,7 @@
     <div class="container card">
         <h4>OUR ROOMS</h4>
         <br>
-        <h5><i>Spacious and comfortable, you will <br>
+        <h5><i>Spacious and comfortable, you will
                     appreciate your stay in our Guesthouse.</i></h5>
         <br>
         <a class="btn-sm btn  btn-book-room  p-2" href="{{ route('book') }}"><span>Book a Room</span></a>
@@ -135,43 +138,46 @@
         <div class="card border-0 w-100 align-items-center  ">
             <h5>Guitar Training</h5>
             <p class="text-center ">
-    
-                Strum and Shine: Jam with the Youth for Guitar Training Fun!
+
+                <b>Strum and Shine: </b> <br> Jam with the Youth for Guitar Training Fun!
             </p>
             </p>
         </div>
 
         <div class="card border-0 w-100  align-items-center">
-            <h5>Bisaya
-                
-            
-            Training</h5>
+            <h5>Bisaya Training
+
+
+            </h5>
             <p class="text-center ">
-            Unlock the Beauty of Bisaya: Join our Youth-led Bisaya Dialect Training!
+                <b>Unlock the Beauty of Bisaya:</b> <br> Join our Youth-led Bisaya Dialect Training!
             </p>
         </div>
         <div class="card border-0 w-100  align-items-center">
-            <h5>Lunch Together with the youth </h5>
+            <h5>Lunch Together with the Youth </h5>
             <p class="text-center ">
-            Guest can have fun<br> Lunching with the Youth: A Delightful Fusion of Fun, Good Vibes, and <br> Cherished Moments.</p>
+                <b> Guest can have fun Lunching with the Youth:</b> <br> A Delightful Fusion of Fun, Good Vibes, and Cherished Moments.</p>
         </div>
     </div>
     <br>
     <div class="gallery-card  d-flex justify-content-between ">
         <div class="card border-0 w-100 align-items-center  ">
             <h5>Catalyst eating breakfast</h5>
-            <p class="text-center ">Start Your Day Right: Savor Breakfast with the Youth for a Special and Unforgettable Guest House Experience.
+            <p class="text-center ">
+                <b> Start Your Day Right: </b><br> Savor Breakfast with the Youth for a Special and Unforgettable Guest House Experience.
             </p>
         </div>
 
         <div class="card border-0 w-100  align-items-center">
-            <h5>Lessons with John delaporte</h5>
-            <p class="text-center ">Enriching Lessons with John Delaporte: Embark on a Journey of Knowledge and Excellence with the Youth.</p>
+            <h5>Lessons with John Delaporte</h5>
+            <p class="text-center ">
+                <b>   Enriching Lessons:</b> <br> Embark on a Journey of Knowledge and Excellence with the Youth.</p>
         </div>
         <div class="card border-0 w-100  align-items-center">
             <h5>Quality Rest
             </h5>
-            <p class="text-center ">Time to relax !</p>
+            <p class="text-center ">
+                Time to relax !</p>
         </div>
     </div>
     <!--********************************************* GUEST REVIEW *****************************************-->

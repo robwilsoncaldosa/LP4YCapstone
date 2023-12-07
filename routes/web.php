@@ -31,13 +31,22 @@ Route::post('/login', [PersonnelController::class, 'login'])->name('login');
 Route::post('/logout', [PersonnelController::class, 'logout'])->name('logout');
 
 Route::middleware(['auth'])->group(function () {
-    // Routes that require authentication
     Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
+        // Retrieve user data from the session
+        $user = session('user');
 
-    // Other authenticated routes...
-});
+        // Ensure $user is defined before using it
+        if ($user) {
+            return view('dashboard', compact('user'));
+        } else {
+            // Handle the case where $user is not found
+            return redirect('login')->with('error', 'User not found');
+        }
+    })->name('dashboard');
+})->middleware('auth'); // Add auth middleware here as well
+
+
+
 
 Route::get('/book', [RoomController::class, 'showBookingView'])->name('book');
 

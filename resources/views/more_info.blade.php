@@ -25,10 +25,10 @@
         <div class="room-details-deets" id="room_details">
             <h2 class="text-center">BOOK A ROOM</h2>
 
-            <div class="room-name-container d-flex align-items-center justify-content-around mb-2 mt-5" style="width:30%">
+            <div class="room-name-container d-flex  mb-2 mt-5" style="width:30%">
                 <a href="{{ route('book') }}" class="back-btn text-decoration-none"><i class="fas fa-arrow-left"
                         style="font-size: 25px;color:#242323;"></i></a>
-                <div class="separator"></div>
+                <div class="separator">&nbsp;&nbsp;&nbsp;</div>
                 <h3 id="room-name">{{ $room->room_name }} Room</h3>
             </div>
 
@@ -36,7 +36,10 @@
 
             <div class="room-details-con">
                 <div class="property-details">
-                    <h5>Properties:</h5>
+                    <div class="more-info-text">
+                        <h5> Properties:</h5>
+
+                    </div>
                     <div class="properties-deets-container">
                         <div class="prop-menu">
                             <p id="accommodates">Accommodates: {{ $room->accommodates }}</p>
@@ -48,13 +51,13 @@
                     </div>
                 </div>
                 <hr class="divider">
-                <div class="more-info_deets d-flex justify-content-between align-items-center">
-                    <div class="more-info-text me-5">
+                <div class="more-info_deets">
+                    <div class="more-info-text">
                         <h5 style="margin-right: 5px; margin-top: 0px;">More Info:
                         </h5>
                     </div>
-                    <div class="more-info-details d-flex justify-content-end  ms-4">
-                        <p class="room-description ms-3">{{ $room->description }}
+                    <div class="more-info-details">
+                        <p class="room-description">{{ $room->description }}
 
                         </p>
                     </div>
@@ -63,31 +66,34 @@
 
                 <div class="amenities">
                     <h5>Amenities:</h5>
-                    <div class="amenit-icons-container">
-                        <div class="amenit">
+                    <div style="width:75%;display:flex;justify-content:flex-start">
+                        <div class="amenit-icons-container">
+                            <div class="amenit">
 
-                            <div>
-                                <i class="fas fa-snowflake"></i>
-                                <li>A/C</li>
-                            </div>
-                            <div>
-                                <i class="fas fa-wifi"></i>
-                                <li>WiFi</li>
-                            </div>
-                        </div>
-
-                        <div class="amenit"> 
-                            <div>
-                                <i class="fas fa-shower"></i>
-                                <li>Shower</li>
+                                <div>
+                                    <i class="fas fa-snowflake"></i>
+                                    <li>A/C</li>
+                                </div>
+                                <div>
+                                    <i class="fas fa-wifi"></i>
+                                    <li>WiFi</li>
+                                </div>
                             </div>
 
-                            <div>
+                            <div class="amenit">
+                                <div>
+                                    <i class="fas fa-shower"></i>
+                                    <li>Shower</li>
+                                </div>
+
+                                <div>
                                     <img src="../img/towel.png" alt="Towel/Bath Icon" class="icon" style="width:18.5px">
-                                <li>Towels</li>
+                                    <li>Towels</li>
+                                </div>
                             </div>
                         </div>
                     </div>
+
                 </div>
 
                 <hr class="divider">
@@ -97,11 +103,11 @@
                     <div class="check-deets-container">
 
                         <div class="check-deets">
-                            <p class="check-in">Check-In: 12:00 PM</p>
+                            <p class="check-in">Check-In: <br> 12:00 PM</p>
                         </div>
 
-                        <div class="check-deets" style="margin-left: 110px">
-                            <p class="check-out">Check-Out: 02:00 PM</p>
+                        <div class="check-deets">
+                            <p class="check-out">Check-Out: <br> 02:00 PM</p>
                         </div>
 
                     </div>
@@ -116,7 +122,7 @@
                             <p id="maximum-nights">Maximum nights: 4</p>
                         </div>
 
-                        <div class="terms-deets" style="margin-left: 110px">
+                        <div class="terms-deets">
                             <a href="#">Read Our Policies</a>
                         </div>
                     </div>
@@ -125,10 +131,8 @@
 
 
                 <div class="map-container">
-                    <iframe
-                        src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d490.68891707319847!2d123.9490603791058!3d10.300900522871656!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x33a9999278be73df%3A0x375659c7ec469226!2sLife%20Project%204%20Youth%20(LP4Y)%20-%20Center%20and%20Guest%20houses!5e0!3m2!1sen!2sph!4v1688547750578!5m2!1sen!2sph"
-                        width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"
-                        referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d490.68891707319847!2d123.9490603791058!3d10.300900522871656!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x33a9999278be73df%3A0x375659c7ec469226!2sLife%20Project%204%20Youth%20(LP4Y)%20-%20Center%20and%20Guest%20houses!5e0!3m2!1sen!2sph!4v1688547750578!5m2!1sen!2sph"
+                        width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                 </div>
             </div>
         </div>
@@ -143,22 +147,19 @@
 
 
                 <div class="input-container p-2 position-relative">
-                    <input type="text" name="check-in" autocomplete="off" class="form-control rounded-0 check-in"
-                        id="check-in" placeholder="Check In" readonly required>
+                    <input type="text" name="check-in" autocomplete="off" class="form-control rounded-0 check-in" id="check-in" placeholder="Check In" readonly required>
                     <i class="far fa-calendar position-absolute" style="top:20px;right:20px;pointer-events: none;"></i>
                 </div>
 
 
                 <div class="input-container p-2 position-relative">
-                    <input readonly type="text" class="form-control rounded-0 check-out" id="check-out"
-                        placeholder="Check Out" name="check-out" autocomplete="off" required>
+                    <input readonly type="text" class="form-control rounded-0 check-out" id="check-out" placeholder="Check Out" name="check-out" autocomplete="off" required>
                     <i class="far fa-calendar position-absolute" style="top:20px;right:20px;pointer-events: none;"></i>
                 </div>
 
 
                 <div class="input-container p-2">
-                    <input type="number" name='adult' class="form-control rounded-0" id="adults"
-                        placeholder="Adults">
+                    <input type="number" name='adult' class="form-control rounded-0" id="adults" placeholder="Adults">
                 </div>
 
                 <div class="input-container p-2 d-flex justify-content-between align-items-center">
@@ -168,8 +169,7 @@
                 </div>
 
 
-                <button type="submit" class="btn btn-dark w-100 rounded-0 book_now" style="margin-top:20px;"
-                    id="book-now">Book Now</button>
+                <button type="submit" class="btn btn-dark w-100 rounded-0 book_now" style="margin-top:20px;" id="book-now">Book Now</button>
 
 
 
@@ -207,12 +207,10 @@
                     @csrf
 
                     <input type="text" name="product_name" value="{{ $room->room_name }}" hidden>
-                    <input type="text" name="check-in" autocomplete="off" class="form-control rounded-0 check-in"
-                        id="check-in" placeholder="Check In" readonly required hidden>
+                    <input type="text" name="check-in" autocomplete="off" class="form-control rounded-0 check-in" id="check-in" placeholder="Check In" readonly required hidden>
 
 
-                    <input readonly type="text" class="form-control rounded-0 check-out" id="check-out"
-                        placeholder="Check Out" name="check-out" autocomplete="off" required hidden>
+                    <input readonly type="text" class="form-control rounded-0 check-out" id="check-out" placeholder="Check Out" name="check-out" autocomplete="off" required hidden>
 
 
 
@@ -228,39 +226,34 @@
 </div>
 
 <!-- Modal -->
-<div class="modal fade" id="downpayment" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
+<div class="modal fade" id="downpayment" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Enter Downpayment Amount </h5>
+                <h5 class="modal-title text-center " id="exampleModalLabel">Enter Downpayment Amount </h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form method="POST" action="{{ route('downpayment') }}" class="d-inline ">
+                <form method="POST" action="{{ route('downpayment') }}">
                     @csrf
 
                     <input type="text" name="product_name" value="{{ $room->room_name }}" hidden>
-                    <input type="text" name="check-in" autocomplete="off" class="form-control rounded-0 check-in"
-                        id="check-in" placeholder="Check In" readonly required hidden>
+                    <input type="text" name="check-in" autocomplete="off" class="form-control rounded-0 check-in" id="check-in" placeholder="Check In" readonly required hidden>
+                    <input readonly type="text" class="form-control rounded-0 check-out" id="check-out" placeholder="Check Out" name="check-out" autocomplete="off" required hidden>
+                    <span style="color: crimson;font-weight: bold;text-align:justify;">
+                        <i class="fas fa-info-circle"></i> Minimum Downpayment is 15% of the total price of <br> ₱<input type="number" id="total" name="total" class="total"  style="all:unset" disabled >
+                    </span>
 
 
-                    <input readonly type="text" class="form-control rounded-0 check-out" id="check-out"
-                        placeholder="Check Out" name="check-out" autocomplete="off" required hidden>
 
-
-                    <input type="number" id="downpaymentinput" class="downpaymentinput" name="downpayment" required>
-                    <span>The minimum Downpayment would be 15% of the total</span>
-
-                    <input type="number" id="total" name="total" class="total"  disabled >
+                    <label for="downpayment">Downpayment Amount:</label>
+                    <input type="number" id="downpaymentinput" class="downpaymentinput room-details-price" name="downpayment" required>
+                    <br><br>
                     <button type="submit" class="btn btn-dark">Confirm Payment</button>
 
                 </form>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <!-- You can add additional buttons here if needed -->
-            </div>
+
         </div>
     </div>
 </div>

@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Auth\AuthenticationException;
 use App\Models\Personnel;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Session;
 
 class PersonnelController extends Controller
 {
@@ -20,13 +22,21 @@ class PersonnelController extends Controller
         try {
             $credentials = $request->only('email', 'password');
 
-            if (Auth::attempt($credentials)) {
-                $user = Auth::user(); // Get the authenticated user
+            if (auth::attempt($credentials)) {
                 // Authentication passed
-                return redirect()->intended('/dashboard')
-                    ->with([
-                        'user' => $user,
-                    ]); // Pass user data to the next request
+                $userId = auth()->id();
+                $user = Personnel::find($userId);
+
+                // Ensure $user is defined before using it
+                if ($user) {
+                    // ddd($user);
+                    return redirect()->route('dashboard', ['user_id' => $userId]);
+
+                } else {
+                    // Handle the case where $user is not found
+                    // This might indicate an issue with user authentication or retrieval
+                    return redirect('login')->with('error', 'User not found');
+                }
             }
 
             // Authentication failed
@@ -38,7 +48,6 @@ class PersonnelController extends Controller
                 $request->old('email');
             } else {
                 $errors['email'] = 'This email is not registered.';
-
             }
 
             return redirect('login')->withInput()->withErrors($errors);
@@ -48,13 +57,17 @@ class PersonnelController extends Controller
         }
     }
 
-
-
-
     public function logout()
     {
+        // Logout the user
         Auth::logout();
+
+        // Flush all sessions
+        Session::flush();
+        
+        // Redirect to the login page
         return redirect('/login');
+
     }
 
     /**
