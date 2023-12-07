@@ -11,7 +11,6 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('reviews', function (Blueprint $table) {
             Schema::create('reviews', function (Blueprint $table) {
                 $table->id();
                 // $table->unsignedBigInteger('reservation_id');
@@ -23,7 +22,6 @@ return new class extends Migration
                 // $table->foreign('reservation_id')->references('id')->on('reservations')->onDelete('cascade');
                 // $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             });
-        });
     }
 
     /**
