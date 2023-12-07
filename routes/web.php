@@ -54,7 +54,6 @@ Route::get('/rooms/{name}', [RoomController::class, 'moreinfo'])->name('moreinfo
 
 Route::post('/send-email', [ContactController::class, 'sendEmail'])->name('sendemail');
 
-Route::get('/send-mail', [MailController::class, 'index']);
 
 
 Route::post('/session', [StripeController::class, 'session'])->name('session');
