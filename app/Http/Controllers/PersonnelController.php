@@ -16,46 +16,39 @@ class PersonnelController extends Controller
     {
         return view('login');
     }
-
     public function login(Request $request)
     {
         try {
             $credentials = $request->only('email', 'password');
 
-            if (auth::attempt($credentials)) {
+            if (auth()->attempt($credentials)) {
                 // Authentication passed
-                $userId = auth()->id();
-                $user = Personnel::find($userId);
+                $user = auth()->user(); // Retrieve the authenticated user
 
-                // Ensure $user is defined before using it
-                if ($user) {
-                    // ddd($user);
-                    return redirect()->route('dashboard', ['user_id' => $userId]);
+                // Store user data in the session
+                session(['user' => $user]);
 
-                } else {
-                    // Handle the case where $user is not found
-                    // This might indicate an issue with user authentication or retrieval
-                    return redirect('login')->with('error', 'User not found');
-                }
-            }
-
-            // Authentication failed
-            $errors = [];
-
-            // Check if the email exists in the database
-            if (Personnel::where('email', $request->email)->exists()) {
-                $errors['password'] = 'The password you entered is incorrect.';
-                $request->old('email');
+                return redirect()->route('dashboard');
             } else {
-                $errors['email'] = 'This email is not registered.';
-            }
+                // Authentication failed
+                $errors = [];
 
-            return redirect('login')->withInput()->withErrors($errors);
+                // Check if the email exists in the database
+                if (Personnel::where('email', $request->email)->exists()) {
+                    $errors['password'] = 'The password you entered is incorrect.';
+                    $request->old('email');
+                } else {
+                    $errors['email'] = 'This email is not registered.';
+                }
+
+                return redirect('login')->withInput()->withErrors($errors);
+            }
         } catch (AuthenticationException $exception) {
             ddd($exception->getMessage()); // Debug: Display the exception message
             // Handle the exception (e.g., redirect to login page with error message)
         }
     }
+
 
     public function logout()
     {
@@ -64,7 +57,7 @@ class PersonnelController extends Controller
 
         // Flush all sessions
         Session::flush();
-        
+
         // Redirect to the login page
         return redirect('/login');
 

@@ -32,7 +32,6 @@ Route::get('/login', [PersonnelController::class, 'showlogin'])->name('showlogin
 Route::post('/login', [PersonnelController::class, 'login'])->name('login');
 
 Route::post('/logout', [PersonnelController::class, 'logout'])->name('logout');
-
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', function () {
         // Retrieve user data from the session
@@ -40,13 +39,16 @@ Route::middleware(['auth'])->group(function () {
 
         // Ensure $user is defined before using it
         if ($user) {
+
             return view('dashboard', compact('user'));
         } else {
             // Handle the case where $user is not found
+            ddd($user);
             return redirect('login')->with('error', 'User not found');
         }
     })->name('dashboard');
-})->middleware('auth'); // Add auth middleware here as well
+});
+
 
 
 
