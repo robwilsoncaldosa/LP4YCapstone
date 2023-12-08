@@ -165,41 +165,34 @@
     </div>
     <!--********************************************* GUEST REVIEW *****************************************-->
     <section class="guest-review" style="background-image: url('./img/sample_guestreview_background.jpg');">
-        <div class="card">
-            <h4>GUEST REVIEW</h4>
-            <br>
+    <div class="card">
+        <h4>GUEST REVIEW</h4>
+        <br>
 
-            <br>
-            <div class="review-container">
-                <div class="review active">
-                    <blockquote>
-                        “All of your welcoming was very nice and we really enjoyed our stay (too short unfortunately)”
-                    </blockquote>
-                    <p class="review-author">Tiphaine G.</p>
-                </div>
-                <div class="review">
-                    <blockquote>
-                        “Well! For me too it was a very good moment, you are great young people! I hope we can come back to see you again!!” ​
-                    </blockquote>
-                    <p class="review-author">Thomas A.</p>
-                </div>
-                <div class="review">
-                    <blockquote>
-                        “We are missing your pancit!”
-                    </blockquote>
-                    <p class="review-author">Alexandra B.</p>
-                </div>
-            </div>
-
-            <div class="radio-buttons">
-                <input type="radio" name="review-radio" id="review1" checked>
-                <label for="review1"></label>
-                <input type="radio" name="review-radio" id="review2">
-                <label for="review2"></label>
-                <input type="radio" name="review-radio" id="review3">
-                <label for="review3"></label>
-            </div>
+        <br>
+        <div class="review-container">
+    @forelse($reviews as $review)
+        <div class="review {{ $loop->first ? 'active' : '' }}">
+            <blockquote>
+                "{{ $review->comment }}"
+            </blockquote>
+            <p class="review-author">{{ $review->name }}</p>
         </div>
+    @empty
+        <p>No reviews available</p>
+    @endforelse
+</div>
+
+
+        <div class="radio-buttons">
+            @forelse($reviews as $key => $review)
+                <input type="radio" name="review-radio" id="review{{ $key + 1 }}" {{ $loop->first ? 'checked' : '' }}>
+                <label for="review{{ $key + 1 }}"></label>
+            @empty
+                <!-- If there are no reviews, you might want to hide the radio buttons -->
+            @endforelse
+        </div>
+    </div>
     </section>
     <br>
     <br>

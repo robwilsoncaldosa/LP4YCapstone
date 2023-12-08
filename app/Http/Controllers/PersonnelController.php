@@ -8,6 +8,8 @@ use Illuminate\Auth\AuthenticationException;
 use App\Models\Personnel;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Session;
+use App\Models\Reservation;
+use Carbon\Carbon;
 
 class PersonnelController extends Controller
 {
@@ -28,7 +30,26 @@ class PersonnelController extends Controller
                 // Store user data in the session
                 session(['user' => $user]);
 
-                return redirect()->route('dashboard');
+
+                $totalBookings = Reservation::count();
+    
+                // Calculate new clients this month
+                $newClientsThisMonth = Reservation::whereMonth('created_at', '=', Carbon::now()->month)->count();
+                
+                // Calculate returning clients
+                $returningClients = Reservation::distinct('user_id')
+                    ->where('check_in_date', '<', Carbon::now()) // Assuming check_in_date is your timestamp for reservations
+                    ->count();
+
+                    return redirect()->route('dashboard.home')
+                    ->with([
+                        'user' => $user,
+                        'totalBookings' => $totalBookings,
+                        'newClientsThisMonth' => $newClientsThisMonth,
+                        'returningClients' => $returningClients,
+            
+                    ]);
+                // return redirect()->route('dashboard');
             } else {
                 // Authentication failed
                 $errors = [];
