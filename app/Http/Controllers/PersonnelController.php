@@ -8,6 +8,11 @@ use Illuminate\Auth\AuthenticationException;
 use App\Models\Personnel;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Session;
+use App\Models\Reservation;
+use Carbon\Carbon;
+use App\Mail\UserAdded;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Log;
 
 class PersonnelController extends Controller
 {
@@ -28,7 +33,26 @@ class PersonnelController extends Controller
                 // Store user data in the session
                 session(['user' => $user]);
 
-                return redirect()->route('dashboard');
+
+                $totalBookings = Reservation::count();
+    
+                // Calculate new clients this month
+                $newClientsThisMonth = Reservation::whereMonth('created_at', '=', Carbon::now()->month)->count();
+                
+                // Calculate returning clients
+                $returningClients = Reservation::distinct('user_id')
+                    ->where('check_in_date', '<', Carbon::now()) // Assuming check_in_date is your timestamp for reservations
+                    ->count();
+
+                    return redirect()->route('dashboard.home')
+                    ->with([
+                        'user' => $user,
+                        'totalBookings' => $totalBookings,
+                        'newClientsThisMonth' => $newClientsThisMonth,
+                        'returningClients' => $returningClients,
+            
+                    ]);
+                // return redirect()->route('dashboard');
             } else {
                 // Authentication failed
                 $errors = [];
@@ -66,56 +90,114 @@ class PersonnelController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function viewPersonnels()
     {
-        //
+        $personnels = Personnel::all();
+        return view('dashboard', ['personnels' => $personnels]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+    
     public function create()
     {
-        //
+        return view('dashboard.personnel.create');
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created personnel in the database.
      */
-    public function store(Request $request)
+   /**
+ * Store a newly created resource in storage.
+ */
+public function store(Request $request)
     {
-        //
+        // Validate the input
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|email|unique:personnels',
+            'password' => 'required',
+            'role' => 'required',
+        ]);
+
+        // Create the user
+        $user = Personnel::create([
+            'name' => $request->input('name'),
+            'email' => $request->input('email'),
+            'password' => bcrypt($request->input('password')),
+            'role' => $request->input('role'),
+            'status' => 'active',
+        ]);
+
+    // Assuming $user is an instance of Personnel
+$userData = $user->toArray();
+
+try {
+    Mail::to($user->email)->send(new UserAdded($user));
+} catch (\Exception $e) {
+    Log::error('Email sending failed: ' . $e->getMessage());
+}  
+
+// Redirect or respond as needed
+        return redirect()->route('dashboard.personnel')->with('success', 'User added successfully.');
+    }
+
+
+    /**
+     * Display the specified personnel.
+     */
+    public function show($id)
+    {
+        $personnel = Personnel::findOrFail($id);
+        return view('dashboard.personnel.show', compact('personnel'));
     }
 
     /**
-     * Display the specified resource.
+     * Show the form for editing the specified personnel.
      */
-    public function show(string $id)
+    public function edit($id)
     {
-        //
+        $personnel = Personnel::findOrFail($id);
+        return view('dashboard.personnel.edit', compact('personnel'));
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Update the specified personnel in the database.
      */
-    public function edit(string $id)
+    public function update(Request $request, $id)
     {
-        //
+        // Validate the form data
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|email|unique:personnels,email,' . $id,
+            // Add other validation rules as needed
+        ]);
+
+        // Update the personnel
+        $personnel = Personnel::findOrFail($id);
+        $personnel->name = $request->input('name');
+        $personnel->email = $request->input('email');
+        // Update other fields as needed
+        $personnel->save();
+
+        return redirect()->route('personnel.index')->with('success', 'Personnel updated successfully.');
     }
 
     /**
-     * Update the specified resource in storage.
+     * Remove the specified personnel from the database.
      */
-    public function update(Request $request, string $id)
+    public function destroy($id)
     {
-        //
-    }
+        // Find the personnel
+        $personnel = Personnel::find($id);
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        if (!$personnel) {
+            // Handle the case where personnel is not found
+            return redirect()->back()->with('error', 'Personnel not found');
+        }
+
+        // Delete the personnel
+        $personnel->delete();
+
+        // Redirect back with a success message
+        return redirect()->back()->with('success', 'Personnel deleted successfully');
     }
 }

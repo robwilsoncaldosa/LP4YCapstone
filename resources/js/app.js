@@ -204,7 +204,9 @@ document.addEventListener('DOMContentLoaded', function() {
             e.preventDefault();
             var target = this.getAttribute('href');
             var currentPage = window.location.pathname; // Get the current page URL
-            if (currentPage !== '/book') { // Replace '/book' with the correct URL for book.blade.php
+
+            if (target.startsWith('#')) {
+                // Check if target is a valid selector
                 var targetElement = document.querySelector(target);
                 if (targetElement) {
                     var offsetTop = targetElement.offsetTop - 150; // Subtract 150 pixels offset
@@ -214,13 +216,11 @@ document.addEventListener('DOMContentLoaded', function() {
                     });
                 }
             } else {
-                var currentPage = window.location.href; // Get the current page URL
-                var updatedUrl = currentPage.replace('/book', '') + target;
-                window.location.href = updatedUrl;
+                // Check if target is a valid URL
+                window.location.href = target;
             }
         });
     });
-
 
 
 
