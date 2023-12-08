@@ -11,7 +11,7 @@ class Review extends Model
 
     // protected $fillable = ['reservation_id', 'user_id', 'rating', 'comment'];
 
-    protected $fillable = ['name', 'rating', 'comment', 'reservation_id'];
+       protected $fillable = ['name', 'rating', 'comment', 'reservation_id'];
 
     // Define relationships
     public function reservation()

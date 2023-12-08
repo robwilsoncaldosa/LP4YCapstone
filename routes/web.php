@@ -118,5 +118,10 @@ Route::get('/write-review/{reservation}', [ReviewController::class, 'showReviewP
 Route::post('/submit-review/{reservation}', [ReviewController::class, 'submitReview'])->name('submit-review')->middleware('auth');
 
 
+// Route::get('/write-review', [ReviewController::class, 'showReviewPopup'])->name('review');
+// Route::post('/submit-review', [ReviewController::class, 'submitReview'])->name('submit-review');
 
 
+
+
+// <!-- <form action="{{ route('submit-review', ['reservation' => $reservation->id]) }}" method="post" id="review-form"> -->

@@ -6,21 +6,31 @@
 
 <style>
    
-    input {
-        border-bottom: 1px solid rgb(212, 218, 223);
+  
+    input, textarea {
+        border: 1px solid black !important; /* Add black border to input fields */
+        background-color: transparent !important; /* Set background to transparent or white */
+        border-radius: 0 !important; /* Remove border radius */
+        margin-top:20px;
     }
+      
+ 
 
     .container-xl {
         width: 50%;
-        margin: 100px auto; /* Center the container */
-        background-color: #08080815;
+        margin: 100px auto;
+        background-color: white; /* Set background to transparent or white */
         padding: 30px;
-        border-radius: 10px;
+        border: 1px solid black; 
+       
+        
     }
 
     .form-floating>.form-control,
     .form-floating>.form-control-plaintext {
         padding: 1rem 0;
+        background-color: transparent; /* Set background to transparent or white */
+        border: 1px solid black; /* Add black border to input fields */
     }
 
     .form-floating>.form-control,
@@ -29,6 +39,7 @@
         height: calc(2rem + calc(var(--bs-border-width) * 2));
         min-height: calc(2rem + calc(var(--bs-border-width) * 2));
         line-height: 1.25;
+        border: 1px solid black; /* Add black border to input fields */
     }
 
     .form-control:focus {
@@ -42,41 +53,72 @@
         padding: .5rem 0rem;
     }
 
-    button {
+    /* button {
         margin-top: 20px;
-        text-align: center;
         margin-bottom: 20px;
-    }
+    
+    } */
+
+    button.btn-secondary {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    text-align: right;
+    margin-left:20px;
+    background-color: transparent;
+    border: 1px solid black;
+    color: black;
+    transition: background-color 0.3s; 
+  
+}
+
+
+button.btn-primary {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    text-align:right;
+    background-color: black;
+    border: 1px solid black;
+    color: white;
+    transition: background-color 0.3s;
+
+}
+
+button.btn-primary:hover,
+button.btn-secondary:hover {
+    background-color: white;
+    color:grey;
+    border: 1px solid black;
+}
 
     img {
-        width: 100%; /* Make the image responsive */
-        max-width: 150px; /* Set maximum width */
-        height: auto; /* Maintain aspect ratio */
+        width: 100%;
+        max-width: 150px;
+        height: auto;
         margin-right: 15px;
     }
 
     h1 {
-        text-align: left; 
-        margin-top:35px;
-        color:black;
+        text-align: left;
+        margin-top: 35px;
+        color: black;
     }
+
 
     @media (max-width: 768px) {
         img {
-            max-width: 30%; /* Set smaller maximum width for smaller screens */
+            max-width: 30%;
         }
 
         .container-xl {
             text-align: center;
-            width: 95%; /* Full width on screens with a maximum width of 768 pixels */
-
+            width: 95%;
             margin: 50px auto;
         }
 
         h1 {
             font-size: 20px;
-            text-align:center;
-            margin-top:10px;
+            text-align: center;
+            margin-top: 10px;
         }
 
         .form-control {
@@ -95,28 +137,35 @@
             <img src="../img/HostLogo.png" alt="Logo">
         </div>
         <div class="col-lg-9 col-md-12">
-            <h1>Write a Review</h1>
+            <h1>Leave a Review</h1>
         </div>
     </div>
+    
 
-    <form action="{{ route('submit-review', ['reservation' => $reservation->id]) }}" method="post" id="review-form">
-        @csrf
 
-        <div class="form-group">
-            <input type="text" class="form-control" id="name" name="name" style="height: 50px;" placeholder="Your Name" required>
-        </div>
+ 
+    <form action="{{ route('submit-review') }}" method="post" id="review-form">
+    @csrf
 
-        <div class="form-group">
-            <input type="number" class="form-control" id="rating" name="rating" style="height: 50px;" min="1" max="5"
-                placeholder="Rating (1-5)" required>
-        </div>
+    <div class="form-group">
+        <input type="text" class="form-control" id="name" name="name" style="height: 50px;" placeholder="Your Name" required>
+    </div>
 
-        <div class="form-group">
-            <textarea class="form-control" id="comment" name="comment" style="height: 200px;" placeholder="Write your review here" required></textarea>
-        </div>
+    <div class="form-group">
+        <input type="number" class="form-control" id="rating" name="rating" style="height: 50px;" min="1" max="5"
+            placeholder="Rating (1-5)" required>
+    </div>
 
-        <button type="submit" class="btn btn-primary">Submit Review</button>
-    </form>
+    <div class="form-group">
+        <textarea class="form-control" id="comment" name="comment" style="height: 200px;" placeholder="Write your review here" required></textarea>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Publish</button>
+    <button type="button" class="btn btn-secondary" onclick="cancelReview()">Cancel</button>
+    
+</form>
+
+
 
     <!-- Thank you message div -->
     <div id="thank-you-message" style="display: none; margin-top: 20px;">
@@ -143,5 +192,10 @@
             });
         });
     });
+
+    function cancelReview() {
+     
+        document.getElementById("review-form").reset();
+    }
 </script>
 @endsection
