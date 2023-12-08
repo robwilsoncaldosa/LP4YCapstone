@@ -35,7 +35,7 @@
         background-color: rgb(70, 70, 70);
         text-align: center;
         line-height: 35px;
-        font-size: 18px;
+        font-sboize: 18px;
         font-weight: bold;
         color: white;
         margin-right: 10px;
