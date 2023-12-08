@@ -47,6 +47,8 @@
         margin-right: 10px;
     }
 
+   
+
     /* Responsive styles */
     @media (max-width: 767px) {
         .container-fluid.row {
@@ -144,12 +146,8 @@
                     </li>
 
                     <li class="nav-item w-100 p-2">
-                        <a class="nav-link" href="#"><i class="fas fa-id-badge"></i> PERSONNEL</a>
+                        <a class="nav-link" href="{{ route('dashboard.personnel') }}"><i class="fas fa-id-badge"></i> PERSONNEL</a>
                     </li>
-
-
-
-
                 </ul>
             </div>
         @endif
@@ -362,6 +360,128 @@
                 </table>
                 </div>
                 @endif
+
+
+                @if(request()->is('dashboard/personnel'))
+                    <div class="container-fluid">
+                        <h2 class="mt-4">Personnel Management</h2>
+
+                        <!-- Add Search Bar -->
+
+                        <div class="d-flex justify-content-between align-items-center mt-3">
+                            <form class="mb-3">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" id="searchInput" placeholder="Search personnel...">
+                                </div>
+                            </form>
+                            <button class="btn btn-outline-dark" type="button" id="createButton" data-bs-toggle="modal" data-bs-target="#createPersonnelModal">Create</button>
+                        </div>
+                                    
+                        <div class="table-responsive mt-4">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Email</th>
+                                        <th>Role</th>
+                                        <th>Status</th>
+                                        <!-- Add more columns as needed -->
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach($personnels as $personnel)
+                                        @if($personnel->id !== auth()->user()->id)
+                                            <tr class="personnel-row">
+                                                <td>{{ $personnel->name }}</td>
+                                                <td>{{ $personnel->email }}</td>
+                                                <td>{{ $personnel->role }}</td>
+                                                <td>{{ $personnel->status }}</td>
+                                                <td>
+                                                    <div class="btn-group" role="group">
+                                                        <form action="{{ route('personnel.destroy', $personnel->id) }}" method="post">
+                                                            @csrf
+                                                            @method('delete')
+                                                            <button type="submit" class="btn btn-outline-dark" style="border-radius: 5px;">Delete</button>
+                                                        </form>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        @endif
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+
+                    <!-- Create Modal -->
+                    <div class="modal fade" id="createPersonnelModal" tabindex="-1" aria-labelledby="createPersonnelModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="createPersonnelModalLabel">Create Personnel</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <!-- Create Personnel Form -->
+                                    <form action="{{ route('personnel.store') }}" method="post">
+                                        @csrf
+                                        <div class="mb-3">
+                                            <label for="name" class="form-label">Name</label>
+                                            <input type="text" class="form-control" id="name" name="name" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="email" class="form-label">Email</label>
+                                            <input type="email" class="form-control" id="email" name="email" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="password" class="form-label">Password</label>
+                                            <input type="password" class="form-control" id="password" name="password" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="role" class="form-label">Role</label>
+                                            <input type="text" class="form-control" id="role" name="role" required>
+                                        </div>
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                        <button type="submit" class="btn btn-primary">Add User</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+                    <script>
+                        $(document).ready(function() {
+                            $('#searchInput').on('input', function() {
+                                const searchText = $(this).val().toLowerCase();
+
+                                $('.personnel-row').each(function() {
+                                    const name = $(this).find('td:eq(0)').text().toLowerCase();
+                                    const email = $(this).find('td:eq(1)').text().toLowerCase();
+                                    const role = $(this).find('td:eq(2)').text().toLowerCase();
+                                    const status = $(this).find('td:eq(3)').text().toLowerCase();
+
+                                    const isMatch = name.includes(searchText) || email.includes(searchText) || role.includes(searchText) || status.includes(searchText);
+                                    $(this).toggle(isMatch);
+                                });
+                            });
+
+                            $('#createButton').on('click', function() {
+                                $('#createModal').modal('show');
+                            });
+
+
+                        });
+                    </script>
+                @endif
+
+
+
+
+
         </main>
 
     </div>
