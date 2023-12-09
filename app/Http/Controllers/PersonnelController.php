@@ -198,4 +198,28 @@ public function store(Request $request)
         // Redirect back with a success message
         return redirect()->back()->with('success', 'Personnel deleted successfully');
     }
+
+
+            // Add this method to your PersonnelController
+       // Add this method to your PersonnelController
+        public function resetPassword($id)
+        {
+            // Find the personnel
+            $personnel = Personnel::find($id);
+
+            if (!$personnel) {
+                // Handle the case where personnel is not found
+                return redirect()->back()->with('error', 'Personnel not found');
+            }
+
+            // Reset the password to '1234'
+            $personnel->password = bcrypt('1234');
+            $personnel->save();
+
+            // Use SweetAlert to display a success message
+            $message = 'User password reset successfully!';
+            return redirect()->back()->with('success', $message);
+        }
+
+
 }

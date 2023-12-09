@@ -103,6 +103,8 @@ Route::put('dashboard/rooms/{id}', [RoomController::class, 'update'])->name('roo
 Route::delete('/rooms/{id}', [RoomController::class, 'destroy'])->name('rooms.destroy');
 
 Route::delete('/users/{id}', [UserController::class, 'destroy'])->name('users.destroy');
+Route::post('/personnel/reset-password/{id}', [PersonnelController::class, 'resetPassword'])->name('personnel.resetPassword');
+
 });
 
 

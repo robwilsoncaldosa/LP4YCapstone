@@ -587,10 +587,10 @@
 
                 @if(request()->is('dashboard/users'))
                 <div class="container-fluid">
-                    <h2 class="mt-4">Personnel Management</h2>
+                    <h2 class="mt-4">Guest</h2>
                     <form class="mb-3">
                         <div class="input-group">
-                            <input type="text" class="form-control" id="searchInput" placeholder="Search personnel..." style="border-radius: 0; background-color: #f2f2f2; border: 1px solid #ccc;">
+                            <input type="text" class="form-control" id="searchInput" placeholder="Search guest...(name, email, mobile)" style="border-radius: 0; background-color: #f2f2f2; border: 1px solid #ccc;">
                         </div>
                     </form>
 
@@ -685,8 +685,13 @@
                                                             @method('delete')
                                                             <button type="submit" class="btn btn-outline-dark" style="border-radius: 5px;">Delete</button>
                                                         </form>
+                                                        <form action="{{ route('personnel.resetPassword', $personnel->id) }}" method="post">
+                                                            @csrf
+                                                            <button type="submit" class="btn btn-outline-dark" style="border-radius: 5px;">Reset</button>
+                                                        </form>
                                                     </div>
                                                 </td>
+
                                             </tr>
                                         @endif
                                     @endforeach
@@ -726,10 +731,6 @@
                     </div>
                 @endif
 
-
-
-
-
         </main>
 
     </div>
@@ -738,8 +739,18 @@
 
 @endif
 
+<!-- Add this script at the end of your Blade layout file -->
+@if(session('success'))
+    <script>
+        alert('{{ session('success') }}');
+    </script>
+@endif
+
+
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-                    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
 <script>
    
     document.addEventListener('DOMContentLoaded', function() {
