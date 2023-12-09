@@ -109,36 +109,34 @@ class PersonnelController extends Controller
  * Store a newly created resource in storage.
  */
 public function store(Request $request)
-    {
-        // Validate the input
-        $request->validate([
-            'name' => 'required',
-            'email' => 'required|email|unique:personnels',
-            'password' => 'required',
-            'role' => 'required',
-        ]);
+{
+    // Validate the input
+    $request->validate([
+        'name' => 'required',
+        'email' => 'required|email|unique:personnels',
+    ]);
 
-        // Create the user
-        $user = Personnel::create([
-            'name' => $request->input('name'),
-            'email' => $request->input('email'),
-            'password' => bcrypt($request->input('password')),
-            'role' => $request->input('role'),
-            'status' => 'active',
-        ]);
+    // Create the user with default values
+    $user = Personnel::create([
+        'name' => $request->input('name'),
+        'email' => $request->input('email'),
+        'password' => bcrypt('1234'), // Default password set to '1234'
+        'role' => 'staff', // Default role set to 'staff'
+        'status' => 'active',
+    ]);
 
     // Assuming $user is an instance of Personnel
-$userData = $user->toArray();
+    $userData = $user->toArray();
 
-try {
-    Mail::to($user->email)->send(new UserAdded($user));
-} catch (\Exception $e) {
-    Log::error('Email sending failed: ' . $e->getMessage());
-}  
-
-// Redirect or respond as needed
-        return redirect()->route('dashboard.personnel')->with('success', 'User added successfully.');
+    try {
+        Mail::to($user->email)->send(new UserAdded($user));
+    } catch (\Exception $e) {
+        Log::error('Email sending failed: ' . $e->getMessage());
     }
+
+    // Redirect or respond as needed
+    return redirect()->route('dashboard.personnel')->with('success', 'User added successfully. Password is set to "1234", and role is set to "staff".');
+}
 
 
     /**

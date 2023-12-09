@@ -47,6 +47,13 @@
         margin-right: 10px;
     }
 
+    .search-filter {
+        border: 1px solid #000; /* Black border */
+        border-radius: 0; /* No border radius */
+    }
+
+
+
    
 
     /* Responsive styles */
@@ -214,105 +221,345 @@
         <main class="p-5 ">
 
         @if(request()->is('dashboard/home'))
-        <div class="row mt-4">
-    <div class="col-md-3">
-        <div class="card bg-primary text-white">
-            <div class="card-body text-center">
-                <h5 class="card-title">Total Bookings</h5>
-                <p class="card-text" style="font-size: 2em; color: yellow;"><strong>{{ $totalBookings }}</strong></p>
+    <div class="row mt-4">
+        <div class="col-md-3">
+            <div class="card bg-primary text-white">
+                <div class="card-body text-center">
+                    <h5 class="card-title" style="color: white;">Total Bookings</h5>
+                    <p class="card-text" style="font-size: 2em; color: yellow;"><strong>{{ $totalBookings }}</strong></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card bg-success text-white">
+                <div class="card-body text-center">
+                    <h5 class="card-title" style="color: white;">New Bookings This Month</h5>
+                    <p class="card-text" style="font-size: 2em; color: yellow;"><strong>{{ $newClientsThisMonth }}</strong></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card bg-info text-white">
+                <div class="card-body text-center">
+                    <h5 class="card-title" style="color: white;">Returning Guests</h5>
+                    <p class="card-text" style="font-size: 2em; color: yellow;"><strong>{{ $returningClients }}</strong></p>
+                </div>
             </div>
         </div>
     </div>
+@endif
 
-    <div class="col-md-3">
-        <div class="card bg-success text-white">
-            <div class="card-body text-center">
-                <h5 class="card-title">New Bookings This Month</h5>
-                <p class="card-text" style="font-size: 2em; color: yellow;"><strong>{{ $newClientsThisMonth }}</strong></p>
-            </div>
+@if(request()->is('dashboard/reservations'))
+    <!-- Add the 'active' class to highlight the RESERVATION link -->
+    <h2>Reservations</h2>
+
+    <div class="row">
+        <!-- Search Bar -->
+        <div class="col-md-6 mb-3">
+            <label for="reservationSearch">Search:</label>
+            <input type="text" id="reservationSearch" class="form-control search-filter" placeholder="Enter name, email, or room name">
+        </div>
+
+        <!-- Filter by Date -->
+        <div class="col-md-6 mb-3">
+            <label for="dateFilter">Filter by Date:</label>
+            <input type="date" id="dateFilter" class="form-control search-filter" placeholder="Select date">
         </div>
     </div>
 
-    <div class="col-md-3">
-        <div class="card bg-info text-white">
-            <div class="card-body text-center">
-                <h5 class="card-title">Returning Clients</h5>
-                <p class="card-text" style="font-size: 2em; color: yellow;"><strong>{{ $returningClients }}</strong></p>
-            </div>
-        </div>
-    </div>
-</div>
+    <div class="table-responsive">
+        <table class="table" id="reservationsTable">
+            <thead>
+                <tr>
+                    <th>User Name</th>
+                    <th>User Email</th>
+                    <th>Room Name</th>
+                    <th>Check-in Date</th>
+                    <th>Check-in Time</th>
+                    <th>Check-out Date</th>
+                    <th>Check-out Time</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                    // Sort reservations by creation date in descending order
+                    $sortedReservations = $reservations->sortByDesc('created_at');
+                ?>
 
+                @foreach($sortedReservations as $reservation)
+                    <tr class="reservationRow">
+                        <td>{{ $reservation->user->name }}</td>
+                        <td>{{ $reservation->user->email }}</td>
+                        <td>{{ $reservation->room->room_name }}</td>
+                        <td>{{ $reservation->check_in_date }}</td>
+                        <td>{{ date('g:i A', strtotime($reservation->check_in_time)) }}</td>
+                        <td>{{ $reservation->check_out_date }}</td>
+                        <td>{{ date('g:i A', strtotime($reservation->check_out_time)) }}</td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Handle date filter change
+            $('#dateFilter').change(function() {
+                var selectedDate = $(this).val();
+
+                // Show/hide rows based on the selected date
+                $('.reservationRow').each(function() {
+                    var checkInDate = $(this).find('td:eq(3)').text(); // Adjust the index based on your table structure
+                    if (selectedDate === '' || checkInDate === selectedDate) {
+                        $(this).show();
+                    } else {
+                        $(this).hide();
+                    }
+                });
+            });
+
+            // Handle search bar input
+            $('#reservationSearch').keyup(function() {
+                var searchText = $(this).val().toLowerCase();
+
+                // Filter rows based on user input
+                $('.reservationRow').each(function() {
+                    var userName = $(this).find('td:eq(0)').text().toLowerCase(); // Adjust the index based on your table structure
+                    var userEmail = $(this).find('td:eq(1)').text().toLowerCase();
+                    var roomName = $(this).find('td:eq(2)').text().toLowerCase();
+
+                    if (userName.includes(searchText) || userEmail.includes(searchText) || roomName.includes(searchText)) {
+                        $(this).show();
+                    } else {
+                        $(this).hide();
+                    }
+                });
+            });
+        });
+    </script>
 @endif
 
 
-            @if(request()->is('dashboard/reservations'))
-                <!-- Add the 'active' class to highlight the RESERVATION link -->
-                <h2>Reservations</h2>
-                <div class="table-responsive">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>User Name</th>
-                            <th>User Email</th>
-                            <th>Room Name</th>
-                            <th>Check-in Date</th>
-                            <th>Check-in Time</th>
-                            <th>Check-out Date</th>
-                            <th>Check-out Time</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach($reservations as $reservation)
-                            <tr>
-                                <td>{{ $reservation->user->name }}</td>
-                                <td>{{ $reservation->user->email }}</td>
-                                <td>{{ $reservation->room->room_name }}</td>
-                                <td>{{ $reservation->check_in_date }}</td>
-                                <td>{{ $reservation->check_in_time }}</td>
-                                <td>{{ $reservation->check_out_date }}</td>
-                                <td>{{ $reservation->check_out_time }}</td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-                </div>
-            @endif
+                @if(request()->is('dashboard/rooms'))
+                 
+                    <h2 class="mt-4">All Rooms</h2>
 
-            @if(request()->is('dashboard/rooms'))
-                <!-- Add the 'active' class to highlight the ALL ROOMS link -->
-                <h2>All Rooms</h2>
-                <div class="table-responsive">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Room Name</th>
-                            <th>Description</th>
-                            <th>Accommodates</th>
-                            <th>Beds</th>
-                            <th>Bed Type</th>
-                            <th>Amenities</th>
-                            <th>Price per Night</th>
-                            <th>Image</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach($rooms as $room)
-                            <tr>
-                                <td>{{ $room->room_name }}</td>
-                                <td>{{ $room->description }}</td>
-                                <td>{{ $room->accommodates }}</td>
-                                <td>{{ $room->beds }}</td>
-                                <td>{{ $room->bed_type }}</td>
-                                <td>{{ $room->amenities }}</td>
-                                <td>{{ $room->price_per_night }}</td>
-                                <td><img src="{{ asset($room->image_path) }}" alt="Room Image" style="width: 50px; height: 50px;"></td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-                </div>
-            @endif
+                    <!-- Add Room Button -->
+                    <button class="btn btn-outline-dark mb-3" type="button" id="addRoomButton" data-bs-toggle="modal" data-bs-target="#addRoomModal">Add Room</button>
+
+                  <!-- Modal for Add/Update Room -->
+                    <div class="modal fade" id="addRoomModal" tabindex="-1" aria-labelledby="addRoomModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="addRoomModalLabel">Add Room</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <!-- Add Room Form -->
+                                    <form action="{{ route('rooms.store') }}" method="post" enctype="multipart/form-data">
+                                        @csrf
+                                        <div class="mb-3">
+                                            <label for="room_name" class="form-label">Room Name</label>
+                                            <input type="text" class="form-control" id="room_name" name="room_name" required>
+                                        </div>
+
+                                        <!-- Description -->
+                                        <div class="mb-3">
+                                            <label for="description" class="form-label">Description</label>
+                                            <textarea class="form-control" id="description" name="description" required></textarea>
+                                        </div>
+
+                                        <!-- Accommodates -->
+                                        <div class="mb-3">
+                                            <label for="accommodates" class="form-label">Accommodates</label>
+                                            <input type="number" class="form-control" id="accommodates" name="accommodates" required>
+                                        </div>
+
+                                        <!-- Beds -->
+                                        <div class="mb-3">
+                                            <label for="beds" class="form-label">Beds</label>
+                                            <input type="number" class="form-control" id="beds" name="beds" required>
+                                        </div>
+
+                                        <!-- Bed Type -->
+                                        <div class="mb-3">
+                                            <label for="bed_type" class="form-label">Bed Type</label>
+                                            <input type="text" class="form-control" id="bed_type" name="bed_type" required>
+                                        </div>
+
+                                        <!-- Amenities -->
+                                        <div class="mb-3">
+                                            <label for="amenities" class="form-label">Amenities</label>
+                                            <input type="text" class="form-control" id="amenities" name="amenities" required>
+                                        </div>
+
+                                        <!-- Price per Night -->
+                                        <div class="mb-3">
+                                            <label for="price_per_night" class="form-label">Price per Night</label>
+                                            <input type="text" class="form-control" id="price_per_night" name="price_per_night" required>
+                                        </div>
+
+                                        <!-- Image -->
+                                                        
+                                        <div class="mb-3">
+                                            <label for="image_path" class="form-label">Upload Image</label>
+                                            <input type="file" class="form-control" id="image_path" name="image_path">
+                                        </div>
+
+
+                                        <!-- Add other room fields as needed -->
+
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                        <button type="submit" class="btn btn-primary">Add Room</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!-- Room Table -->
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Room Name</th>
+                                    <th>Description</th>
+                                    <th>Accommodates</th>
+                                    <th>Beds</th>
+                                    <th>Bed Type</th>
+                                    <th>Amenities</th>
+                                    <th>Price per Night</th>
+                                    <th>Image</th>
+                                    <th>Action</th> <!-- Add this column for Delete and Update buttons -->
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($rooms as $room)
+                                    <tr>
+                                        <td>{{ $room->room_name }}</td>
+                                        <td>{{ $room->description }}</td>
+                                        <td>{{ $room->accommodates }}</td>
+                                        <td>{{ $room->beds }}</td>
+                                        <td>{{ $room->bed_type }}</td>
+                                        <td>{{ $room->amenities }}</td>
+                                        <td>{{ $room->price_per_night }}</td>
+                                        <td><img src="{{ asset($room->image_path) }}" alt="Room Image" style="width: 50px; height: 50px;"></td>
+                                        <td>
+                                            <div class="btn-group" role="group">
+                                                <!-- Update Button -->
+                                                <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#updateRoomModal{{ $room->id }}">
+                                                    Update
+                                                </button>
+                                                <!-- Delete Button -->
+                                                <form action="{{ route('rooms.destroy', $room->id) }}" method="post">
+                                                    @csrf
+                                                    @method('delete')
+                                                    <button type="submit" class="btn btn-outline-danger" style="border-radius: 5px;">Delete</button>
+                                                </form>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                <!-- Modal for Update Room -->
+                            <div class="modal fade" id="updateRoomModal{{ $room->id }}" tabindex="-1" aria-labelledby="updateRoomModalLabel{{ $room->id }}" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="updateRoomModalLabel{{ $room->id }}">Update Room</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <!-- Update Room Form -->
+                                            <form action="{{ route('rooms.update', $room->id) }}" method="post" enctype="multipart/form-data">
+                                                @csrf
+                                                @method('put')
+
+                                                <!-- Room Name -->
+                                                <div class="mb-3">
+                                                    <label for="room_name" class="form-label">Room Name</label>
+                                                    <input type="text" class="form-control" id="room_name" name="room_name" value="{{ $room->room_name }}" required>
+                                                </div>
+
+                                                <!-- Description -->
+                                                <div class="mb-3">
+                                                    <label for="description" class="form-label">Description</label>
+                                                    <textarea class="form-control" id="description" name="description" required>{{ $room->description }}</textarea>
+                                                </div>
+
+                                                <!-- Accommodates -->
+                                                <div class="mb-3">
+                                                    <label for="accommodates" class="form-label">Accommodates</label>
+                                                    <input type="number" class="form-control" id="accommodates" name="accommodates" value="{{ $room->accommodates }}" required>
+                                                </div>
+
+                                                <!-- Beds -->
+                                                <div class="mb-3">
+                                                    <label for="beds" class="form-label">Beds</label>
+                                                    <input type="number" class="form-control" id="beds" name="beds" value="{{ $room->beds }}" required>
+                                                </div>
+
+                                                <!-- Bed Type -->
+                                                <div class="mb-3">
+                                                    <label for="bed_type" class="form-label">Bed Type</label>
+                                                    <input type="text" class="form-control" id="bed_type" name="bed_type" value="{{ $room->bed_type }}" required>
+                                                </div>
+
+                                                <!-- Amenities -->
+                                                <div class="mb-3">
+                                                    <label for="amenities" class="form-label">Amenities</label>
+                                                    <input type="text" class="form-control" id="amenities" name="amenities" value="{{ $room->amenities }}" required>
+                                                </div>
+
+                                                <!-- Price per Night -->
+                                                <div class="mb-3">
+                                                    <label for="price_per_night" class="form-label">Price per Night</label>
+                                                    <input type="text" class="form-control" id="price_per_night" name="price_per_night" value="{{ $room->price_per_night }}" required>
+                                                </div>
+
+                                                <!-- Image Upload -->
+                                                <div class="mb-3">
+                                                    <label for="image_path" class="form-label">Room Image</label>
+                                                    <img src="{{ asset($room->image_path) }}" alt="Room Image" style="width: 50px; height: 50px;">
+                                                    <input type="file" class="form-control" id="image_path" name="image_path">
+                                                </div>
+
+                                                <!-- Add other room fields as needed -->
+
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                                <button type="submit" class="btn btn-primary">Update Room</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- JavaScript to Handle Modal Actions -->
+                    <script>
+                        $(document).ready(function () {
+                            // Open modal and clear form when the modal is shown
+                            $('#addRoomModal, [id^="updateRoomModal"]').on('show.bs.modal', function (event) {
+                                var modalId = $(this).attr('id');
+                                var roomId = modalId.replace(/\D/g, ''); // Extract room ID from modal ID
+                                // Clear form fields
+                                $('#' + modalId + ' form').trigger('reset');
+                                // You can also populate the form fields if updating a room
+                                // For example: $('#room_name').val('Existing Room Name');
+                            });
+                        });
+                    </script>
+                @endif
+
  
             @if(request()->is('dashboard/roomStatuses'))
             <h2>Room Status</h2>
@@ -339,27 +586,61 @@
 
 
                 @if(request()->is('dashboard/users'))
-                <div class="table-responsive">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Email</th>
-                            <th>Contact Number</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach($users as $user)
-                            <tr>
-                                <td>{{ $user->name }}</td>
-                                <td>{{ $user->email }}</td>
-                                <td>{{ $user->contact_number }}</td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+                <div class="container-fluid">
+                    <h2 class="mt-4">Personnel Management</h2>
+                    <form class="mb-3">
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="searchInput" placeholder="Search personnel..." style="border-radius: 0; background-color: #f2f2f2; border: 1px solid #ccc;">
+                        </div>
+                    </form>
+
+                    <div class="table-responsive">
+                        <table class="table" id="userTable">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Contact Number</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($users as $user)
+                                    <tr>
+                                        <td>{{ $user->name }}</td>
+                                        <td>{{ $user->email }}</td>
+                                        <td>{{ $user->contact_number }}</td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-                @endif
+
+                <style>
+                    #searchInput {
+                        border-radius: 0;
+                        background-color: #FFFAFA;
+                        border: 1px solid #ccc;
+                      
+                    }
+                </style>
+
+                <script>
+                    $(document).ready(function () {
+                        // Add an input event listener to the search input
+                        $('#searchInput').on('input', function () {
+                            // Get the search value
+                            var searchText = $(this).val().toLowerCase();
+
+                            // Filter the table rows based on the search value
+                            $('#userTable tbody tr').filter(function () {
+                                $(this).toggle($(this).text().toLowerCase().indexOf(searchText) > -1);
+                            });
+                        });
+                    });
+                </script>
+            @endif
+
 
 
                 @if(request()->is('dashboard/personnel'))
@@ -416,6 +697,7 @@
 
 
                     <!-- Create Modal -->
+                  <!-- Create Modal -->
                     <div class="modal fade" id="createPersonnelModal" tabindex="-1" aria-labelledby="createPersonnelModalLabel" aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
@@ -435,14 +717,6 @@
                                             <label for="email" class="form-label">Email</label>
                                             <input type="email" class="form-control" id="email" name="email" required>
                                         </div>
-                                        <div class="mb-3">
-                                            <label for="password" class="form-label">Password</label>
-                                            <input type="password" class="form-control" id="password" name="password" required>
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="role" class="form-label">Role</label>
-                                            <input type="text" class="form-control" id="role" name="role" required>
-                                        </div>
                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                                         <button type="submit" class="btn btn-primary">Add User</button>
                                     </form>
@@ -450,32 +724,6 @@
                             </div>
                         </div>
                     </div>
-
-                    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-                    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
-                    <script>
-                        $(document).ready(function() {
-                            $('#searchInput').on('input', function() {
-                                const searchText = $(this).val().toLowerCase();
-
-                                $('.personnel-row').each(function() {
-                                    const name = $(this).find('td:eq(0)').text().toLowerCase();
-                                    const email = $(this).find('td:eq(1)').text().toLowerCase();
-                                    const role = $(this).find('td:eq(2)').text().toLowerCase();
-                                    const status = $(this).find('td:eq(3)').text().toLowerCase();
-
-                                    const isMatch = name.includes(searchText) || email.includes(searchText) || role.includes(searchText) || status.includes(searchText);
-                                    $(this).toggle(isMatch);
-                                });
-                            });
-
-                            $('#createButton').on('click', function() {
-                                $('#createModal').modal('show');
-                            });
-
-
-                        });
-                    </script>
                 @endif
 
 
@@ -489,6 +737,9 @@
 </nav>
 
 @endif
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 <script>
    
     document.addEventListener('DOMContentLoaded', function() {
@@ -517,8 +768,29 @@
         
     });
 
+    
 
-   
+    $(document).ready(function() {
+    $('#searchInput').on('input', function() {
+        const searchText = $(this).val().toLowerCase();
+
+        $('.personnel-row').each(function() {
+            const name = $(this).find('td:eq(0)').text().toLowerCase();
+            const email = $(this).find('td:eq(1)').text().toLowerCase();
+            const role = $(this).find('td:eq(2)').text().toLowerCase();
+            const status = $(this).find('td:eq(3)').text().toLowerCase();
+
+            const isMatch = name.includes(searchText) || email.includes(searchText) || role.includes(searchText) || status.includes(searchText);
+            $(this).toggle(isMatch);
+        });
+    });
+
+    $('#createButton').on('click', function() {
+        $('#createModal').modal('show');
+    });
+
+});
+
 </script>
 
 
