@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Reservation;
 use Illuminate\Http\Request;
 use App\Models\Room;
 use Illuminate\Support\Facades\DB;
@@ -149,13 +150,15 @@ class RoomController extends Controller
     public function showAllRooms()
     {
         $rooms = Room::all();
-        // return view('dashboard_reservation', ['reservations' => $reservations]);
-        return view('dashboard', ['rooms' => $rooms]);
+        $reservations = Reservation::all();
+        return view('dashboard', ['rooms' => $rooms,
+        'reservations' => $reservations]);
     }
 
     public function showRoomStatus()
     {
 
+        $reservations = Reservation::all();
 
         $roomStatuses = DB::table('rooms')
             ->select('rooms.room_name', DB::raw("CASE WHEN reservations.checked_out_at >= NOW() THEN CONCAT('Occupied until ', DATE_FORMAT(reservations.checked_out_at, '%M %e, %Y at %l:%i %p')) ELSE 'Available' END as status"))
@@ -165,7 +168,7 @@ class RoomController extends Controller
             })
             ->get();
 
-        return view('dashboard', ['roomStatuses' => $roomStatuses]);
+        return view('dashboard', ['roomStatuses' => $roomStatuses,'reservations' => $reservations]);
 
     }
 }

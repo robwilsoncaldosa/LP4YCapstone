@@ -19,21 +19,24 @@ class ReservationController extends Controller
 
 public function homeView()
 {
+    $reservations = Reservation::all();
+
     // Calculate the total number of bookings
     $totalBookings = Reservation::count();
-    
+
     // Calculate new clients this month
     $newClientsThisMonth = Reservation::whereMonth('check_in_date', '=', Carbon::now()->month)->count();
-    
+
     // Calculate returning clients
     $returningClients = Reservation::distinct('user_id')
-        ->where('check_in_date', '<', Carbon::now()) 
+        ->where('check_in_date', '<', Carbon::now())
         ->count();
 
         return view('dashboard', [
         'totalBookings' => $totalBookings,
         'newClientsThisMonth' => $newClientsThisMonth,
         'returningClients' => $returningClients,
+        'reservations' => $reservations,
     ]);
 }
 

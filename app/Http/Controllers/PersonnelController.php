@@ -35,10 +35,10 @@ class PersonnelController extends Controller
 
 
                 $totalBookings = Reservation::count();
-    
+
                 // Calculate new clients this month
                 $newClientsThisMonth = Reservation::whereMonth('created_at', '=', Carbon::now()->month)->count();
-                
+
                 // Calculate returning clients
                 $returningClients = Reservation::distinct('user_id')
                     ->where('check_in_date', '<', Carbon::now()) // Assuming check_in_date is your timestamp for reservations
@@ -50,7 +50,7 @@ class PersonnelController extends Controller
                         'totalBookings' => $totalBookings,
                         'newClientsThisMonth' => $newClientsThisMonth,
                         'returningClients' => $returningClients,
-            
+
                     ]);
                 // return redirect()->route('dashboard');
             } else {
@@ -93,10 +93,11 @@ class PersonnelController extends Controller
     public function viewPersonnels()
     {
         $personnels = Personnel::all();
-        return view('dashboard', ['personnels' => $personnels]);
+        $reservations = Reservation::all();
+        return view('dashboard', ['personnels' => $personnels,'reservations' => $reservations]);
     }
 
-    
+
     public function create()
     {
         return view('dashboard.personnel.create');
