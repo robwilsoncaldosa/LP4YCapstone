@@ -92,6 +92,19 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard/personnel/{id}', [PersonnelController::class, 'show'])->name('personnel.show');
     Route::get('/dashboard/personnel/{id}/edit', [PersonnelController::class, 'edit'])->name('personnel.edit');
     Route::delete('/dashboard/personnel/{id}', [PersonnelController::class, 'destroy'])->name('personnel.destroy');
+
+    // Create room
+Route::post('/rooms', [RoomController::class, 'store'])->name('rooms.store');
+
+// Update room
+Route::put('dashboard/rooms/{id}', [RoomController::class, 'update'])->name('rooms.update');
+
+// Delete room
+Route::delete('/rooms/{id}', [RoomController::class, 'destroy'])->name('rooms.destroy');
+
+Route::delete('/users/{id}', [UserController::class, 'destroy'])->name('users.destroy');
+Route::post('/personnel/reset-password/{id}', [PersonnelController::class, 'resetPassword'])->name('personnel.resetPassword');
+
 });
 
 

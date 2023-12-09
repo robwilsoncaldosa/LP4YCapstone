@@ -109,36 +109,34 @@ class PersonnelController extends Controller
  * Store a newly created resource in storage.
  */
 public function store(Request $request)
-    {
-        // Validate the input
-        $request->validate([
-            'name' => 'required',
-            'email' => 'required|email|unique:personnels',
-            'password' => 'required',
-            'role' => 'required',
-        ]);
+{
+    // Validate the input
+    $request->validate([
+        'name' => 'required',
+        'email' => 'required|email|unique:personnels',
+    ]);
 
-        // Create the user
-        $user = Personnel::create([
-            'name' => $request->input('name'),
-            'email' => $request->input('email'),
-            'password' => bcrypt($request->input('password')),
-            'role' => $request->input('role'),
-            'status' => 'active',
-        ]);
+    // Create the user with default values
+    $user = Personnel::create([
+        'name' => $request->input('name'),
+        'email' => $request->input('email'),
+        'password' => bcrypt('1234'), // Default password set to '1234'
+        'role' => 'staff', // Default role set to 'staff'
+        'status' => 'active',
+    ]);
 
     // Assuming $user is an instance of Personnel
-$userData = $user->toArray();
+    $userData = $user->toArray();
 
-try {
-    Mail::to($user->email)->send(new UserAdded($user));
-} catch (\Exception $e) {
-    Log::error('Email sending failed: ' . $e->getMessage());
-}  
-
-// Redirect or respond as needed
-        return redirect()->route('dashboard.personnel')->with('success', 'User added successfully.');
+    try {
+        Mail::to($user->email)->send(new UserAdded($user));
+    } catch (\Exception $e) {
+        Log::error('Email sending failed: ' . $e->getMessage());
     }
+
+    // Redirect or respond as needed
+    return redirect()->route('dashboard.personnel')->with('success', 'User added successfully. Password is set to "1234", and role is set to "staff".');
+}
 
 
     /**
@@ -200,4 +198,28 @@ try {
         // Redirect back with a success message
         return redirect()->back()->with('success', 'Personnel deleted successfully');
     }
+
+
+            // Add this method to your PersonnelController
+       // Add this method to your PersonnelController
+        public function resetPassword($id)
+        {
+            // Find the personnel
+            $personnel = Personnel::find($id);
+
+            if (!$personnel) {
+                // Handle the case where personnel is not found
+                return redirect()->back()->with('error', 'Personnel not found');
+            }
+
+            // Reset the password to '1234'
+            $personnel->password = bcrypt('1234');
+            $personnel->save();
+
+            // Use SweetAlert to display a success message
+            $message = 'User password reset successfully!';
+            return redirect()->back()->with('success', $message);
+        }
+
+
 }
