@@ -87,7 +87,8 @@
                                 </div>
 
                                 <div>
-                                    <img src="../img/towel.png" alt="Towel/Bath Icon" class="icon" style="width:18.5px">
+                                    <img src="../img/towel.png" alt="Towel/Bath Icon" class="icon"
+                                        style="width:18.5px">
                                     <li>Towels</li>
                                 </div>
                             </div>
@@ -123,7 +124,7 @@
                         </div>
 
                         <div class="terms-deets">
-                            <a href="{{route('policy')}}" target="_blank">Read Our Policies</a>
+                            <a href="{{ route('policy') }}" target="_blank">Read Our Policies</a>
                         </div>
                     </div>
                 </div>
@@ -131,8 +132,10 @@
 
 
                 <div class="map-container">
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d490.68891707319847!2d123.9490603791058!3d10.300900522871656!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x33a9999278be73df%3A0x375659c7ec469226!2sLife%20Project%204%20Youth%20(LP4Y)%20-%20Center%20and%20Guest%20houses!5e0!3m2!1sen!2sph!4v1688547750578!5m2!1sen!2sph"
-                        width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d490.68891707319847!2d123.9490603791058!3d10.300900522871656!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x33a9999278be73df%3A0x375659c7ec469226!2sLife%20Project%204%20Youth%20(LP4Y)%20-%20Center%20and%20Guest%20houses!5e0!3m2!1sen!2sph!4v1688547750578!5m2!1sen!2sph"
+                        width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade"></iframe>
                 </div>
             </div>
         </div>
@@ -147,19 +150,22 @@
 
 
                 <div class="input-container p-2 position-relative">
-                    <input type="text" name="check-in" autocomplete="off" class="form-control rounded-0 check-in" id="check-in" placeholder="Check In" readonly required>
+                    <input type="text" name="check-in" autocomplete="off" class="form-control rounded-0 check-in"
+                        id="check-in" placeholder="Check In" readonly required>
                     <i class="far fa-calendar position-absolute" style="top:20px;right:20px;pointer-events: none;"></i>
                 </div>
 
 
                 <div class="input-container p-2 position-relative">
-                    <input readonly type="text" class="form-control rounded-0 check-out" id="check-out" placeholder="Check Out" name="check-out" autocomplete="off" required>
+                    <input readonly type="text" class="form-control rounded-0 check-out" id="check-out"
+                        placeholder="Check Out" name="check-out" autocomplete="off" required>
                     <i class="far fa-calendar position-absolute" style="top:20px;right:20px;pointer-events: none;"></i>
                 </div>
 
 
                 <div class="input-container p-2">
-                    <input type="number" name='adult' class="form-control rounded-0" id="adults" placeholder="Adults">
+                    <input type="number" name='adult' class="form-control rounded-0" id="adults"
+                        placeholder="Adults">
                 </div>
 
                 <div class="input-container p-2 d-flex justify-content-between align-items-center">
@@ -169,7 +175,8 @@
                 </div>
 
 
-                <button type="submit" class="btn btn-dark w-100 rounded-0 book_now" style="margin-top:20px;" id="book-now">Book Now</button>
+                <button type="submit" class="btn btn-dark w-100 rounded-0 book_now" style="margin-top:20px;"
+                    id="book-now">Book Now</button>
 
 
 
@@ -197,27 +204,18 @@
             <div class="modal-body d-flex gap-4 ">
 
 
-                <!-- Button to trigger the modal -->
+                <!-- Button to trigger the modal for downpayment -->
                 <button class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#downpayment">Down
+                    Payment</button>
+
+                <!-- Button to trigger the modal for full payment -->
+                <button class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#fullpayment">Full
                     Payment</button>
 
 
 
-                <form method="POST" action="{{ route('session') }}" class="d-inline ">
-                    @csrf
-
-                    <input type="text" name="product_name" value="{{ $room->room_name }}" hidden>
-                    <input type="text" name="check-in" autocomplete="off" class="form-control rounded-0 check-in" id="check-in" placeholder="Check In" readonly required hidden>
 
 
-                    <input readonly type="text" class="form-control rounded-0 check-out" id="check-out" placeholder="Check Out" name="check-out" autocomplete="off" required hidden>
-
-
-
-
-                    <input class="total" name="total" hidden>
-
-                    <button type="submit" class="btn btn-dark">Pay in Full</button>
 
                 </form>
             </div>
@@ -225,30 +223,66 @@
     </div>
 </div>
 
-<!-- Modal -->
-<div class="modal fade" id="downpayment" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<!-- Modal for Downpayment -->
+<div class="modal fade" id="downpayment" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title text-center " id="exampleModalLabel">Downpayment</h5>
+                <h5 class="modal-title text-center" id="exampleModalLabel">Downpayment</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <form method="POST" action="{{ route('downpayment') }}">
                     @csrf
 
+                    <input type="text" name="room_id" value="{{ $room->id }}" hidden>
                     <input type="text" name="product_name" value="{{ $room->room_name }}" hidden>
-                    <input type="text" name="check-in" autocomplete="off" class="form-control rounded-0 check-in" id="check-in" placeholder="Check In" readonly required hidden>
-                    <input readonly type="text" class="form-control rounded-0 check-out" id="check-out" placeholder="Check Out" name="check-out" autocomplete="off" required hidden>
-                    <span style="color: crimson;font-weight: bold;text-align:justify;">
-                        <i class="fas fa-info-circle"></i> Minimum Downpayment is 15% of the total price of <br> ₱<input type="number" id="total" name="total" class="total"  >
-                    </span>
+
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Full Name:</label>
+                        <input type="text" name="name" id="name" class="form-control" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email:</label>
+                        <input type="email" name="email" id="email" class="form-control" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="phone2" class="form-label">Phone (Optional):</label>
+                        <input class="form-control" id="phone2" name="phone2" type="tel">
+                        <span id="valid-msg2" class="hide">✓ Valid</span>
+                        <span id="error-msg2" class="hide"></span>
+                    </div>
+                    <div class="text-danger" style="display: flex;">
+                        <div class="text-center">
+                            <i class="fas fa-info-circle"></i> Minimum Downpayment is 15% of the total price of
+                            ₱  <input id="total" class="total text-danger text-center" name="total" style="border:none;display:inline" readonly>
+
+                        </div>
+
+                    </div>
+                    <div class="mb-3">
+                        <label for="check-in" class="form-label d-none ">Check In:</label>
+                        <input type="text" name="check-in" autocomplete="off" class="form-control check-in" id="check-in"
+                            placeholder="Check In"  readonly required hidden>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="check-out" class="form-label d-none">Check Out:</label>
+                        <input readonly type="text" class="form-control check-out" id="check-out" placeholder="Check Out"
+                            name="check-out" autocomplete="off" required hidden>
+                    </div>
+                    <div class="mb-3">
+                        <label for="downpayment" class="form-label">Enter Downpayment Amount:</label>
+                        <input type="number" id="downpaymentinput" class="form-control" name="downpayment" required>
+                    </div>
 
 
 
-                    <label for="downpayment">Enter Downpayment Amount:</label>
-                    <input type="number" id="downpaymentinput" class="downpaymentinput room-details-price" name="downpayment" required>
-                    <br><br>
+                    <br>
+
                     <button type="submit" class="btn btn-dark">Confirm Payment</button>
 
                 </form>
@@ -257,6 +291,64 @@
         </div>
     </div>
 </div>
+
+<!-- Modal For Full Payment -->
+<div class="modal fade" id="fullpayment" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-center" id="exampleModalLabel">Full Payment</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form method="POST" action="{{ route('session') }}" class="d-inline">
+                    @csrf
+
+                    <input type="text" name="product_name" value="{{ $room->room_name }}" hidden>
+                    <input type="text" name="room_id" value="{{ $room->id }}" hidden>
+
+
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Full Name:</label>
+                        <input type="text" name="name" id="name" class="form-control" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email:</label>
+                        <input type="email" name="email" id="email" class="form-control" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="phone" class="form-label">Phone (Optional):</label>
+                        <input class="form-control" id="phone" name="phone" type="tel">
+                        <span id="valid-msg" class="hide">✓ Valid</span>
+                        <span id="error-msg" class="hide"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="check-in" class="form-label d-none ">Check In:</label>
+                        <input type="text" name="check-in" autocomplete="off" class="form-control check-in" id="check-in"
+                            placeholder="Check In"  readonly required hidden>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="check-out" class="form-label d-none">Check Out:</label>
+                        <input readonly type="text" class="form-control check-out" id="check-out" placeholder="Check Out"
+                            name="check-out" autocomplete="off" required hidden>
+                    </div>
+
+                    <div class="mb-3">
+                        <input class="total" name="total" hidden>
+                    </div>
+
+                    <button type="submit" class="btn btn-dark">Pay in Full</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 
 <!--******************************************  Contact  ***********************************************-->

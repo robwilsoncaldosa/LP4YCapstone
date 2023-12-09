@@ -16,8 +16,5 @@ class Room extends Model
         return $this->hasMany(Reservation::class);
     }
 
-    public function adminUser()
-    {
-        return $this->belongsTo(Admin_User::class, 'admin_id');
-    }
+   
 }

@@ -16,6 +16,8 @@ export default defineConfig({
             '~jquery': path.resolve(__dirname, 'node_modules/jquery/dist/jquery.min.js'),
             '~jquery-ui': path.resolve(__dirname, 'node_modules/jquery-ui-dist/jquery-ui.js'),
             '~jquery-ui-css': path.resolve(__dirname, 'node_modules/jquery-ui-dist/jquery-ui.css'),
+            '~jquery-ui-css': path.resolve(__dirname, 'node_modules/jquery-ui-dist/jquery-ui.css'),
+
 
 
 

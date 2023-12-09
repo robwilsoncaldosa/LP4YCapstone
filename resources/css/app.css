@@ -5,6 +5,10 @@
                                    color: #212529!important;
                                }
                                
+                               .hide {
+                                   display: none;
+                               }
+                               
                                section {
                                    width: 100%;
                                    min-height: 440px;
@@ -919,7 +923,11 @@
                                }
                                
                                #downpayment .modal-dialog {
-                                   transform: translate(0, 100%)!important;
+                                   transform: translate(0, 30%)!important;
+                               }
+                               
+                               #fullpayment .modal-dialog {
+                                   transform: translate(0, 60%)!important;
                                }
                                
                                .modal-body label {
@@ -927,13 +935,6 @@
                                    display: block;
                                    font-weight: bolder;
                                    font-size: 12px;
-                               }
-                               
-                               #downpayment .modal-body form {
-                                   justify-content: center;
-                                   align-items: center;
-                                   display: flex;
-                                   flex-direction: column;
                                }
                                
                                .dashboard-nav {

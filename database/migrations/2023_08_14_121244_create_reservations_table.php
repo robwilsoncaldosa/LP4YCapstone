@@ -16,12 +16,12 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('room_id');
             $table->date('check_in_date');
-            $table->time('check_in_time');
+            $table->time('check_in_time')->nullable();
             $table->date('check_out_date');
-            $table->time('check_out_time');
+            $table->time('check_out_time')->nullable();
             $table->timestamp('checked_out_at')->nullable(); // Add the checked_out_at field
             $table->timestamps();
-            
+
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('room_id')->references('id')->on('rooms')->onDelete('cascade');
         });

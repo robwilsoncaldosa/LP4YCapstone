@@ -11,6 +11,8 @@ import '~jquery-ui-css';
 
 
 
+
+
 function updateTotal() {
     const checkInDate = $('#check-in').datepicker('getDate');
     const checkOutDate = $('#check-out').datepicker('getDate');
@@ -39,7 +41,7 @@ function updateTotal() {
 
 $(document).ready(function() {
     // Get the downpayment and total input elements
-    const $downpaymentInput = $('.downpaymentinput');
+    const $downpaymentInput = $('#downpaymentinput');
     const $totalInput = $('.total');
     const $bookNowButton = $('.book_now'); // Get the book-now button
 
@@ -256,4 +258,86 @@ $(document).ready(function() {
     $(".navbar-nav .nav-link").on("click", function() {
         $(".navbar-toggler").click();
     });
+
+
+});
+
+
+const input = document.querySelector("#phone");
+const input2 = document.querySelector("#phone2");
+
+const button = document.querySelector("#btn");
+const errorMsg = document.querySelector("#error-msg");
+const validMsg = document.querySelector("#valid-msg");
+const errorMsg2 = document.querySelector("#error-msg2");
+const validMsg2 = document.querySelector("#valid-msg2");
+
+// here, the index maps to the error code returned from getValidationError - see readme
+const errorMap = ["Invalid number", "Invalid country code", "Too short", "Too long", "Invalid number"];
+const iti = window.intlTelInput(input, {
+    nationalMode: true,
+    initialCountry: "auto",
+    geoIpLookup: callback => {
+        fetch("https://ipapi.co/json")
+            .then(res => res.json())
+            .then(data => callback(data.country_code))
+            .catch(() => callback("us"));
+    },
+    utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/js/utils.js",
+});
+
+const iti2 = window.intlTelInput(input2, {
+    nationalMode: true,
+    initialCountry: "auto",
+    geoIpLookup: callback => {
+        fetch("https://ipapi.co/json")
+            .then(res => res.json())
+            .then(data => callback(data.country_code))
+            .catch(() => callback("us"));
+    },
+    utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/js/utils.js",
+});
+
+const reset = () => {
+    input.classList.remove("error");
+    errorMsg.innerHTML = "";
+    errorMsg.classList.add("hide");
+    validMsg.classList.add("hide");
+    input2.classList.remove("error");
+    errorMsg2.innerHTML = "";
+    errorMsg2.classList.add("hide");
+    validMsg2.classList.add("hide");
+
+};
+
+
+// on input: validate
+input.addEventListener('input', () => {
+    reset();
+    if (input.value.trim()) {
+        if (iti.isValidNumber()) {
+            validMsg.classList.remove("hide");
+        } else {
+            input.classList.add("error");
+            const errorCode = iti.getValidationError();
+            errorMsg.innerHTML = errorMap[errorCode];
+            errorMsg.classList.remove("hide");
+        }
+    }
+});
+
+
+// on input: validate
+input2.addEventListener('input', () => {
+    reset();
+    if (input2.value.trim()) {
+        if (iti2.isValidNumber()) {
+            validMsg2.classList.remove("hide");
+        } else {
+            input2.classList.add("error");
+            const errorCode = iti.getValidationError();
+            errorMsg2.innerHTML = errorMap[errorCode];
+            errorMsg2.classList.remove("hide");
+        }
+    }
 });
