@@ -121,8 +121,7 @@
             </div>
         </div>
         <div class="container position-absolute  bottom-0 text-center p-4 " style="background: hsla(0,0%,62%,.1);">
-            <span> Don't have a LP4Y Guesthouse Account?</span>
-            <a href="#"> Sign Up Now!</a>
+            
         </div>
     </div>
 
