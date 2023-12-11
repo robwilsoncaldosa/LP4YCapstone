@@ -3,129 +3,199 @@
 @extends('layouts.layout') @section('title', 'Dashboard') @section('content')
 
 <style>
-      body{
+    body {
+        overflow-x: hidden;
+    }
 
-overflow-x: hidden;
-}
-.nav-link,
-p {
-color: #888b92;
-font-size: 16px;
-}
+    .nav-link,
+    p {
+        color: #888b92;
+        font-size: 16px;
+    }
 
-i {
-margin-right: 20px;
-font-size: 20px;
-}
+    i {
+        margin-right: 20px;
+        font-size: 20px;
+    }
 
-ul .nav-item:hover,
-.nav-item.active {
-color: black;
-background-color: #f6f7f6;
-border-radius: 25px;
-border-top-right-radius: 0px;
-border-end-end-radius: 0px;
-}
+    ul .nav-item:hover>.nav-link.active,
+    ul .nav-item:hover {
+        color: black;
+        background-color: #f6f7f6 !important;
+        border-radius: 25px;
+        border-top-right-radius: 0px;
+        border-end-end-radius: 0px;
+    }
 
-.content {
-background-color: #f6f7f6;
-min-height: 100vh;
-height: 100%;
-}
+    ul .nav-item .nav-link.active,
+    {
+        color: black;
+        background-color: #f6f7f6;
+        border-radius: 25px;
+        border-top-right-radius: 0px;
+        border-end-end-radius: 0px;
+    }
 
-.circle-portrait {
-display: inline-block;
-width: 35px;
-height: 35px;
-border-radius: 50%;
-background-color: rgb(70, 70, 70);
-text-align: center;
-line-height: 35px;
-font-size: 18px;
-font-weight: bold;
-color: white;
-margin-right: 10px;
-}
+    ul .nav-item:has(.nav-link.active) {
+        color: black;
+        background-color: #f6f7f6 !important;
+        border-radius: 25px;
+        border-top-right-radius: 0px;
+        border-end-end-radius: 0px;
+    }
 
-.search-filter {
-border: 1px solid #000; 
-border-radius: 0; 
-}
+    .content {
+        background-color: #f6f7f6;
+        min-height: 100vh;
+        height: 100%;
+    }
 
+    .circle-portrait {
+        display: inline-block;
+        width: 35px;
+        height: 35px;
+        border-radius: 50%;
+        background-color: rgb(70, 70, 70);
+        text-align: center;
+        line-height: 35px;
+        font-size: 18px;
+        font-weight: bold;
+        color: white;
+        margin-right: 10px;
+    }
 
-.btn-edit {
-background: transparent;
-border: 1px solid #000;
-border-radius: 0; 
-color: #000;
-transition: background-color 0.3s ease; 
-}
+    .search-filter {
+        border: 1px solid #000;
+        /* Black border */
+        border-radius: 0;
+        /* No border radius */
+    }
+    /* Responsive styles */
 
+    @media (max-width: 767px) {
+        .container-fluid.row {
+            flex-direction: column;
+        }
+        .nav {
+            width: 100%;
+            min-width: 0;
+            order: 2;
+            margin-top: 20px;
+            overflow-y: auto;
+            /* Add this to enable vertical scrolling for the navigation */
+            max-height: 80vh;
+            /* Adjust this based on your needs */
+        }
+        .content {
+            order: 1;
+            overflow-y: auto;
+            /* Add this to enable vertical scrolling for the content */
+            max-height: 80vh;
+            /* Adjust this based on your needs */
+        }
+    }
 
-.btn-delete {
-background: transparent;
-border: 1px solid #000;
-border-radius: 0;
-color: #000; 
-transition: background-color 0.3s ease;
-}
+    @media (min-width: 768px) {
+        .container-fluid.row {
+            flex-direction: row;
+        }
+        .navbar-nav {
+            justify-content: flex-start;
+        }
+        .col-lg-2 {
+            flex: 0 0 20%;
+            max-width: 20%;
+            padding-right: 15px;
+            padding-left: 15px;
+            background-color: white;
+        }
+        .content.col-10 {
+            flex: 0 0 80%;
+            max-width: 80%;
+            padding-right: 15px;
+            padding-left: 15px;
+        }
+    }
+    /* Additional styles for customization */
 
+    .notification .nav-link {
+        position: relative;
+    }
 
-.btn-edit:hover,
-.btn-delete:hover {
-background-color: #000;
-color: #fff; 
-}
+    .notification-count {
+        position: absolute;
+        top: 0;
+        right: 0;
+        background-color: red;
+        color: white;
+        border-radius: 50%;
+        padding: 5px 8px;
+        font-size: 12px;
+    }
+    /* Notification styles */
 
+    .notification {
+        position: relative;
+    }
+    /* Modal styles */
 
-/* Responsive styles */
-@media (max-width: 767px) {
-.container-fluid.row {
-    flex-direction: column;
-}
+    .modal {
+        display: none;
+        position: absolute;
+        bottom: 0;
+        left: 70%;
+        transform: translateY(18%);
+        background-color: #fff;
+        /* White background */
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        z-index: 1;
+        width: 500px;
+        /* Adjust the width as needed */
+        height: 640px;
+        border-radius: 12px;
+    }
 
-.nav {
-    width: 100%;
-    min-width: 0;
-    order: 2;
-    margin-top: 20px;
-    overflow-y: auto; 
-    max-height: 80vh; 
-}
+    .modal-content {
+        color: #000;
+        /* Black text */
+        width: 100%;
+        padding: 16px;
+        border-radius: 0px!important;
+        border-bottom: none;
+        border-right: none;
+        border-left: none;
+    }
 
-.content {
-    order: 1;
-    overflow-y: auto; 
-    max-height: 80vh; 
-}
+    .modal::-webkit-scrollbar {
+        width: 12px;
+        /* Width of the scrollbar */
+    }
 
-@media (min-width: 768px) {
-.container-fluid.row {
-    flex-direction: row;
-}
+    .modal::-webkit-scrollbar-thumb {
+        background-color: #f2f2f2;
+        /* Color of the scrollbar handle */
+    }
 
-.navbar-nav {
-    justify-content: flex-start;
-}
+    .modal::-webkit-scrollbar-track {
+        background-color: #fff;
+        /* Color of the scrollbar track */
+    }
+    /* YouTube-inspired color palette */
 
-.col-lg-2 {
-    flex: 0 0 20%;
-    max-width: 20%;
-    padding-right: 15px;
-    padding-left: 15px;
-    background-color: white;
-}
+    .notification-count {
+        background-color: #c4302b;
+        /* Red */
+        color: #fff;
+        /* White text */
+        border-radius: 50%;
+        padding: 4px 8px;
+        font-size: 14px;
+    }
 
-.content.col-10 {
-    flex: 0 0 80%;
-    max-width: 80%;
-    padding-right: 15px;
-    padding-left: 15px;
-}
-}
-}
-    
-    
+    .modal p {
+        margin: 8px 0;
+    }
 </style>
 
 @if(auth()->check())
@@ -147,7 +217,7 @@ color: #fff;
                 <li class="nav-item w-100  p-2">
                     <a class="nav-link " href="{{ route('dashboard.home') }}"><i class="fas fa-home"></i>HOME</a>
                 </li>
-           
+
 
                 <li class="nav-item w-100 p-2">
                   <a class="nav-link" href="{{ route('dashboard.reservations') }}"><i class="far fa-calendar-check"></i> RESERVATION</a>
@@ -170,11 +240,11 @@ color: #fff;
                     <li class="nav-item w-100 p-2">
                         <a class="nav-link " href="{{ route('dashboard.rooms') }}"><i class="fas fa-door-open"></i>ROOM</a>
                     </li>
-                    
+
                     <li class="nav-item w-100 p-2">
                     <a class="nav-link" href="{{ route('dashboard.transactions') }}"><i class="fas fa-exchange-alt"></i> TRANSACTIONS</a>
                 </li>
-                    
+
                     <li class="nav-item w-100 p-2">
                         <a class="nav-link" href="{{ route('dashboard.users') }}"><i class="fas fa-users"></i>USERS</a>
                     </li>
@@ -230,20 +300,60 @@ color: #fff;
                 <h4 class="p-2" style="color:#776061">Here's what's happening in your account today.</h4>
             </div>
 
-            <div class="notification p-4">
-                <ul class="navbar-nav flex-row  p-4">
-                    <li class="nav-item p-3">
-                        <a class="nav-link" href="#"><i class="far fa-envelope"
-                                style="color:black;font-size: 35px;"></i> </a>
-                    </li>
-                    <li class="nav-item p-3">
-                        <a class="nav-link" href="#"><i class="far fa-bell"
-                                style="color:black;font-size: 35px;"></i> </a>
-                    </li>
-                </ul>
+           <!-- Updated Notification Icon -->
+           <div class="notification p-4" id="notificationContainer">
+            <ul class="navbar-nav flex-row p-4">
+                <li class="nav-item p-3">
+                    <a class="nav-link" href="#" onclick="showReservations()">
+                        <i class="far fa-bell" style="color:black; font-size: 35px;"></i>
+                        <span class="notification-count" id="notificationCount">3</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
 
+        <!-- Pop-up Modal for Reservations -->
+        <div id="reservationModal" class="modal">
+            <h4 class="p-2 m-2" style="font-size:16px">Notifications</h4>
+            <div class="modal-content">
+                <?php
+    // Sort reservations by creation date in descending order
+    $sortedReservations = $reservations->sortByDesc('created_at');
+    ?>
+                    @foreach ($sortedReservations as $reservation)
+                    <div class="reservationRow d-flex justify-content-evenly align-items-center ">
+                        <div class="">
+                            <p>{{ $reservation->user->name }}</p>
+                        </div>
+                        <div>
+                            <p>{{ $reservation->room->room_name }}</p>
+
+                        </div>
+                        <div>
+                            <p>{{ $reservation->check_in_date }} {{ date('g:i A', strtotime($reservation->check_in_time)) }}</p>
+                            <p>{{ $reservation->check_out_date }} {{ date('g:i A', strtotime($reservation->check_out_time)) }}</p>
+                        </div>
+
+                    </div>
+                    @endforeach
             </div>
-        </header>
+        </div>
+        <script>
+            function showReservations() {
+                var modal = document.getElementById("reservationModal");
+
+                // Check if the modal is currently visible
+                var isVisible = window.getComputedStyle(modal).display !== "none";
+
+                // Toggle the display based on the current state
+                modal.style.display = isVisible ? "none" : "block";
+            }
+        </script>
+
+
+
+    </header>
+
 
         <main class="p-5 ">
 
@@ -371,7 +481,7 @@ color: #fff;
 
 
                 @if(request()->is('dashboard/rooms'))
-                 
+
                     <h2 class="mt-4">All Rooms</h2>
 
                     <!-- Add Room Button -->
@@ -431,7 +541,7 @@ color: #fff;
                                         </div>
 
                                         <!-- Image -->
-                                                        
+
                                         <div class="mb-3">
                                             <label for="image_path" class="form-label">Upload Image</label>
                                             <input type="file" class="form-control" id="image_path" name="image_path">
@@ -587,7 +697,7 @@ color: #fff;
                     </script>
                 @endif
 
- 
+
             @if(request()->is('dashboard/roomStatuses'))
             <h2>Room Status</h2>
             <div class="table-responsive">
@@ -648,7 +758,7 @@ color: #fff;
                         border-radius: 0;
                         background-color: #FFFAFA;
                         border: 1px solid #ccc;
-                      
+
                     }
                 </style>
 
@@ -684,7 +794,7 @@ color: #fff;
                             </form>
                             <button class="btn btn-outline-dark" type="button" id="createButton" data-bs-toggle="modal" data-bs-target="#createPersonnelModal">Create</button>
                         </div>
-                                    
+
                         <div class="table-responsive mt-4">
                             <table class="table">
                                 <thead>
@@ -759,7 +869,7 @@ color: #fff;
                 @endif
 
 
-           
+
 
                 @if(session('error'))
                             <div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
@@ -803,7 +913,7 @@ color: #fff;
                             </div>
                         </div>
                     </div>
-                    
+
                     <div class="mb-3">
                         <label for="nameFilter">Filter by Name:</label>
                         <input type="text" class="form-control" id="nameFilter" name="nameFilter" placeholder="Enter name...">
@@ -860,7 +970,7 @@ color: #fff;
                                 $.get('/dashboard/transactions/total-amount', function (data) {
                                     var totalAmount = data.totalAmount || 0;
                                     var totalRemainingBalance = data.totalRemainingBalance || 0;
-                                    
+
                                     // Display the updated total amount and total remaining balance with PHP label
                                     $('#totalAmountPaid').text('PHP ' + totalAmount);
                                     $('#totalRemainingBalance').text('PHP ' + totalRemainingBalance);
@@ -972,7 +1082,7 @@ color: #fff;
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
 <script>
-   
+
     document.addEventListener('DOMContentLoaded', function() {
         // Get the current full URL
         var currentUrl = window.location.href;
@@ -990,16 +1100,16 @@ color: #fff;
                 // Add the 'active' class to highlight the link
                 link.classList.add('active');
 
-              
-              
+
+
             }
 
 
         });
-        
+
     });
 
-    
+
 
     $(document).ready(function() {
     $('#searchInput').on('input', function() {
