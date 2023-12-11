@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Payment;
+use App\Models\Reservation;
 
 class PaymentController extends Controller
 {
@@ -37,9 +38,9 @@ class PaymentController extends Controller
     return redirect()->route('dashboard.transactions')->with('success', 'Payment updated successfully.');
 }
 
-    
 
-    
+
+
     public function destroy($id)
     {
         $payment = Payment::findOrFail($id);
@@ -53,8 +54,9 @@ public function showTransactions()
 {
     // Fetch payment data from the database
     $payments = Payment::with('reservation.user', 'reservation.room')->get();
+    $reservations = Reservation::all();
 
-    return view('dashboard', ['payments' => $payments]);
+    return view('dashboard', ['payments' => $payments, 'reservations' => $reservations]);
 }
 
 
@@ -62,7 +64,7 @@ public function getTotalAmount()
     {
         $totalAmount = Payment::sum('amount');
         $totalRemainingBalance = Payment::sum('remaining_total');
-        
+
         return response()->json([
             'totalAmount' => $totalAmount,
             'totalRemainingBalance' => $totalRemainingBalance,

@@ -21,7 +21,6 @@
     ul .nav-item:hover>.nav-link.active,
     ul .nav-item:hover {
         color: black;
-        background-color: #f6f7f6 !important;
         border-radius: 25px;
         border-top-right-radius: 0px;
         border-end-end-radius: 0px;
