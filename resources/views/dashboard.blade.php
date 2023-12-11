@@ -48,12 +48,34 @@
     }
 
     .search-filter {
-        border: 1px solid #000; /* Black border */
-        border-radius: 0; /* No border radius */
+        border: 1px solid #000; 
+        border-radius: 0; 
     }
 
 
+    .btn-edit {
+        background: transparent;
+        border: 1px solid #000;
+        border-radius: 0; 
+        color: #000;
+        transition: background-color 0.3s ease; 
+    }
 
+   
+    .btn-delete {
+        background: transparent;
+        border: 1px solid #000;
+        border-radius: 0;
+        color: #000; 
+        transition: background-color 0.3s ease;
+    }
+
+ 
+    .btn-edit:hover,
+    .btn-delete:hover {
+        background-color: #000;
+        color: #fff; 
+    }
    
 
     /* Responsive styles */
@@ -67,15 +89,14 @@
             min-width: 0;
             order: 2;
             margin-top: 20px;
-            overflow-y: auto; /* Add this to enable vertical scrolling for the navigation */
-            max-height: 80vh; /* Adjust this based on your needs */
+            overflow-y: auto; 
+            max-height: 80vh; 
         }
 
         .content {
             order: 1;
-            overflow-y: auto; /* Add this to enable vertical scrolling for the content */
-            max-height: 80vh; /* Adjust this based on your needs */
-        }
+            overflow-y: auto; 
+            max-height: 80vh; 
     }
 
     @media (min-width: 768px) {
@@ -102,7 +123,7 @@
             padding-left: 15px;
         }
     }
-    
+}
     
 </style>
 
@@ -148,6 +169,11 @@
                     <li class="nav-item w-100 p-2">
                         <a class="nav-link " href="{{ route('dashboard.rooms') }}"><i class="fas fa-door-open"></i>ROOM</a>
                     </li>
+                    
+                    <li class="nav-item w-100 p-2">
+                    <a class="nav-link" href="{{ route('dashboard.transactions') }}"><i class="fas fa-exchange-alt"></i> TRANSACTIONS</a>
+                </li>
+                    
                     <li class="nav-item w-100 p-2">
                         <a class="nav-link" href="{{ route('dashboard.users') }}"><i class="fas fa-users"></i>USERS</a>
                     </li>
@@ -643,94 +669,192 @@
 
 
 
-                @if(request()->is('dashboard/personnel'))
-                    <div class="container-fluid">
-                        <h2 class="mt-4">Personnel Management</h2>
-
-                        <!-- Add Search Bar -->
-
-                        <div class="d-flex justify-content-between align-items-center mt-3">
-                            <form class="mb-3">
-                                <div class="input-group">
-                                    <input type="text" class="form-control" id="searchInput" placeholder="Search personnel...">
-                                </div>
-                            </form>
-                            <button class="btn btn-outline-dark" type="button" id="createButton" data-bs-toggle="modal" data-bs-target="#createPersonnelModal">Create</button>
-                        </div>
-                                    
-                        <div class="table-responsive mt-4">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th>Name</th>
-                                        <th>Email</th>
-                                        <th>Role</th>
-                                        <th>Status</th>
-                                        <!-- Add more columns as needed -->
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach($personnels as $personnel)
-                                        @if($personnel->id !== auth()->user()->id)
-                                            <tr class="personnel-row">
-                                                <td>{{ $personnel->name }}</td>
-                                                <td>{{ $personnel->email }}</td>
-                                                <td>{{ $personnel->role }}</td>
-                                                <td>{{ $personnel->status }}</td>
-                                                <td>
-                                                    <div class="btn-group" role="group">
-                                                        <form action="{{ route('personnel.destroy', $personnel->id) }}" method="post">
-                                                            @csrf
-                                                            @method('delete')
-                                                            <button type="submit" class="btn btn-outline-dark" style="border-radius: 5px;">Delete</button>
-                                                        </form>
-                                                        <form action="{{ route('personnel.resetPassword', $personnel->id) }}" method="post">
-                                                            @csrf
-                                                            <button type="submit" class="btn btn-outline-dark" style="border-radius: 5px;">Reset</button>
-                                                        </form>
-                                                    </div>
-                                                </td>
-
-                                            </tr>
-                                        @endif
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-
-
-                    <!-- Create Modal -->
-                  <!-- Create Modal -->
-                    <div class="modal fade" id="createPersonnelModal" tabindex="-1" aria-labelledby="createPersonnelModalLabel" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="createPersonnelModalLabel">Create Personnel</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    <!-- Create Personnel Form -->
-                                    <form action="{{ route('personnel.store') }}" method="post">
-                                        @csrf
-                                        <div class="mb-3">
-                                            <label for="name" class="form-label">Name</label>
-                                            <input type="text" class="form-control" id="name" name="name" required>
+                        @if(session('error'))
+                            <div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="errorModalLabel">Error</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
-                                        <div class="mb-3">
-                                            <label for="email" class="form-label">Email</label>
-                                            <input type="email" class="form-control" id="email" name="email" required>
+                                        <div class="modal-body">
+                                            <div class="alert alert-danger">
+                                                {{ session('error') }}
+                                            </div>
                                         </div>
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                                        <button type="submit" class="btn btn-primary">Add User</button>
-                                    </form>
+                                    </div>
                                 </div>
+                            </div>
+
+                            <!-- Trigger the error modal automatically -->
+                            <script>
+                                $(document).ready(function () {
+                                    $('#errorModal').modal('show');
+                                });
+                            </script>
+                        @endif
+
+
+
+
+            @if(request()->is('dashboard/transactions'))
+                    <h2>Transactions</h2>
+
+                    <div class="total_net text-center mb-3">
+                        <div class="row justify-content-center">
+                            <div class="col-md-5 text-end">
+                                <strong><i class="fas fa-coins"></i> Total Receivable:</strong> <span id="totalRemainingBalance">PHP 0</span>
+                            </div>
+                            <div class="col-md-2"></div>
+                            <div class="col-md-5 text-start">
+                                <strong><i class="fas fa-money-bill-wave"></i> Current Total Income:</strong> <span id="totalAmountPaid">PHP 0</span>
                             </div>
                         </div>
                     </div>
-                @endif
+                    
+                    <div class="mb-3">
+                        <label for="nameFilter">Filter by Name:</label>
+                        <input type="text" class="form-control" id="nameFilter" name="nameFilter" placeholder="Enter name...">
+                    </div>
 
+                    <!-- Display transaction data in a table -->
+                    <div class="table-responsive">
+                        <table class="table" id="transactionsTable">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Price</th>
+                                    <th>Amount Paid</th>
+                                    <th>Remaining Balance</th>
+                                    <th>Payment Method</th>
+                                    <th>Date</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($payments as $payment)
+                                    <tr class="paymentRow">
+                                        <td>{{ $payment->reservation->user->name }}</td>
+                                        <td>{{ $payment->reservation->room->price_per_night }}</td>
+                                        <td>{{ $payment->amount }}</td>
+                                        <td>{{ $payment->remaining_total }}</td>
+                                        <td>{{ $payment->payment_method }}</td>
+                                        <td>{{ $payment->created_at }}</td>
+                                        <td>
+                                            <!-- Trigger modal for editing -->
+                                            <button class="btn btn-edit" data-bs-toggle="modal" data-bs-target="#editPaymentModal{{ $payment->id }}">
+                                                Edit
+                                            </button>
+
+                                            <!-- Delete button -->
+                                            <form action="{{ route('dashboard.transactions.destroy', ['id' => $payment->id]) }}" method="post" style="display: inline;">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-delete" onclick="return confirm('Are you sure you want to delete this payment?')">Delete</button>
+                                            </form>
+
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+                    <script>
+                        $(document).ready(function () {
+                            function updateTotalAmount() {
+                                // Fetch the total amount and total remaining balance from the server
+                                $.get('/dashboard/transactions/total-amount', function (data) {
+                                    var totalAmount = data.totalAmount || 0;
+                                    var totalRemainingBalance = data.totalRemainingBalance || 0;
+                                    
+                                    // Display the updated total amount and total remaining balance with PHP label
+                                    $('#totalAmountPaid').text('PHP ' + totalAmount);
+                                    $('#totalRemainingBalance').text('PHP ' + totalRemainingBalance);
+                                });
+                            }
+
+                            // Fetch the initial total amount and total remaining balance
+                            updateTotalAmount();
+
+                            // Listen for input changes in the name filter field
+                            $('#nameFilter').on('input', function () {
+                                // Get the entered filter text
+                                var filterText = $(this).val().toLowerCase();
+
+                                // Fetch and display the updated total amount and total remaining balance
+                                updateTotalAmount();
+
+                                // Loop through each row in the table body
+                                $('#transactionsTable tbody tr').each(function () {
+                                    // Get the text content of the third cell (amount paid)
+                                    var rowAmount = parseFloat($(this).find('td:nth-child(3)').text());
+
+                                    // Show or hide the row based on whether it matches the filter
+                                    var isVisible = rowAmount && (filterText === '' || $(this).text().toLowerCase().includes(filterText));
+                                    $(this).toggle(isVisible);
+                                });
+                            });
+                        });
+                    </script>
+
+                    @foreach($payments as $payment)
+                        <!-- Modal for editing payment -->
+                        <div class="modal fade" id="editPaymentModal{{ $payment->id }}" tabindex="-1" aria-labelledby="editPaymentModalLabel{{ $payment->id }}" aria-hidden="true">
+                            <div class="modal-dialog modal-sm">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="editPaymentModalLabel{{ $payment->id }}">Edit Payment</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <!-- Error message -->
+                                        <div class="alert alert-danger mb-3" id="amountError{{ $payment->id }}" style="display: none;">
+                                            Overpriced Amount! Please check the remaining balance.
+                                        </div>
+
+                                        <!-- Your payment edit form goes here -->
+                                        <form action="{{ route('dashboard.transactions.update', ['id' => $payment->id]) }}" method="post" onsubmit="return validateAmount{{ $payment->id }}()">
+                                            @csrf
+                                            @method('PUT')
+
+                                            <!-- Add your form fields for editing payment data -->
+                                            <div class="mb-3">
+                                                <label for="amount">Add amount:</label>
+                                                <input type="number" class="form-control" id="amount{{ $payment->id }}" name="amount" value="{{ $payment->amount }}" step="0.01" min="0" placeholder="Enter amount..." oninput="checkAndDisplayError{{ $payment->id }}(this)">
+                                            </div>
+                                            <!-- Add other fields as needed -->
+
+                                            <button type="submit" class="btn btn-primary">Update Payment</button>
+                                        </form>
+
+                                        <script>
+                                            // Function to validate amount on form submission
+                                            function validateAmount{{ $payment->id }}() {
+                                                // You can perform additional validation here if needed
+                                                return true;
+                                            }
+
+                                            // Function to check and display the error message on input change
+                                            function checkAndDisplayError{{ $payment->id }}(inputElement) {
+                                                var amountToAdd = parseFloat(inputElement.value);
+                                                var remainingBalance = parseFloat("{{ $payment->remaining_total }}");
+
+                                                // Display the error message if the added amount is greater than the remaining balance
+                                                if (amountToAdd > remainingBalance) {
+                                                    document.getElementById('amountError{{ $payment->id }}').style.display = 'block';
+                                                } else {
+                                                    document.getElementById('amountError{{ $payment->id }}').style.display = 'none';
+                                                }
+                                            }
+                                        </script>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                @endif
         </main>
 
     </div>
@@ -745,6 +869,10 @@
         alert('{{ session('success') }}');
     </script>
 @endif
+
+
+
+
 
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -802,10 +930,13 @@
 
 });
 
+
+
+
 </script>
 
 
-
+~
 
 
 @endsection
