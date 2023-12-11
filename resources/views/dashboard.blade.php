@@ -3,127 +3,128 @@
 @extends('layouts.layout') @section('title', 'Dashboard') @section('content')
 
 <style>
-     body{
+      body{
 
-        overflow-x: hidden;
-     }
-   .nav-link,
-    p {
-        color: #888b92;
-        font-size: 16px;
-    }
-
-    i {
-        margin-right: 20px;
-        font-size: 20px;
-    }
-
-    ul .nav-item:hover,
-    .nav-item.active {
-        color: black;
-        background-color: #f6f7f6;
-        border-radius: 25px;
-        border-top-right-radius: 0px;
-        border-end-end-radius: 0px;
-    }
-
-    .content {
-        background-color: #f6f7f6;
-        min-height: 100vh;
-        height: 100%;
-    }
-
-    .circle-portrait {
-        display: inline-block;
-        width: 35px;
-        height: 35px;
-        border-radius: 50%;
-        background-color: rgb(70, 70, 70);
-        text-align: center;
-        line-height: 35px;
-        font-size: 18px;
-        font-weight: bold;
-        color: white;
-        margin-right: 10px;
-    }
-
-    .search-filter {
-        border: 1px solid #000; 
-        border-radius: 0; 
-    }
-
-
-    .btn-edit {
-        background: transparent;
-        border: 1px solid #000;
-        border-radius: 0; 
-        color: #000;
-        transition: background-color 0.3s ease; 
-    }
-
-   
-    .btn-delete {
-        background: transparent;
-        border: 1px solid #000;
-        border-radius: 0;
-        color: #000; 
-        transition: background-color 0.3s ease;
-    }
-
- 
-    .btn-edit:hover,
-    .btn-delete:hover {
-        background-color: #000;
-        color: #fff; 
-    }
-   
-
-    /* Responsive styles */
-    @media (max-width: 767px) {
-        .container-fluid.row {
-            flex-direction: column;
-        }
-
-        .nav {
-            width: 100%;
-            min-width: 0;
-            order: 2;
-            margin-top: 20px;
-            overflow-y: auto; 
-            max-height: 80vh; 
-        }
-
-        .content {
-            order: 1;
-            overflow-y: auto; 
-            max-height: 80vh; 
-    }
-
-    @media (min-width: 768px) {
-        .container-fluid.row {
-            flex-direction: row;
-        }
-
-        .navbar-nav {
-            justify-content: flex-start;
-        }
-
-        .col-lg-2 {
-            flex: 0 0 20%;
-            max-width: 20%;
-            padding-right: 15px;
-            padding-left: 15px;
-            background-color: white;
-        }
-
-        .content.col-10 {
-            flex: 0 0 80%;
-            max-width: 80%;
-            padding-right: 15px;
-            padding-left: 15px;
-        }
-    }
+overflow-x: hidden;
 }
+.nav-link,
+p {
+color: #888b92;
+font-size: 16px;
+}
+
+i {
+margin-right: 20px;
+font-size: 20px;
+}
+
+ul .nav-item:hover,
+.nav-item.active {
+color: black;
+background-color: #f6f7f6;
+border-radius: 25px;
+border-top-right-radius: 0px;
+border-end-end-radius: 0px;
+}
+
+.content {
+background-color: #f6f7f6;
+min-height: 100vh;
+height: 100%;
+}
+
+.circle-portrait {
+display: inline-block;
+width: 35px;
+height: 35px;
+border-radius: 50%;
+background-color: rgb(70, 70, 70);
+text-align: center;
+line-height: 35px;
+font-size: 18px;
+font-weight: bold;
+color: white;
+margin-right: 10px;
+}
+
+.search-filter {
+border: 1px solid #000; 
+border-radius: 0; 
+}
+
+
+.btn-edit {
+background: transparent;
+border: 1px solid #000;
+border-radius: 0; 
+color: #000;
+transition: background-color 0.3s ease; 
+}
+
+
+.btn-delete {
+background: transparent;
+border: 1px solid #000;
+border-radius: 0;
+color: #000; 
+transition: background-color 0.3s ease;
+}
+
+
+.btn-edit:hover,
+.btn-delete:hover {
+background-color: #000;
+color: #fff; 
+}
+
+
+/* Responsive styles */
+@media (max-width: 767px) {
+.container-fluid.row {
+    flex-direction: column;
+}
+
+.nav {
+    width: 100%;
+    min-width: 0;
+    order: 2;
+    margin-top: 20px;
+    overflow-y: auto; 
+    max-height: 80vh; 
+}
+
+.content {
+    order: 1;
+    overflow-y: auto; 
+    max-height: 80vh; 
+}
+
+@media (min-width: 768px) {
+.container-fluid.row {
+    flex-direction: row;
+}
+
+.navbar-nav {
+    justify-content: flex-start;
+}
+
+.col-lg-2 {
+    flex: 0 0 20%;
+    max-width: 20%;
+    padding-right: 15px;
+    padding-left: 15px;
+    background-color: white;
+}
+
+.content.col-10 {
+    flex: 0 0 80%;
+    max-width: 80%;
+    padding-right: 15px;
+    padding-left: 15px;
+}
+}
+}
+    
     
 </style>
 
@@ -669,7 +670,98 @@
 
 
 
-                        @if(session('error'))
+                @if(request()->is('dashboard/personnel'))
+                    <div class="container-fluid">
+                        <h2 class="mt-4">Personnel Management</h2>
+
+                        <!-- Add Search Bar -->
+
+                        <div class="d-flex justify-content-between align-items-center mt-3">
+                            <form class="mb-3">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" id="searchInput" placeholder="Search personnel...">
+                                </div>
+                            </form>
+                            <button class="btn btn-outline-dark" type="button" id="createButton" data-bs-toggle="modal" data-bs-target="#createPersonnelModal">Create</button>
+                        </div>
+                                    
+                        <div class="table-responsive mt-4">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Email</th>
+                                        <th>Role</th>
+                                        <th>Status</th>
+                                        <!-- Add more columns as needed -->
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach($personnels as $personnel)
+                                        @if($personnel->id !== auth()->user()->id)
+                                            <tr class="personnel-row">
+                                                <td>{{ $personnel->name }}</td>
+                                                <td>{{ $personnel->email }}</td>
+                                                <td>{{ $personnel->role }}</td>
+                                                <td>{{ $personnel->status }}</td>
+                                                <td>
+                                                    <div class="btn-group" role="group">
+                                                        <form action="{{ route('personnel.destroy', $personnel->id) }}" method="post">
+                                                            @csrf
+                                                            @method('delete')
+                                                            <button type="submit" class="btn btn-outline-dark" style="border-radius: 5px;">Delete</button>
+                                                        </form>
+                                                        <form action="{{ route('personnel.resetPassword', $personnel->id) }}" method="post">
+                                                            @csrf
+                                                            <button type="submit" class="btn btn-outline-dark" style="border-radius: 5px;">Reset</button>
+                                                        </form>
+                                                    </div>
+                                                </td>
+
+                                            </tr>
+                                        @endif
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+
+                    <!-- Create Modal -->
+                  <!-- Create Modal -->
+                    <div class="modal fade" id="createPersonnelModal" tabindex="-1" aria-labelledby="createPersonnelModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="createPersonnelModalLabel">Create Personnel</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <!-- Create Personnel Form -->
+                                    <form action="{{ route('personnel.store') }}" method="post">
+                                        @csrf
+                                        <div class="mb-3">
+                                            <label for="name" class="form-label">Name</label>
+                                            <input type="text" class="form-control" id="name" name="name" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="email" class="form-label">Email</label>
+                                            <input type="email" class="form-control" id="email" name="email" required>
+                                        </div>
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                        <button type="submit" class="btn btn-primary">Add User</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endif
+
+
+           
+
+                @if(session('error'))
                             <div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
@@ -940,4 +1032,3 @@
 
 
 @endsection
- 
