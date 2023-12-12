@@ -3,198 +3,136 @@
 @extends('layouts.layout') @section('title', 'Dashboard') @section('content')
 
 <style>
-    body {
-        overflow-x: hidden;
-    }
+      body{
 
-    .nav-link,
-    p {
-        color: #888b92;
-        font-size: 16px;
-    }
+overflow-x: hidden;
+}
+.nav-link,
+p {
+color: #888b92;
+font-size: 16px;
+}
 
-    i {
-        margin-right: 20px;
-        font-size: 20px;
-    }
+i {
+margin-right: 20px;
+font-size: 20px;
+}
 
-    ul .nav-item:hover>.nav-link.active,
-    ul .nav-item:hover {
+ul .nav-item:hover,
+.nav-item.active {
+color: black;
+background-color: #f6f7f6;
+border-radius: 25px;
+border-top-right-radius: 0px;
+border-end-end-radius: 0px;
+}
+
+.content {
+background-color: #f6f7f6;
+min-height: 100vh;
+height: 100%;
+}
+
+.circle-portrait {
+display: inline-block;
+width: 35px;
+height: 35px;
+border-radius: 50%;
+background-color: rgb(70, 70, 70);
+text-align: center;
+line-height: 35px;
+font-size: 18px;
+font-weight: bold;
+color: white;
+margin-right: 10px;
+}
+
+.search-filter {
+border: 1px solid #000; 
+border-radius: 0; 
+}
+
+
+.btn-edit {
+background: transparent;
+border: 1px solid #000;
+border-radius: 0; 
+color: #000;
+transition: background-color 0.3s ease; 
+}
+
+
+.btn-delete {
+background: transparent;
+border: 1px solid #000;
+border-radius: 0;
+color: #000; 
+transition: background-color 0.3s ease;
+}
+
+
+.btn-edit:hover,
+.btn-delete:hover {
+background-color: #000;
+color: #fff; 
+}
+.btn-create-transaction {
+        background-color: transparent;
         color: black;
-        border-radius: 25px;
-        border-top-right-radius: 0px;
-        border-end-end-radius: 0px;
+        border: 2px solid black;
+        border-radius: 0; /* No border radius */
+        padding: 5px 10px; /* Adjust padding as needed */
     }
 
-    ul .nav-item .nav-link.active,
-    {
-        color: black;
-        background-color: #f6f7f6;
-        border-radius: 25px;
-        border-top-right-radius: 0px;
-        border-end-end-radius: 0px;
-    }
 
-    ul .nav-item:has(.nav-link.active) {
-        color: black;
-        background-color: #f6f7f6 !important;
-        border-radius: 25px;
-        border-top-right-radius: 0px;
-        border-end-end-radius: 0px;
-    }
+/* Responsive styles */
+@media (max-width: 767px) {
+.container-fluid.row {
+    flex-direction: column;
+}
 
-    .content {
-        background-color: #f6f7f6;
-        min-height: 100vh;
-        height: 100%;
-    }
+.nav {
+    width: 100%;
+    min-width: 0;
+    order: 2;
+    margin-top: 20px;
+    overflow-y: auto; 
+    max-height: 80vh; 
+}
 
-    .circle-portrait {
-        display: inline-block;
-        width: 35px;
-        height: 35px;
-        border-radius: 50%;
-        background-color: rgb(70, 70, 70);
-        text-align: center;
-        line-height: 35px;
-        font-size: 18px;
-        font-weight: bold;
-        color: white;
-        margin-right: 10px;
-    }
+.content {
+    order: 1;
+    overflow-y: auto; 
+    max-height: 80vh; 
+}
 
-    .search-filter {
-        border: 1px solid #000;
-        /* Black border */
-        border-radius: 0;
-        /* No border radius */
-    }
-    /* Responsive styles */
+@media (min-width: 768px) {
+.container-fluid.row {
+    flex-direction: row;
+}
 
-    @media (max-width: 767px) {
-        .container-fluid.row {
-            flex-direction: column;
-        }
-        .nav {
-            width: 100%;
-            min-width: 0;
-            order: 2;
-            margin-top: 20px;
-            overflow-y: auto;
-            /* Add this to enable vertical scrolling for the navigation */
-            max-height: 80vh;
-            /* Adjust this based on your needs */
-        }
-        .content {
-            order: 1;
-            overflow-y: auto;
-            /* Add this to enable vertical scrolling for the content */
-            max-height: 80vh;
-            /* Adjust this based on your needs */
-        }
-    }
+.navbar-nav {
+    justify-content: flex-start;
+}
 
-    @media (min-width: 768px) {
-        .container-fluid.row {
-            flex-direction: row;
-        }
-        .navbar-nav {
-            justify-content: flex-start;
-        }
-        .col-lg-2 {
-            flex: 0 0 20%;
-            max-width: 20%;
-            padding-right: 15px;
-            padding-left: 15px;
-            background-color: white;
-        }
-        .content.col-10 {
-            flex: 0 0 80%;
-            max-width: 80%;
-            padding-right: 15px;
-            padding-left: 15px;
-        }
-    }
-    /* Additional styles for customization */
+.col-lg-2 {
+    flex: 0 0 20%;
+    max-width: 20%;
+    padding-right: 15px;
+    padding-left: 15px;
+    background-color: white;
+}
 
-    .notification .nav-link {
-        position: relative;
-    }
-
-    .notification-count {
-        position: absolute;
-        top: 0;
-        right: 0;
-        background-color: red;
-        color: white;
-        border-radius: 50%;
-        padding: 5px 8px;
-        font-size: 12px;
-    }
-    /* Notification styles */
-
-    .notification {
-        position: relative;
-    }
-    /* Modal styles */
-
-    .modal {
-        display: none;
-        position: absolute;
-        bottom: 0;
-        left: 70%;
-        transform: translateY(18%);
-        background-color: #fff;
-        /* White background */
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        border-radius: 8px;
-        z-index: 1;
-        width: 500px;
-        /* Adjust the width as needed */
-        height: 640px;
-        border-radius: 12px;
-    }
-
-    .modal-content {
-        color: #000;
-        /* Black text */
-        width: 100%;
-        padding: 16px;
-        border-radius: 0px!important;
-        border-bottom: none;
-        border-right: none;
-        border-left: none;
-    }
-
-    .modal::-webkit-scrollbar {
-        width: 12px;
-        /* Width of the scrollbar */
-    }
-
-    .modal::-webkit-scrollbar-thumb {
-        background-color: #f2f2f2;
-        /* Color of the scrollbar handle */
-    }
-
-    .modal::-webkit-scrollbar-track {
-        background-color: #fff;
-        /* Color of the scrollbar track */
-    }
-    /* YouTube-inspired color palette */
-
-    .notification-count {
-        background-color: #c4302b;
-        /* Red */
-        color: #fff;
-        /* White text */
-        border-radius: 50%;
-        padding: 4px 8px;
-        font-size: 14px;
-    }
-
-    .modal p {
-        margin: 8px 0;
-    }
+.content.col-10 {
+    flex: 0 0 80%;
+    max-width: 80%;
+    padding-right: 15px;
+    padding-left: 15px;
+}
+}
+}
+    
+    
 </style>
 
 @if(auth()->check())
@@ -216,7 +154,7 @@
                 <li class="nav-item w-100  p-2">
                     <a class="nav-link " href="{{ route('dashboard.home') }}"><i class="fas fa-home"></i>HOME</a>
                 </li>
-
+           
 
                 <li class="nav-item w-100 p-2">
                   <a class="nav-link" href="{{ route('dashboard.reservations') }}"><i class="far fa-calendar-check"></i> RESERVATION</a>
@@ -239,11 +177,11 @@
                     <li class="nav-item w-100 p-2">
                         <a class="nav-link " href="{{ route('dashboard.rooms') }}"><i class="fas fa-door-open"></i>ROOM</a>
                     </li>
-
+                    
                     <li class="nav-item w-100 p-2">
                     <a class="nav-link" href="{{ route('dashboard.transactions') }}"><i class="fas fa-exchange-alt"></i> TRANSACTIONS</a>
                 </li>
-
+                    
                     <li class="nav-item w-100 p-2">
                         <a class="nav-link" href="{{ route('dashboard.users') }}"><i class="fas fa-users"></i>USERS</a>
                     </li>
@@ -299,60 +237,20 @@
                 <h4 class="p-2" style="color:#776061">Here's what's happening in your account today.</h4>
             </div>
 
-           <!-- Updated Notification Icon -->
-           <div class="notification p-4" id="notificationContainer">
-            <ul class="navbar-nav flex-row p-4">
-                <li class="nav-item p-3">
-                    <a class="nav-link" href="#" onclick="showReservations()">
-                        <i class="far fa-bell" style="color:black; font-size: 35px;"></i>
-                        <span class="notification-count" id="notificationCount">3</span>
-                    </a>
-                </li>
-            </ul>
-        </div>
+            <div class="notification p-4">
+                <ul class="navbar-nav flex-row  p-4">
+                    <li class="nav-item p-3">
+                        <a class="nav-link" href="#"><i class="far fa-envelope"
+                                style="color:black;font-size: 35px;"></i> </a>
+                    </li>
+                    <li class="nav-item p-3">
+                        <a class="nav-link" href="#"><i class="far fa-bell"
+                                style="color:black;font-size: 35px;"></i> </a>
+                    </li>
+                </ul>
 
-        <!-- Pop-up Modal for Reservations -->
-        <div id="reservationModal" class="modal">
-            <h4 class="p-2 m-2" style="font-size:16px">Notifications</h4>
-            <div class="modal-content">
-                <?php
-    // Sort reservations by creation date in descending order
-    $sortedReservations = $reservations->sortByDesc('created_at');
-    ?>
-                    @foreach ($sortedReservations as $reservation)
-                    <div class="reservationRow d-flex justify-content-evenly align-items-center ">
-                        <div class="">
-                            <p>{{ $reservation->user->name }}</p>
-                        </div>
-                        <div>
-                            <p>{{ $reservation->room->room_name }}</p>
-
-                        </div>
-                        <div>
-                            <p>{{ $reservation->check_in_date }} {{ date('g:i A', strtotime($reservation->check_in_time)) }}</p>
-                            <p>{{ $reservation->check_out_date }} {{ date('g:i A', strtotime($reservation->check_out_time)) }}</p>
-                        </div>
-
-                    </div>
-                    @endforeach
             </div>
-        </div>
-        <script>
-            function showReservations() {
-                var modal = document.getElementById("reservationModal");
-
-                // Check if the modal is currently visible
-                var isVisible = window.getComputedStyle(modal).display !== "none";
-
-                // Toggle the display based on the current state
-                modal.style.display = isVisible ? "none" : "block";
-            }
-        </script>
-
-
-
-    </header>
-
+        </header>
 
         <main class="p-5 ">
 
@@ -480,7 +378,7 @@
 
 
                 @if(request()->is('dashboard/rooms'))
-
+                 
                     <h2 class="mt-4">All Rooms</h2>
 
                     <!-- Add Room Button -->
@@ -540,7 +438,7 @@
                                         </div>
 
                                         <!-- Image -->
-
+                                                        
                                         <div class="mb-3">
                                             <label for="image_path" class="form-label">Upload Image</label>
                                             <input type="file" class="form-control" id="image_path" name="image_path">
@@ -696,7 +594,7 @@
                     </script>
                 @endif
 
-
+ 
             @if(request()->is('dashboard/roomStatuses'))
             <h2>Room Status</h2>
             <div class="table-responsive">
@@ -757,7 +655,7 @@
                         border-radius: 0;
                         background-color: #FFFAFA;
                         border: 1px solid #ccc;
-
+                      
                     }
                 </style>
 
@@ -793,7 +691,7 @@
                             </form>
                             <button class="btn btn-outline-dark" type="button" id="createButton" data-bs-toggle="modal" data-bs-target="#createPersonnelModal">Create</button>
                         </div>
-
+                                    
                         <div class="table-responsive mt-4">
                             <table class="table">
                                 <thead>
@@ -868,7 +766,7 @@
                 @endif
 
 
-
+           
 
                 @if(session('error'))
                             <div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
@@ -902,17 +800,27 @@
                     <h2>Transactions</h2>
 
                     <div class="total_net text-center mb-3">
-                        <div class="row justify-content-center">
-                            <div class="col-md-5 text-end">
-                                <strong><i class="fas fa-coins"></i> Total Receivable:</strong> <span id="totalRemainingBalance">PHP 0</span>
-                            </div>
-                            <div class="col-md-2"></div>
-                            <div class="col-md-5 text-start">
-                                <strong><i class="fas fa-money-bill-wave"></i> Current Total Income:</strong> <span id="totalAmountPaid">PHP 0</span>
+                            <div class="row justify-content-between">
+
+                                <div class="col-md-4 text-end">
+                                    <strong><i class="fas fa-coins"></i> Total Receivable:</strong> <span id="totalRemainingBalance">PHP 0</span>
+                                </div>
+
+                                <div class="col-md-4 text-start">
+                                    <strong><i class="fas fa-money-bill-wave"></i> Current Total Income:</strong> <span id="totalAmountPaid">PHP 0</span>
+                                </div>
+
+                                <div class="col-md-4 text-start">
+                                    <button type="button" class="btn btn-create-transaction" data-bs-toggle="modal" data-bs-target="#createPaymentModal">
+                                        Create New Transaction
+                                    </button>
+                                </div>
+                                
                             </div>
                         </div>
-                    </div>
 
+
+                    
                     <div class="mb-3">
                         <label for="nameFilter">Filter by Name:</label>
                         <input type="text" class="form-control" id="nameFilter" name="nameFilter" placeholder="Enter name...">
@@ -961,6 +869,113 @@
                         </table>
                     </div>
 
+                  <!-- Modal for creating new transaction -->
+<div class="modal fade" id="createPaymentModal" tabindex="-1" aria-labelledby="createPaymentModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="createPaymentModalLabel">Create New Transaction</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Your form for creating a new transaction goes here -->
+             <!-- Your form for creating a new transaction goes here -->
+<form action="{{ route('dashboard.transactions.storeTransaction') }}" method="post">
+    @csrf
+
+    <!-- Add your form fields for creating a new transaction -->
+    <div class="mb-3">
+        <label for="name">Name:</label>
+        <input type="text" class="form-control" id="name" name="name" placeholder="Enter name..." required>
+    </div>
+
+    <div class="mb-3">
+        <label for="email">Email:</label>
+        <input type="email" class="form-control" id="email" name="email" placeholder="Enter email..." required>
+    </div>
+
+    <!-- Add mobile number fields -->
+    <div class="mb-3">
+    <label for="country_code">Country Code:</label>
+    <select class="form-select" id="country_code" name="country_code" required>
+    <option value="+63">+63 (Philippines)</option>
+    <option value="+1">+1 (United States)</option>
+        <option value="+44">+44 (United Kingdom)</option>
+        <option value="+33">+33 (France)</option>
+        <option value="+49">+49 (Germany)</option>
+        <option value="+81">+81 (Japan)</option>
+        <option value="+86">+86 (China)</option>
+        
+     
+    </select>
+</div>
+
+<div class="mb-3">
+    <label for="mobile">Mobile Number:</label>
+    <div class="input-group">
+        <span class="input-group-text" id="countryCodeDisplay">+63</span>
+        <input type="tel" class="form-control" id="mobile" name="mobile" placeholder="Enter mobile number..." required>
+    </div>
+</div>
+
+
+    <div class="mb-3">
+        <label for="room_id">Room Name:</label>
+        <select class="form-select" id="room_id" name="room_id" required>
+            @foreach($rooms as $roomId => $room)
+                <option value="{{ $roomId }}">{{ $room }}</option>
+            @endforeach
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label for="amount">Amount:</label>
+        <input type="number" class="form-control" id="amount" name="amount" step="0.01" min="0" placeholder="Enter amount..." required>
+    </div>
+
+    <div class="mb-3">
+        <label for="payment_method">Payment Method:</label>
+        <select class="form-select" id="payment_method" name="payment_method" required>
+            <option value="cash">Cash</option>
+            <option value="credit_card">Credit Card</option>
+            <!-- Add other payment methods as needed -->
+        </select>
+    </div>
+
+
+     <!-- Additional fields for check-in and check-out dates and times -->
+     <div class="mb-3">
+                        <label for="check_in_date">Check-in Date:</label>
+                        <input type="date" class="form-control" id="check_in_date" name="check_in_date" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="check_in_time">Check-in Time:</label>
+                        <input type="time" class="form-control" id="check_in_time" name="check_in_time" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="check_out_date">Check-out Date:</label>
+                        <input type="date" class="form-control" id="check_out_date" name="check_out_date" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="check_out_time">Check-out Time:</label>
+                        <input type="time" class="form-control" id="check_out_time" name="check_out_time" required>
+                    </div>
+
+    <!-- Add other fields as needed -->
+
+    <button type="submit" class="btn btn-primary">Create Transaction</button>
+</form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
                     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
                     <script>
                         $(document).ready(function () {
@@ -969,7 +984,7 @@
                                 $.get('/dashboard/transactions/total-amount', function (data) {
                                     var totalAmount = data.totalAmount || 0;
                                     var totalRemainingBalance = data.totalRemainingBalance || 0;
-
+                                    
                                     // Display the updated total amount and total remaining balance with PHP label
                                     $('#totalAmountPaid').text('PHP ' + totalAmount);
                                     $('#totalRemainingBalance').text('PHP ' + totalRemainingBalance);
@@ -1081,7 +1096,7 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
 <script>
-
+   
     document.addEventListener('DOMContentLoaded', function() {
         // Get the current full URL
         var currentUrl = window.location.href;
@@ -1099,16 +1114,16 @@
                 // Add the 'active' class to highlight the link
                 link.classList.add('active');
 
-
-
+              
+              
             }
 
 
         });
-
+        
     });
 
-
+    
 
     $(document).ready(function() {
     $('#searchInput').on('input', function() {
@@ -1132,7 +1147,14 @@
 });
 
 
+ // Listen for changes in the country code dropdown
+ document.getElementById('country_code').addEventListener('change', function () {
+        // Get the selected country code
+        var selectedCountryCode = this.value;
 
+        // Update the displayed country code next to the mobile input
+        document.getElementById('countryCodeDisplay').textContent = selectedCountryCode;
+    });
 
 </script>
 

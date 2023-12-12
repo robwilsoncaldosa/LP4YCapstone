@@ -11,6 +11,7 @@ use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PaymentController;
 use App\Models\Reservation;
+use App\Models\room;
 use Carbon\Carbon;
 
 
@@ -112,6 +113,10 @@ Route::get('/dashboard/transactions', [PaymentController::class, 'showTransactio
 Route::put('/dashboard/transactions/{id}', [PaymentController::class, 'update'])->name('dashboard.transactions.update');
 Route::delete('/dashboard/transactions/{id}', [PaymentController::class, 'destroy'])->name('dashboard.transactions.destroy');
 Route::get('/dashboard/transactions/total-amount', [PaymentController::class, 'getTotalAmount']);
+
+
+    // Route::get('dashboard/transactions/rooms', [PaymentController::class, 'createTransaction'])->name('dashboard.transactions.rooms');
+    Route::post('/transactions/storeTransaction', [PaymentController::class, 'storeTransaction'])->name('dashboard.transactions.storeTransaction');
 
 
 });
