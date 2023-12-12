@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Reservation;
+use App\Models\Payment;
 use App\Models\User;
 
 use Carbon\Carbon;
@@ -51,5 +52,7 @@ public function checkout($reservationId)
 
     // Return a response or redirect as needed
 }
+
+
 
 }

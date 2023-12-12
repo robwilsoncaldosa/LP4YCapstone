@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\PaymentController;
 use App\Models\Reservation;
 use Carbon\Carbon;
 
@@ -105,7 +106,18 @@ Route::delete('/rooms/{id}', [RoomController::class, 'destroy'])->name('rooms.de
 Route::delete('/users/{id}', [UserController::class, 'destroy'])->name('users.destroy');
 Route::post('/personnel/reset-password/{id}', [PersonnelController::class, 'resetPassword'])->name('personnel.resetPassword');
 
+
+Route::get('/dashboard/transactions', [PaymentController::class, 'showTransactions'])->name('dashboard.transactions');
+// Route::get('/dashboard/transactions/{id}/edit', [PaymentController::class, 'edit'])->name('dashboard.transactions.edit');
+Route::put('/dashboard/transactions/{id}', [PaymentController::class, 'update'])->name('dashboard.transactions.update');
+Route::delete('/dashboard/transactions/{id}', [PaymentController::class, 'destroy'])->name('dashboard.transactions.destroy');
+Route::get('/dashboard/transactions/total-amount', [PaymentController::class, 'getTotalAmount']);
+
+
 });
+
+
+
 
 
 

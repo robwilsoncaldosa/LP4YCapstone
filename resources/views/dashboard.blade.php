@@ -3,11 +3,11 @@
 @extends('layouts.layout') @section('title', 'Dashboard') @section('content')
 
 <style>
-     body{
-
+    body {
         overflow-x: hidden;
-     }
-   .nav-link,
+    }
+
+    .nav-link,
     p {
         color: #888b92;
         font-size: 16px;
@@ -18,10 +18,26 @@
         font-size: 20px;
     }
 
-    ul .nav-item:hover,
-    .nav-item.active {
+    ul .nav-item:hover>.nav-link.active,
+    ul .nav-item:hover {
+        color: black;
+        border-radius: 25px;
+        border-top-right-radius: 0px;
+        border-end-end-radius: 0px;
+    }
+
+    ul .nav-item .nav-link.active,
+    {
         color: black;
         background-color: #f6f7f6;
+        border-radius: 25px;
+        border-top-right-radius: 0px;
+        border-end-end-radius: 0px;
+    }
+
+    ul .nav-item:has(.nav-link.active) {
+        color: black;
+        background-color: #f6f7f6 !important;
         border-radius: 25px;
         border-top-right-radius: 0px;
         border-end-end-radius: 0px;
@@ -48,33 +64,33 @@
     }
 
     .search-filter {
-        border: 1px solid #000; /* Black border */
-        border-radius: 0; /* No border radius */
+        border: 1px solid #000;
+        /* Black border */
+        border-radius: 0;
+        /* No border radius */
     }
-
-
-
-   
-
     /* Responsive styles */
+
     @media (max-width: 767px) {
         .container-fluid.row {
             flex-direction: column;
         }
-
         .nav {
             width: 100%;
             min-width: 0;
             order: 2;
             margin-top: 20px;
-            overflow-y: auto; /* Add this to enable vertical scrolling for the navigation */
-            max-height: 80vh; /* Adjust this based on your needs */
+            overflow-y: auto;
+            /* Add this to enable vertical scrolling for the navigation */
+            max-height: 80vh;
+            /* Adjust this based on your needs */
         }
-
         .content {
             order: 1;
-            overflow-y: auto; /* Add this to enable vertical scrolling for the content */
-            max-height: 80vh; /* Adjust this based on your needs */
+            overflow-y: auto;
+            /* Add this to enable vertical scrolling for the content */
+            max-height: 80vh;
+            /* Adjust this based on your needs */
         }
     }
 
@@ -82,11 +98,9 @@
         .container-fluid.row {
             flex-direction: row;
         }
-
         .navbar-nav {
             justify-content: flex-start;
         }
-
         .col-lg-2 {
             flex: 0 0 20%;
             max-width: 20%;
@@ -94,7 +108,6 @@
             padding-left: 15px;
             background-color: white;
         }
-
         .content.col-10 {
             flex: 0 0 80%;
             max-width: 80%;
@@ -102,8 +115,86 @@
             padding-left: 15px;
         }
     }
-    
-    
+    /* Additional styles for customization */
+
+    .notification .nav-link {
+        position: relative;
+    }
+
+    .notification-count {
+        position: absolute;
+        top: 0;
+        right: 0;
+        background-color: red;
+        color: white;
+        border-radius: 50%;
+        padding: 5px 8px;
+        font-size: 12px;
+    }
+    /* Notification styles */
+
+    .notification {
+        position: relative;
+    }
+    /* Modal styles */
+
+    .modal {
+        display: none;
+        position: absolute;
+        bottom: 0;
+        left: 70%;
+        transform: translateY(18%);
+        background-color: #fff;
+        /* White background */
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        z-index: 1;
+        width: 500px;
+        /* Adjust the width as needed */
+        height: 640px;
+        border-radius: 12px;
+    }
+
+    .modal-content {
+        color: #000;
+        /* Black text */
+        width: 100%;
+        padding: 16px;
+        border-radius: 0px!important;
+        border-bottom: none;
+        border-right: none;
+        border-left: none;
+    }
+
+    .modal::-webkit-scrollbar {
+        width: 12px;
+        /* Width of the scrollbar */
+    }
+
+    .modal::-webkit-scrollbar-thumb {
+        background-color: #f2f2f2;
+        /* Color of the scrollbar handle */
+    }
+
+    .modal::-webkit-scrollbar-track {
+        background-color: #fff;
+        /* Color of the scrollbar track */
+    }
+    /* YouTube-inspired color palette */
+
+    .notification-count {
+        background-color: #c4302b;
+        /* Red */
+        color: #fff;
+        /* White text */
+        border-radius: 50%;
+        padding: 4px 8px;
+        font-size: 14px;
+    }
+
+    .modal p {
+        margin: 8px 0;
+    }
 </style>
 
 @if(auth()->check())
@@ -125,7 +216,7 @@
                 <li class="nav-item w-100  p-2">
                     <a class="nav-link " href="{{ route('dashboard.home') }}"><i class="fas fa-home"></i>HOME</a>
                 </li>
-           
+
 
                 <li class="nav-item w-100 p-2">
                   <a class="nav-link" href="{{ route('dashboard.reservations') }}"><i class="far fa-calendar-check"></i> RESERVATION</a>
@@ -148,6 +239,11 @@
                     <li class="nav-item w-100 p-2">
                         <a class="nav-link " href="{{ route('dashboard.rooms') }}"><i class="fas fa-door-open"></i>ROOM</a>
                     </li>
+
+                    <li class="nav-item w-100 p-2">
+                    <a class="nav-link" href="{{ route('dashboard.transactions') }}"><i class="fas fa-exchange-alt"></i> TRANSACTIONS</a>
+                </li>
+
                     <li class="nav-item w-100 p-2">
                         <a class="nav-link" href="{{ route('dashboard.users') }}"><i class="fas fa-users"></i>USERS</a>
                     </li>
@@ -203,20 +299,60 @@
                 <h4 class="p-2" style="color:#776061">Here's what's happening in your account today.</h4>
             </div>
 
-            <div class="notification p-4">
-                <ul class="navbar-nav flex-row  p-4">
-                    <li class="nav-item p-3">
-                        <a class="nav-link" href="#"><i class="far fa-envelope"
-                                style="color:black;font-size: 35px;"></i> </a>
-                    </li>
-                    <li class="nav-item p-3">
-                        <a class="nav-link" href="#"><i class="far fa-bell"
-                                style="color:black;font-size: 35px;"></i> </a>
-                    </li>
-                </ul>
+           <!-- Updated Notification Icon -->
+           <div class="notification p-4" id="notificationContainer">
+            <ul class="navbar-nav flex-row p-4">
+                <li class="nav-item p-3">
+                    <a class="nav-link" href="#" onclick="showReservations()">
+                        <i class="far fa-bell" style="color:black; font-size: 35px;"></i>
+                        <span class="notification-count" id="notificationCount">3</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
 
+        <!-- Pop-up Modal for Reservations -->
+        <div id="reservationModal" class="modal">
+            <h4 class="p-2 m-2" style="font-size:16px">Notifications</h4>
+            <div class="modal-content">
+                <?php
+    // Sort reservations by creation date in descending order
+    $sortedReservations = $reservations->sortByDesc('created_at');
+    ?>
+                    @foreach ($sortedReservations as $reservation)
+                    <div class="reservationRow d-flex justify-content-evenly align-items-center ">
+                        <div class="">
+                            <p>{{ $reservation->user->name }}</p>
+                        </div>
+                        <div>
+                            <p>{{ $reservation->room->room_name }}</p>
+
+                        </div>
+                        <div>
+                            <p>{{ $reservation->check_in_date }} {{ date('g:i A', strtotime($reservation->check_in_time)) }}</p>
+                            <p>{{ $reservation->check_out_date }} {{ date('g:i A', strtotime($reservation->check_out_time)) }}</p>
+                        </div>
+
+                    </div>
+                    @endforeach
             </div>
-        </header>
+        </div>
+        <script>
+            function showReservations() {
+                var modal = document.getElementById("reservationModal");
+
+                // Check if the modal is currently visible
+                var isVisible = window.getComputedStyle(modal).display !== "none";
+
+                // Toggle the display based on the current state
+                modal.style.display = isVisible ? "none" : "block";
+            }
+        </script>
+
+
+
+    </header>
+
 
         <main class="p-5 ">
 
@@ -344,7 +480,7 @@
 
 
                 @if(request()->is('dashboard/rooms'))
-                 
+
                     <h2 class="mt-4">All Rooms</h2>
 
                     <!-- Add Room Button -->
@@ -404,7 +540,7 @@
                                         </div>
 
                                         <!-- Image -->
-                                                        
+
                                         <div class="mb-3">
                                             <label for="image_path" class="form-label">Upload Image</label>
                                             <input type="file" class="form-control" id="image_path" name="image_path">
@@ -560,7 +696,7 @@
                     </script>
                 @endif
 
- 
+
             @if(request()->is('dashboard/roomStatuses'))
             <h2>Room Status</h2>
             <div class="table-responsive">
@@ -621,7 +757,7 @@
                         border-radius: 0;
                         background-color: #FFFAFA;
                         border: 1px solid #ccc;
-                      
+
                     }
                 </style>
 
@@ -657,7 +793,7 @@
                             </form>
                             <button class="btn btn-outline-dark" type="button" id="createButton" data-bs-toggle="modal" data-bs-target="#createPersonnelModal">Create</button>
                         </div>
-                                    
+
                         <div class="table-responsive mt-4">
                             <table class="table">
                                 <thead>
@@ -731,6 +867,195 @@
                     </div>
                 @endif
 
+
+
+
+                @if(session('error'))
+                            <div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="errorModalLabel">Error</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="alert alert-danger">
+                                                {{ session('error') }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Trigger the error modal automatically -->
+                            <script>
+                                $(document).ready(function () {
+                                    $('#errorModal').modal('show');
+                                });
+                            </script>
+                        @endif
+
+
+
+
+            @if(request()->is('dashboard/transactions'))
+                    <h2>Transactions</h2>
+
+                    <div class="total_net text-center mb-3">
+                        <div class="row justify-content-center">
+                            <div class="col-md-5 text-end">
+                                <strong><i class="fas fa-coins"></i> Total Receivable:</strong> <span id="totalRemainingBalance">PHP 0</span>
+                            </div>
+                            <div class="col-md-2"></div>
+                            <div class="col-md-5 text-start">
+                                <strong><i class="fas fa-money-bill-wave"></i> Current Total Income:</strong> <span id="totalAmountPaid">PHP 0</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="nameFilter">Filter by Name:</label>
+                        <input type="text" class="form-control" id="nameFilter" name="nameFilter" placeholder="Enter name...">
+                    </div>
+
+                    <!-- Display transaction data in a table -->
+                    <div class="table-responsive">
+                        <table class="table" id="transactionsTable">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Price</th>
+                                    <th>Amount Paid</th>
+                                    <th>Remaining Balance</th>
+                                    <th>Payment Method</th>
+                                    <th>Date</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($payments as $payment)
+                                    <tr class="paymentRow">
+                                        <td>{{ $payment->reservation->user->name }}</td>
+                                        <td>{{ $payment->reservation->room->price_per_night }}</td>
+                                        <td>{{ $payment->amount }}</td>
+                                        <td>{{ $payment->remaining_total }}</td>
+                                        <td>{{ $payment->payment_method }}</td>
+                                        <td>{{ $payment->created_at }}</td>
+                                        <td>
+                                            <!-- Trigger modal for editing -->
+                                            <button class="btn btn-edit" data-bs-toggle="modal" data-bs-target="#editPaymentModal{{ $payment->id }}">
+                                                Edit
+                                            </button>
+
+                                            <!-- Delete button -->
+                                            <form action="{{ route('dashboard.transactions.destroy', ['id' => $payment->id]) }}" method="post" style="display: inline;">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-delete" onclick="return confirm('Are you sure you want to delete this payment?')">Delete</button>
+                                            </form>
+
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+                    <script>
+                        $(document).ready(function () {
+                            function updateTotalAmount() {
+                                // Fetch the total amount and total remaining balance from the server
+                                $.get('/dashboard/transactions/total-amount', function (data) {
+                                    var totalAmount = data.totalAmount || 0;
+                                    var totalRemainingBalance = data.totalRemainingBalance || 0;
+
+                                    // Display the updated total amount and total remaining balance with PHP label
+                                    $('#totalAmountPaid').text('PHP ' + totalAmount);
+                                    $('#totalRemainingBalance').text('PHP ' + totalRemainingBalance);
+                                });
+                            }
+
+                            // Fetch the initial total amount and total remaining balance
+                            updateTotalAmount();
+
+                            // Listen for input changes in the name filter field
+                            $('#nameFilter').on('input', function () {
+                                // Get the entered filter text
+                                var filterText = $(this).val().toLowerCase();
+
+                                // Fetch and display the updated total amount and total remaining balance
+                                updateTotalAmount();
+
+                                // Loop through each row in the table body
+                                $('#transactionsTable tbody tr').each(function () {
+                                    // Get the text content of the third cell (amount paid)
+                                    var rowAmount = parseFloat($(this).find('td:nth-child(3)').text());
+
+                                    // Show or hide the row based on whether it matches the filter
+                                    var isVisible = rowAmount && (filterText === '' || $(this).text().toLowerCase().includes(filterText));
+                                    $(this).toggle(isVisible);
+                                });
+                            });
+                        });
+                    </script>
+
+                    @foreach($payments as $payment)
+                        <!-- Modal for editing payment -->
+                        <div class="modal fade" id="editPaymentModal{{ $payment->id }}" tabindex="-1" aria-labelledby="editPaymentModalLabel{{ $payment->id }}" aria-hidden="true">
+                            <div class="modal-dialog modal-sm">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="editPaymentModalLabel{{ $payment->id }}">Edit Payment</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <!-- Error message -->
+                                        <div class="alert alert-danger mb-3" id="amountError{{ $payment->id }}" style="display: none;">
+                                            Overpriced Amount! Please check the remaining balance.
+                                        </div>
+
+                                        <!-- Your payment edit form goes here -->
+                                        <form action="{{ route('dashboard.transactions.update', ['id' => $payment->id]) }}" method="post" onsubmit="return validateAmount{{ $payment->id }}()">
+                                            @csrf
+                                            @method('PUT')
+
+                                            <!-- Add your form fields for editing payment data -->
+                                            <div class="mb-3">
+                                                <label for="amount">Add amount:</label>
+                                                <input type="number" class="form-control" id="amount{{ $payment->id }}" name="amount" value="{{ $payment->amount }}" step="0.01" min="0" placeholder="Enter amount..." oninput="checkAndDisplayError{{ $payment->id }}(this)">
+                                            </div>
+                                            <!-- Add other fields as needed -->
+
+                                            <button type="submit" class="btn btn-primary">Update Payment</button>
+                                        </form>
+
+                                        <script>
+                                            // Function to validate amount on form submission
+                                            function validateAmount{{ $payment->id }}() {
+                                                // You can perform additional validation here if needed
+                                                return true;
+                                            }
+
+                                            // Function to check and display the error message on input change
+                                            function checkAndDisplayError{{ $payment->id }}(inputElement) {
+                                                var amountToAdd = parseFloat(inputElement.value);
+                                                var remainingBalance = parseFloat("{{ $payment->remaining_total }}");
+
+                                                // Display the error message if the added amount is greater than the remaining balance
+                                                if (amountToAdd > remainingBalance) {
+                                                    document.getElementById('amountError{{ $payment->id }}').style.display = 'block';
+                                                } else {
+                                                    document.getElementById('amountError{{ $payment->id }}').style.display = 'none';
+                                                }
+                                            }
+                                        </script>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                @endif
         </main>
 
     </div>
@@ -747,12 +1072,16 @@
 @endif
 
 
+
+
+
+
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
 <script>
-   
+
     document.addEventListener('DOMContentLoaded', function() {
         // Get the current full URL
         var currentUrl = window.location.href;
@@ -770,16 +1099,16 @@
                 // Add the 'active' class to highlight the link
                 link.classList.add('active');
 
-              
-              
+
+
             }
 
 
         });
-        
+
     });
 
-    
+
 
     $(document).ready(function() {
     $('#searchInput').on('input', function() {
@@ -802,11 +1131,13 @@
 
 });
 
+
+
+
 </script>
 
 
-
+~
 
 
 @endsection
- 
