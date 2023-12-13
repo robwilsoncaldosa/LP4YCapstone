@@ -74,16 +74,16 @@ Route::middleware(['auth'])->group(function () {
 
 
         } else {
-            // Handle the case where $user is not found
-            ddd($user);
+      
             return redirect('login')->with('error', 'User not found');
         }
     })->name('dashboard');
- 
 
-
-    
+    Route::put('/dashboard/reservations/{id}', [ReservationController::class, 'updateReservation'])->name('dashboard.reservations.update');
+    Route::delete('/dashboard/reservations/cancel/{id}', [ReservationController::class, 'cancelReservation'])->name('dashboard.reservations.cancel');
     Route::get('/dashboard/reservations', [ReservationController::class, 'showReservations'])->name('dashboard.reservations');
+
+
     Route::get('/dashboard/home', [ReservationController::class, 'homeView'])->name('dashboard.home');
     Route::get('/dashboard/rooms', [RoomController::class, 'showAllRooms'])->name('dashboard.rooms');
     Route::get('/dashboard/roomStatuses', [RoomController::class, 'showRoomStatus'])->name('dashboard.roomStatuses');
@@ -117,6 +117,8 @@ Route::get('/dashboard/transactions/total-amount', [PaymentController::class, 'g
 
     // Route::get('dashboard/transactions/rooms', [PaymentController::class, 'createTransaction'])->name('dashboard.transactions.rooms');
     Route::post('/transactions/storeTransaction', [PaymentController::class, 'storeTransaction'])->name('dashboard.transactions.storeTransaction');
+
+
 
 
 });

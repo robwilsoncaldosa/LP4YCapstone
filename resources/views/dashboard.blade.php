@@ -61,6 +61,11 @@ color: #000;
 transition: background-color 0.3s ease; 
 }
 
+.btn:hover {
+        background-color: black !important;
+        color: white !important;
+    }
+
 
 .btn-delete {
 background: transparent;
@@ -303,6 +308,8 @@ color: #fff;
         </div>
     </div>
 
+
+
     <div class="table-responsive">
         <table class="table" id="reservationsTable">
             <thead>
@@ -322,15 +329,82 @@ color: #fff;
                     $sortedReservations = $reservations->sortByDesc('created_at');
                 ?>
 
-                @foreach($sortedReservations as $reservation)
+              @foreach($sortedReservations as $reservation)
                     <tr class="reservationRow">
                         <td>{{ $reservation->user->name }}</td>
                         <td>{{ $reservation->user->email }}</td>
                         <td>{{ $reservation->room->room_name }}</td>
                         <td>{{ $reservation->check_in_date }}</td>
                         <td>{{ date('g:i A', strtotime($reservation->check_in_time)) }}</td>
-                        <td>{{ $reservation->check_out_date }}</td>
+                        <td>{{ $reservation->check_out_date }}</td>Up
                         <td>{{ date('g:i A', strtotime($reservation->check_out_time)) }}</td>
+                        <td>
+                            <!-- Edit button -->
+                            <a href="#" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#editReservationModal{{ $reservation->id }}" style="border-color: black; background-color: white; color: black;">Update</a>
+
+
+                            <!-- Modal for editing reservation -->
+                            <div class="modal fade" id="editReservationModal{{ $reservation->id }}" tabindex="-1" aria-labelledby="editReservationModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="editReservationModalLabel">Edit Reservation</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <!-- Your form for editing a reservation goes here -->
+                                            <form action="{{ route('dashboard.reservations.update', ['id' => $reservation->id]) }}" method="post">
+                                                @csrf
+                                                @method('PUT')
+
+                                                <!-- Add your form fields for editing a reservation -->
+                                                <div class="mb-3">
+                                                    <label for="room_id">Room Name:</label>
+                                                    <select class="form-select" id="room_id" name="room_id" required>
+                                                        @foreach($rooms as $roomId => $roomName)
+                                                            <option value="{{ $roomId }}" {{ $roomId == $reservation->room_id ? 'selected' : '' }}>{{ $roomName }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+
+                                                <div class="mb-3">
+                                                    <label for="check_in_date">Check-in Date:</label>
+                                                    <input type="date" class="form-control" id="check_in_date" name="check_in_date" value="{{ $reservation->check_in_date }}" required>
+                                                </div>
+
+                                                <div class="mb-3">
+                                                    <label for="check_in_time">Check-in Time:</label>
+                                                    <input type="time" class="form-control" id="check_in_time" name="check_in_time" value="{{ $reservation->check_in_time }}" required>
+                                                </div>
+
+                                                <div class="mb-3">
+                                                    <label for="check_out_date">Check-out Date:</label>
+                                                    <input type="date" class="form-control" id="check_out_date" name="check_out_date" value="{{ $reservation->check_out_date }}" required>
+                                                </div>
+
+                                                <div class="mb-3">
+                                                    <label for="check_out_time">Check-out Time:</label>
+                                                    <input type="time" class="form-control" id="check_out_time" name="check_out_time" value="{{ $reservation->check_out_time }}" required>
+                                                </div>
+
+                                                <!-- Add other fields as needed -->
+
+                                                <button type="submit" class="btn btn-primary">Save Changes</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Cancel button -->
+                            <form action="{{ route('dashboard.reservations.cancel', ['id' => $reservation->id]) }}" method="post" class="d-inline">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to cancel this reservation?')" style="border-color: black; background-color: white; border-radius: 0; color: black;">
+                                    Cancel
+                                </button>
+                            </form>
+                        </td>
                     </tr>
                 @endforeach
             </tbody>
@@ -375,7 +449,6 @@ color: #fff;
         });
     </script>
 @endif
-
 
                 @if(request()->is('dashboard/rooms'))
                  
@@ -852,7 +925,7 @@ color: #fff;
                                         <td>
                                             <!-- Trigger modal for editing -->
                                             <button class="btn btn-edit" data-bs-toggle="modal" data-bs-target="#editPaymentModal{{ $payment->id }}">
-                                                Edit
+                                                Update
                                             </button>
 
                                             <!-- Delete button -->
@@ -870,109 +943,109 @@ color: #fff;
                     </div>
 
                   <!-- Modal for creating new transaction -->
-<div class="modal fade" id="createPaymentModal" tabindex="-1" aria-labelledby="createPaymentModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-sm">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="createPaymentModalLabel">Create New Transaction</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <!-- Your form for creating a new transaction goes here -->
-             <!-- Your form for creating a new transaction goes here -->
-<form action="{{ route('dashboard.transactions.storeTransaction') }}" method="post">
-    @csrf
+                            <div class="modal fade" id="createPaymentModal" tabindex="-1" aria-labelledby="createPaymentModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-sm">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="createPaymentModalLabel">Create New Transaction</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <!-- Your form for creating a new transaction goes here -->
+                                        <!-- Your form for creating a new transaction goes here -->
+                            <form action="{{ route('dashboard.transactions.storeTransaction') }}" method="post">
+                                @csrf
 
-    <!-- Add your form fields for creating a new transaction -->
-    <div class="mb-3">
-        <label for="name">Name:</label>
-        <input type="text" class="form-control" id="name" name="name" placeholder="Enter name..." required>
-    </div>
+                                <!-- Add your form fields for creating a new transaction -->
+                                <div class="mb-3">
+                                    <label for="name">Name:</label>
+                                    <input type="text" class="form-control" id="name" name="name" placeholder="Enter name..." required>
+                                </div>
 
-    <div class="mb-3">
-        <label for="email">Email:</label>
-        <input type="email" class="form-control" id="email" name="email" placeholder="Enter email..." required>
-    </div>
+                                <div class="mb-3">
+                                    <label for="email">Email:</label>
+                                    <input type="email" class="form-control" id="email" name="email" placeholder="Enter email..." required>
+                                </div>
 
-    <!-- Add mobile number fields -->
-    <div class="mb-3">
-    <label for="country_code">Country Code:</label>
-    <select class="form-select" id="country_code" name="country_code" required>
-    <option value="+63">+63 (Philippines)</option>
-    <option value="+1">+1 (United States)</option>
-        <option value="+44">+44 (United Kingdom)</option>
-        <option value="+33">+33 (France)</option>
-        <option value="+49">+49 (Germany)</option>
-        <option value="+81">+81 (Japan)</option>
-        <option value="+86">+86 (China)</option>
-        
-     
-    </select>
-</div>
+                                <!-- Add mobile number fields -->
+                                <div class="mb-3">
+                                <label for="country_code">Country Code:</label>
+                                <select class="form-select" id="country_code" name="country_code" required>
+                                <option value="+63">+63 (Philippines)</option>
+                                <option value="+1">+1 (United States)</option>
+                                    <option value="+44">+44 (United Kingdom)</option>
+                                    <option value="+33">+33 (France)</option>
+                                    <option value="+49">+49 (Germany)</option>
+                                    <option value="+81">+81 (Japan)</option>
+                                    <option value="+86">+86 (China)</option>
+                                    
+                                
+                                </select>
+                            </div>
 
-<div class="mb-3">
-    <label for="mobile">Mobile Number:</label>
-    <div class="input-group">
-        <span class="input-group-text" id="countryCodeDisplay">+63</span>
-        <input type="tel" class="form-control" id="mobile" name="mobile" placeholder="Enter mobile number..." required>
-    </div>
-</div>
-
-
-    <div class="mb-3">
-        <label for="room_id">Room Name:</label>
-        <select class="form-select" id="room_id" name="room_id" required>
-            @foreach($rooms as $roomId => $room)
-                <option value="{{ $roomId }}">{{ $room }}</option>
-            @endforeach
-        </select>
-    </div>
-
-    <div class="mb-3">
-        <label for="amount">Amount:</label>
-        <input type="number" class="form-control" id="amount" name="amount" step="0.01" min="0" placeholder="Enter amount..." required>
-    </div>
-
-    <div class="mb-3">
-        <label for="payment_method">Payment Method:</label>
-        <select class="form-select" id="payment_method" name="payment_method" required>
-            <option value="cash">Cash</option>
-            <option value="credit_card">Credit Card</option>
-            <!-- Add other payment methods as needed -->
-        </select>
-    </div>
+                            <div class="mb-3">
+                                <label for="mobile">Mobile Number:</label>
+                                <div class="input-group">
+                                    <span class="input-group-text" id="countryCodeDisplay">+63</span>
+                                    <input type="tel" class="form-control" id="mobile" name="mobile" placeholder="Enter mobile number..." required>
+                                </div>
+                            </div>
 
 
-     <!-- Additional fields for check-in and check-out dates and times -->
-     <div class="mb-3">
-                        <label for="check_in_date">Check-in Date:</label>
-                        <input type="date" class="form-control" id="check_in_date" name="check_in_date" required>
-                    </div>
+                                <div class="mb-3">
+                                    <label for="room_id">Room Name:</label>
+                                    <select class="form-select" id="room_id" name="room_id" required>
+                                        @foreach($rooms as $roomId => $room)
+                                            <option value="{{ $roomId }}">{{ $room }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
 
-                    <div class="mb-3">
-                        <label for="check_in_time">Check-in Time:</label>
-                        <input type="time" class="form-control" id="check_in_time" name="check_in_time" required>
-                    </div>
+                                <div class="mb-3">
+                                    <label for="amount">Amount:</label>
+                                    <input type="number" class="form-control" id="amount" name="amount" step="0.01" min="0" placeholder="Enter amount..." required>
+                                </div>
 
-                    <div class="mb-3">
-                        <label for="check_out_date">Check-out Date:</label>
-                        <input type="date" class="form-control" id="check_out_date" name="check_out_date" required>
-                    </div>
+                                <div class="mb-3">
+                                    <label for="payment_method">Payment Method:</label>
+                                    <select class="form-select" id="payment_method" name="payment_method" required>
+                                        <option value="cash">Cash</option>
+                                        <option value="credit_card">Credit Card</option>
+                                        <!-- Add other payment methods as needed -->
+                                    </select>
+                                </div>
 
-                    <div class="mb-3">
-                        <label for="check_out_time">Check-out Time:</label>
-                        <input type="time" class="form-control" id="check_out_time" name="check_out_time" required>
-                    </div>
 
-    <!-- Add other fields as needed -->
+                                <!-- Additional fields for check-in and check-out dates and times -->
+                                <div class="mb-3">
+                                                    <label for="check_in_date">Check-in Date:</label>
+                                                    <input type="date" class="form-control" id="check_in_date" name="check_in_date" required>
+                                                </div>
 
-    <button type="submit" class="btn btn-primary">Create Transaction</button>
-</form>
+                                                <div class="mb-3">
+                                                    <label for="check_in_time">Check-in Time:</label>
+                                                    <input type="time" class="form-control" id="check_in_time" name="check_in_time" required>
+                                                </div>
 
-            </div>
-        </div>
-    </div>
-</div>
+                                                <div class="mb-3">
+                                                    <label for="check_out_date">Check-out Date:</label>
+                                                    <input type="date" class="form-control" id="check_out_date" name="check_out_date" required>
+                                                </div>
+
+                                                <div class="mb-3">
+                                                    <label for="check_out_time">Check-out Time:</label>
+                                                    <input type="time" class="form-control" id="check_out_time" name="check_out_time" required>
+                                                </div>
+
+                                            <!-- Add other fields as needed -->
+
+                                            <button type="submit" class="btn btn-primary">Create Transaction</button>
+                            </form>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
 
 
 
@@ -1079,87 +1152,87 @@ color: #fff;
 
 @endif
 
-<!-- Add this script at the end of your Blade layout file -->
-@if(session('success'))
-    <script>
-        alert('{{ session('success') }}');
-    </script>
-@endif
+        <!-- Add this script at the end of your Blade layout file -->
+        @if(session('success'))
+            <script>
+                alert('{{ session('success') }}');
+            </script>
+        @endif
 
 
 
 
 
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
-<script>
-   
-    document.addEventListener('DOMContentLoaded', function() {
-        // Get the current full URL
-        var currentUrl = window.location.href;
-
-        // Select all nav-links
-        var navLinks = document.querySelectorAll('.nav-link');
-
-        // Iterate over each nav-link
-        navLinks.forEach(function(link) {
-            // Get the href attribute of the link
-            var href = link.getAttribute('href');
-
-            // Check if the current URL contains the href
-            if (currentUrl.includes(href)) {
-                // Add the 'active' class to highlight the link
-                link.classList.add('active');
-
-              
-              
-            }
-
-
-        });
+        <script>
         
-    });
+            document.addEventListener('DOMContentLoaded', function() {
+                // Get the current full URL
+                var currentUrl = window.location.href;
 
-    
+                // Select all nav-links
+                var navLinks = document.querySelectorAll('.nav-link');
 
-    $(document).ready(function() {
-    $('#searchInput').on('input', function() {
-        const searchText = $(this).val().toLowerCase();
+                // Iterate over each nav-link
+                navLinks.forEach(function(link) {
+                    // Get the href attribute of the link
+                    var href = link.getAttribute('href');
 
-        $('.personnel-row').each(function() {
-            const name = $(this).find('td:eq(0)').text().toLowerCase();
-            const email = $(this).find('td:eq(1)').text().toLowerCase();
-            const role = $(this).find('td:eq(2)').text().toLowerCase();
-            const status = $(this).find('td:eq(3)').text().toLowerCase();
+                    // Check if the current URL contains the href
+                    if (currentUrl.includes(href)) {
+                        // Add the 'active' class to highlight the link
+                        link.classList.add('active');
 
-            const isMatch = name.includes(searchText) || email.includes(searchText) || role.includes(searchText) || status.includes(searchText);
-            $(this).toggle(isMatch);
+                    
+                    
+                    }
+
+
+                });
+                
+            });
+
+            
+
+            $(document).ready(function() {
+            $('#searchInput').on('input', function() {
+                const searchText = $(this).val().toLowerCase();
+
+                $('.personnel-row').each(function() {
+                    const name = $(this).find('td:eq(0)').text().toLowerCase();
+                    const email = $(this).find('td:eq(1)').text().toLowerCase();
+                    const role = $(this).find('td:eq(2)').text().toLowerCase();
+                    const status = $(this).find('td:eq(3)').text().toLowerCase();
+
+                    const isMatch = name.includes(searchText) || email.includes(searchText) || role.includes(searchText) || status.includes(searchText);
+                    $(this).toggle(isMatch);
+                });
+            });
+
+            $('#createButton').on('click', function() {
+                $('#createModal').modal('show');
+            });
+
         });
-    });
-
-    $('#createButton').on('click', function() {
-        $('#createModal').modal('show');
-    });
-
-});
 
 
- // Listen for changes in the country code dropdown
- document.getElementById('country_code').addEventListener('change', function () {
-        // Get the selected country code
-        var selectedCountryCode = this.value;
+        // Listen for changes in the country code dropdown
+        document.getElementById('country_code').addEventListener('change', function () {
+                // Get the selected country code
+                var selectedCountryCode = this.value;
 
-        // Update the displayed country code next to the mobile input
-        document.getElementById('countryCodeDisplay').textContent = selectedCountryCode;
-    });
+                // Update the displayed country code next to the mobile input
+                document.getElementById('countryCodeDisplay').textContent = selectedCountryCode;
+            });
 
-</script>
-
-
-~
+        </script>
 
 
-@endsection
+        ~
+
+
+        @endsection

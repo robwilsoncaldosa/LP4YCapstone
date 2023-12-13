@@ -71,18 +71,10 @@ class RoomController extends Controller
         ]);
 
 
-
-
-
-
         // Redirect or respond as needed
         return redirect()->route('dashboard.rooms')->with('success', 'Room added successfully.');
     }
 
-
-    /**
-     * Display the specified resource.
-     */
     public function moreinfo(string $name)
     {
         $room = Room::where('room_name', $name)->firstOrFail(); // Retrieve the room by name
