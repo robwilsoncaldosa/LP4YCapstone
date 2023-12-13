@@ -138,10 +138,9 @@
     }
     /* Modal styles */
 
-    .modal {
+    .custom-modal {
         display: none;
         position: absolute;
-        bottom: 0;
         left: 70%;
         transform: translateY(18%);
         background-color: #fff;
@@ -155,7 +154,7 @@
         border-radius: 12px;
     }
 
-    .modal-content {
+   .custom-modal .modal-content {
         color: #000;
         /* Black text */
         width: 100%;
@@ -166,17 +165,17 @@
         border-left: none;
     }
 
-    .modal::-webkit-scrollbar {
+    .custom-modal::-webkit-scrollbar {
         width: 12px;
         /* Width of the scrollbar */
     }
 
-    .modal::-webkit-scrollbar-thumb {
+    .custom-modal::-webkit-scrollbar-thumb {
         background-color: #f2f2f2;
         /* Color of the scrollbar handle */
     }
 
-    .modal::-webkit-scrollbar-track {
+    .custom-modal::-webkit-scrollbar-track {
         background-color: #fff;
         /* Color of the scrollbar track */
     }
@@ -192,7 +191,7 @@
         font-size: 14px;
     }
 
-    .modal p {
+    .custom-modal p {
         margin: 8px 0;
     }
 </style>
@@ -312,7 +311,7 @@
         </div>
 
         <!-- Pop-up Modal for Reservations -->
-        <div id="reservationModal" class="modal">
+        <div id="reservationModal" class="custom-modal">
             <h4 class="p-2 m-2" style="font-size:16px">Notifications</h4>
             <div class="modal-content">
                 <?php
@@ -898,165 +897,282 @@
 
 
 
-            @if(request()->is('dashboard/transactions'))
-                    <h2>Transactions</h2>
+                        @if(request()->is('dashboard/transactions'))
+                        <h2>Transactions</h2>
 
-                    <div class="total_net text-center mb-3">
-                        <div class="row justify-content-center">
-                            <div class="col-md-5 text-end">
-                                <strong><i class="fas fa-coins"></i> Total Receivable:</strong> <span id="totalRemainingBalance">PHP 0</span>
+                        <div class="total_net text-center mb-3">
+                                <div class="row justify-content-between">
+
+                                    <div class="col-md-4 text-end">
+                                        <strong><i class="fas fa-coins"></i> Total Receivable:</strong> <span id="totalRemainingBalance">PHP 0</span>
+                                    </div>
+
+                                    <div class="col-md-4 text-start">
+                                        <strong><i class="fas fa-money-bill-wave"></i> Current Total Income:</strong> <span id="totalAmountPaid">PHP 0</span>
+                                    </div>
+
+                                    <div class="col-md-4 text-start">
+                                        <button type="button" class="btn btn-create-transaction" data-bs-toggle="modal" data-bs-target="#createPaymentModal">
+                                            Create New Transaction
+                                        </button>
+                                    </div>
+
+                                </div>
                             </div>
-                            <div class="col-md-2"></div>
-                            <div class="col-md-5 text-start">
-                                <strong><i class="fas fa-money-bill-wave"></i> Current Total Income:</strong> <span id="totalAmountPaid">PHP 0</span>
-                            </div>
+
+
+
+                        <div class="mb-3">
+                            <label for="nameFilter">Filter by Name:</label>
+                            <input type="text" class="form-control" id="nameFilter" name="nameFilter" placeholder="Enter name...">
                         </div>
-                    </div>
 
-                    <div class="mb-3">
-                        <label for="nameFilter">Filter by Name:</label>
-                        <input type="text" class="form-control" id="nameFilter" name="nameFilter" placeholder="Enter name...">
-                    </div>
-
-                    <!-- Display transaction data in a table -->
-                    <div class="table-responsive">
-                        <table class="table" id="transactionsTable">
-                            <thead>
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Price</th>
-                                    <th>Amount Paid</th>
-                                    <th>Remaining Balance</th>
-                                    <th>Payment Method</th>
-                                    <th>Date</th>
-                                    <th>Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach($payments as $payment)
-                                    <tr class="paymentRow">
-                                        <td>{{ $payment->reservation->user->name }}</td>
-                                        <td>{{ $payment->reservation->room->price_per_night }}</td>
-                                        <td>{{ $payment->amount }}</td>
-                                        <td>{{ $payment->remaining_total }}</td>
-                                        <td>{{ $payment->payment_method }}</td>
-                                        <td>{{ $payment->created_at }}</td>
-                                        <td>
-                                            <!-- Trigger modal for editing -->
-                                            <button class="btn btn-edit" data-bs-toggle="modal" data-bs-target="#editPaymentModal{{ $payment->id }}">
-                                                Edit
-                                            </button>
-
-                                            <!-- Delete button -->
-                                            <form action="{{ route('dashboard.transactions.destroy', ['id' => $payment->id]) }}" method="post" style="display: inline;">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-delete" onclick="return confirm('Are you sure you want to delete this payment?')">Delete</button>
-                                            </form>
-
-                                        </td>
+                        <!-- Display transaction data in a table -->
+                        <div class="table-responsive">
+                            <table class="table" id="transactionsTable">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Price</th>
+                                        <th>Amount Paid</th>
+                                        <th>Remaining Balance</th>
+                                        <th>Payment Method</th>
+                                        <th>Date</th>
+                                        <th>Actions</th>
                                     </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
+                                </thead>
+                                <tbody>
+                                    @foreach($payments as $payment)
+                                        <tr class="paymentRow">
+                                            <td>{{ $payment->reservation->user->name }}</td>
+                                            <td>{{ $payment->reservation->room->price_per_night }}</td>
+                                            <td>{{ $payment->amount }}</td>
+                                            <td>{{ $payment->remaining_total }}</td>
+                                            <td>{{ $payment->payment_method }}</td>
+                                            <td>{{ $payment->created_at }}</td>
+                                            <td>
+                                                <!-- Trigger modal for editing -->
+                                                <button class="btn btn-edit" data-bs-toggle="modal" data-bs-target="#editPaymentModal{{ $payment->id }}">
+                                                    Update
+                                                </button>
 
-                    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-                    <script>
-                        $(document).ready(function () {
-                            function updateTotalAmount() {
-                                // Fetch the total amount and total remaining balance from the server
-                                $.get('/dashboard/transactions/total-amount', function (data) {
-                                    var totalAmount = data.totalAmount || 0;
-                                    var totalRemainingBalance = data.totalRemainingBalance || 0;
+                                                <!-- Delete button -->
+                                                <form action="{{ route('dashboard.transactions.destroy', ['id' => $payment->id]) }}" method="post" style="display: inline;">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-delete" onclick="return confirm('Are you sure you want to delete this payment?')">Delete</button>
+                                                </form>
 
-                                    // Display the updated total amount and total remaining balance with PHP label
-                                    $('#totalAmountPaid').text('PHP ' + totalAmount);
-                                    $('#totalRemainingBalance').text('PHP ' + totalRemainingBalance);
-                                });
-                            }
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
 
-                            // Fetch the initial total amount and total remaining balance
-                            updateTotalAmount();
+                      <!-- Modal for creating new transaction -->
+                                <div class="modal fade" id="createPaymentModal" tabindex="-1" aria-labelledby="createPaymentModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-sm">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="createPaymentModalLabel">Create New Transaction</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <!-- Your form for creating a new transaction goes here -->
+                                            <!-- Your form for creating a new transaction goes here -->
+                                <form action="{{ route('dashboard.transactions.storeTransaction') }}" method="post">
+                                    @csrf
 
-                            // Listen for input changes in the name filter field
-                            $('#nameFilter').on('input', function () {
-                                // Get the entered filter text
-                                var filterText = $(this).val().toLowerCase();
+                                    <!-- Add your form fields for creating a new transaction -->
+                                    <div class="mb-3">
+                                        <label for="name">Name:</label>
+                                        <input type="text" class="form-control" id="name" name="name" placeholder="Enter name..." required>
+                                    </div>
 
-                                // Fetch and display the updated total amount and total remaining balance
+                                    <div class="mb-3">
+                                        <label for="email">Email:</label>
+                                        <input type="email" class="form-control" id="email" name="email" placeholder="Enter email..." required>
+                                    </div>
+
+                                    <!-- Add mobile number fields -->
+                                    <div class="mb-3">
+                                    <label for="country_code">Country Code:</label>
+                                    <select class="form-select" id="country_code" name="country_code" required>
+                                    <option value="+63">+63 (Philippines)</option>
+                                    <option value="+1">+1 (United States)</option>
+                                        <option value="+44">+44 (United Kingdom)</option>
+                                        <option value="+33">+33 (France)</option>
+                                        <option value="+49">+49 (Germany)</option>
+                                        <option value="+81">+81 (Japan)</option>
+                                        <option value="+86">+86 (China)</option>
+
+
+                                    </select>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="mobile">Mobile Number:</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text" id="countryCodeDisplay">+63</span>
+                                        <input type="tel" class="form-control" id="mobile" name="mobile" placeholder="Enter mobile number..." required>
+                                    </div>
+                                </div>
+
+
+                                    <div class="mb-3">
+                                        <label for="room_id">Room Name:</label>
+                                        <select class="form-select" id="room_id" name="room_id" required>
+                                            @foreach($rooms as $roomId => $room)
+                                                <option value="{{ $roomId }}">{{ $room }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="amount">Amount:</label>
+                                        <input type="number" class="form-control" id="amount" name="amount" step="0.01" min="0" placeholder="Enter amount..." required>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="payment_method">Payment Method:</label>
+                                        <select class="form-select" id="payment_method" name="payment_method" required>
+                                            <option value="cash">Cash</option>
+                                            <option value="credit_card">Credit Card</option>
+                                            <!-- Add other payment methods as needed -->
+                                        </select>
+                                    </div>
+
+
+                                    <!-- Additional fields for check-in and check-out dates and times -->
+                                    <div class="mb-3">
+                                                        <label for="check_in_date">Check-in Date:</label>
+                                                        <input type="date" class="form-control" id="check_in_date" name="check_in_date" required>
+                                                    </div>
+
+                                                    <div class="mb-3">
+                                                        <label for="check_in_time">Check-in Time:</label>
+                                                        <input type="time" class="form-control" id="check_in_time" name="check_in_time" required>
+                                                    </div>
+
+                                                    <div class="mb-3">
+                                                        <label for="check_out_date">Check-out Date:</label>
+                                                        <input type="date" class="form-control" id="check_out_date" name="check_out_date" required>
+                                                    </div>
+
+                                                    <div class="mb-3">
+                                                        <label for="check_out_time">Check-out Time:</label>
+                                                        <input type="time" class="form-control" id="check_out_time" name="check_out_time" required>
+                                                    </div>
+
+                                                <!-- Add other fields as needed -->
+
+                                                <button type="submit" class="btn btn-primary">Create Transaction</button>
+                                </form>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+                        <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+                        <script>
+                            $(document).ready(function () {
+                                function updateTotalAmount() {
+                                    // Fetch the total amount and total remaining balance from the server
+                                    $.get('/dashboard/transactions/total-amount', function (data) {
+                                        var totalAmount = data.totalAmount || 0;
+                                        var totalRemainingBalance = data.totalRemainingBalance || 0;
+
+                                        // Display the updated total amount and total remaining balance with PHP label
+                                        $('#totalAmountPaid').text('PHP ' + totalAmount);
+                                        $('#totalRemainingBalance').text('PHP ' + totalRemainingBalance);
+                                    });
+                                }
+
+                                // Fetch the initial total amount and total remaining balance
                                 updateTotalAmount();
 
-                                // Loop through each row in the table body
-                                $('#transactionsTable tbody tr').each(function () {
-                                    // Get the text content of the third cell (amount paid)
-                                    var rowAmount = parseFloat($(this).find('td:nth-child(3)').text());
+                                // Listen for input changes in the name filter field
+                                $('#nameFilter').on('input', function () {
+                                    // Get the entered filter text
+                                    var filterText = $(this).val().toLowerCase();
 
-                                    // Show or hide the row based on whether it matches the filter
-                                    var isVisible = rowAmount && (filterText === '' || $(this).text().toLowerCase().includes(filterText));
-                                    $(this).toggle(isVisible);
+                                    // Fetch and display the updated total amount and total remaining balance
+                                    updateTotalAmount();
+
+                                    // Loop through each row in the table body
+                                    $('#transactionsTable tbody tr').each(function () {
+                                        // Get the text content of the third cell (amount paid)
+                                        var rowAmount = parseFloat($(this).find('td:nth-child(3)').text());
+
+                                        // Show or hide the row based on whether it matches the filter
+                                        var isVisible = rowAmount && (filterText === '' || $(this).text().toLowerCase().includes(filterText));
+                                        $(this).toggle(isVisible);
+                                    });
                                 });
                             });
-                        });
-                    </script>
+                        </script>
 
-                    @foreach($payments as $payment)
-                        <!-- Modal for editing payment -->
-                        <div class="modal fade" id="editPaymentModal{{ $payment->id }}" tabindex="-1" aria-labelledby="editPaymentModalLabel{{ $payment->id }}" aria-hidden="true">
-                            <div class="modal-dialog modal-sm">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="editPaymentModalLabel{{ $payment->id }}">Edit Payment</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <!-- Error message -->
-                                        <div class="alert alert-danger mb-3" id="amountError{{ $payment->id }}" style="display: none;">
-                                            Overpriced Amount! Please check the remaining balance.
+                        @foreach($payments as $payment)
+                            <!-- Modal for editing payment -->
+                            <div class="modal fade" id="editPaymentModal{{ $payment->id }}" tabindex="-1" aria-labelledby="editPaymentModalLabel{{ $payment->id }}" aria-hidden="true">
+                                <div class="modal-dialog modal-sm">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="editPaymentModalLabel{{ $payment->id }}">Edit Payment</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
-
-                                        <!-- Your payment edit form goes here -->
-                                        <form action="{{ route('dashboard.transactions.update', ['id' => $payment->id]) }}" method="post" onsubmit="return validateAmount{{ $payment->id }}()">
-                                            @csrf
-                                            @method('PUT')
-
-                                            <!-- Add your form fields for editing payment data -->
-                                            <div class="mb-3">
-                                                <label for="amount">Add amount:</label>
-                                                <input type="number" class="form-control" id="amount{{ $payment->id }}" name="amount" value="{{ $payment->amount }}" step="0.01" min="0" placeholder="Enter amount..." oninput="checkAndDisplayError{{ $payment->id }}(this)">
+                                        <div class="modal-body">
+                                            <!-- Error message -->
+                                            <div class="alert alert-danger mb-3" id="amountError{{ $payment->id }}" style="display: none;">
+                                                Overpriced Amount! Please check the remaining balance.
                                             </div>
-                                            <!-- Add other fields as needed -->
 
-                                            <button type="submit" class="btn btn-primary">Update Payment</button>
-                                        </form>
+                                            <!-- Your payment edit form goes here -->
+                                            <form action="{{ route('dashboard.transactions.update', ['id' => $payment->id]) }}" method="post" onsubmit="return validateAmount{{ $payment->id }}()">
+                                                @csrf
+                                                @method('PUT')
 
-                                        <script>
-                                            // Function to validate amount on form submission
-                                            function validateAmount{{ $payment->id }}() {
-                                                // You can perform additional validation here if needed
-                                                return true;
-                                            }
+                                                <!-- Add your form fields for editing payment data -->
+                                                <div class="mb-3">
+                                                    <label for="amount">Add amount:</label>
+                                                    <input type="number" class="form-control" id="amount{{ $payment->id }}" name="amount" value="{{ $payment->amount }}" step="0.01" min="0" placeholder="Enter amount..." oninput="checkAndDisplayError{{ $payment->id }}(this)">
+                                                </div>
+                                                <!-- Add other fields as needed -->
 
-                                            // Function to check and display the error message on input change
-                                            function checkAndDisplayError{{ $payment->id }}(inputElement) {
-                                                var amountToAdd = parseFloat(inputElement.value);
-                                                var remainingBalance = parseFloat("{{ $payment->remaining_total }}");
+                                                <button type="submit" class="btn btn-primary">Update Payment</button>
+                                            </form>
 
-                                                // Display the error message if the added amount is greater than the remaining balance
-                                                if (amountToAdd > remainingBalance) {
-                                                    document.getElementById('amountError{{ $payment->id }}').style.display = 'block';
-                                                } else {
-                                                    document.getElementById('amountError{{ $payment->id }}').style.display = 'none';
+                                            <script>
+                                                // Function to validate amount on form submission
+                                                function validateAmount{{ $payment->id }}() {
+                                                    // You can perform additional validation here if needed
+                                                    return true;
                                                 }
-                                            }
-                                        </script>
+
+                                                // Function to check and display the error message on input change
+                                                function checkAndDisplayError{{ $payment->id }}(inputElement) {
+                                                    var amountToAdd = parseFloat(inputElement.value);
+                                                    var remainingBalance = parseFloat("{{ $payment->remaining_total }}");
+
+                                                    // Display the error message if the added amount is greater than the remaining balance
+                                                    if (amountToAdd > remainingBalance) {
+                                                        document.getElementById('amountError{{ $payment->id }}').style.display = 'block';
+                                                    } else {
+                                                        document.getElementById('amountError{{ $payment->id }}').style.display = 'none';
+                                                    }
+                                                }
+                                            </script>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    @endforeach
-                @endif
-        </main>
+                        @endforeach
+                    @endif
+            </main>
 
     </div>
 

@@ -11,6 +11,7 @@ use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PaymentController;
 use App\Models\Reservation;
+use App\Models\room;
 use Carbon\Carbon;
 
 
@@ -49,10 +50,10 @@ Route::middleware(['auth'])->group(function () {
         $user = session('user');
 
         $totalBookings = Reservation::count();
-    
+
         // Calculate new clients this month
         $newClientsThisMonth = Reservation::whereMonth('created_at', '=', Carbon::now()->month)->count();
-        
+
         // Calculate returning clients
         $returningClients = Reservation::distinct('user_id')
             ->where('check_in_date', '<', Carbon::now()) // Assuming check_in_date is your timestamp for reservations
@@ -73,22 +74,22 @@ Route::middleware(['auth'])->group(function () {
 
 
         } else {
-            // Handle the case where $user is not found
-            ddd($user);
+
             return redirect('login')->with('error', 'User not found');
         }
     })->name('dashboard');
- 
 
-
-    
+    Route::put('/dashboard/reservations/{id}', [ReservationController::class, 'updateReservation'])->name('dashboard.reservations.update');
+    Route::delete('/dashboard/reservations/cancel/{id}', [ReservationController::class, 'cancelReservation'])->name('dashboard.reservations.cancel');
     Route::get('/dashboard/reservations', [ReservationController::class, 'showReservations'])->name('dashboard.reservations');
+
+
     Route::get('/dashboard/home', [ReservationController::class, 'homeView'])->name('dashboard.home');
     Route::get('/dashboard/rooms', [RoomController::class, 'showAllRooms'])->name('dashboard.rooms');
     Route::get('/dashboard/roomStatuses', [RoomController::class, 'showRoomStatus'])->name('dashboard.roomStatuses');
     Route::get('/dashboard/users', [UserController::class, 'showAllUsers'])->name('dashboard.users');
     Route::get('/dashboard/personnel', [PersonnelController::class, 'viewPersonnels'])->name('dashboard.personnel');
-    
+
     Route::post('/dashboard/personnel/store', [PersonnelController::class, 'store'])->name('personnel.store');
     Route::get('/dashboard/personnel/{id}', [PersonnelController::class, 'show'])->name('personnel.show');
     Route::get('/dashboard/personnel/{id}/edit', [PersonnelController::class, 'edit'])->name('personnel.edit');
@@ -112,6 +113,12 @@ Route::get('/dashboard/transactions', [PaymentController::class, 'showTransactio
 Route::put('/dashboard/transactions/{id}', [PaymentController::class, 'update'])->name('dashboard.transactions.update');
 Route::delete('/dashboard/transactions/{id}', [PaymentController::class, 'destroy'])->name('dashboard.transactions.destroy');
 Route::get('/dashboard/transactions/total-amount', [PaymentController::class, 'getTotalAmount']);
+
+
+    // Route::get('dashboard/transactions/rooms', [PaymentController::class, 'createTransaction'])->name('dashboard.transactions.rooms');
+    Route::post('/transactions/storeTransaction', [PaymentController::class, 'storeTransaction'])->name('dashboard.transactions.storeTransaction');
+
+
 
 
 });
