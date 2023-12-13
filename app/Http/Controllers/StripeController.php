@@ -239,6 +239,7 @@ class StripeController extends Controller
         // If downpayment is not provided, set remaining total equal to total price
         if ($downpayment === 0) {
             $remainingTotal = 0;
+            $downpayment = $totalPrice;
         }
 
         // Create a new Payment model instance
