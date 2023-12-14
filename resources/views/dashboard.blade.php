@@ -309,10 +309,8 @@
 
                 </div>
             </div>
-
-
-
         </div>
+
         <div class="content col-10 p-0">
             <header class="w-100 bg-white d-flex justify-content-between " style="height: 15%;">
                 <div class="welcome p-4">
@@ -440,8 +438,6 @@
     </div>
 </div>
 
-
-
     <div class="table-responsive">
         <table class="table" id="reservationsTable">
             <thead>
@@ -520,7 +516,7 @@
                                                     <input type="time" class="form-control" id="check_out_time" name="check_out_time" value="{{ $reservation->check_out_time }}" required>
                                                 </div>
 
-                                                <!-- Add other fields as needed -->
+                                    
 
                                                 <button type="submit" class="btn btn-primary">Save Changes</button>
                                             </form>
@@ -567,25 +563,13 @@
                         <input type="text" class="form-control" id="name" name="name" placeholder="Enter name..." required>
                     </div>
 
-                    <div class="mb-3">
-                        <label for="country_code">Country Code:</label>
-                        <select class="form-select" id="country_code" name="country_code" required>
-                            <option value="+63">+63 (Philippines)</option>
-                            <option value="+1">+1 (United States)</option>
-                            <option value="+44">+44 (United Kingdom)</option>
-                            <option value="+33">+33 (France)</option>
-                            <option value="+49">+49 (Germany)</option>
-                            <option value="+81">+81 (Japan)</option>
-                            <option value="+86">+86 (China)</option>
-                        </select>
-                    </div>
+                 
 
                     <div class="mb-3">
-                        <label for="mobile">Mobile Number:</label>
-                        <div class="input-group">
-                            <span class="input-group-text" id="countryCodeDisplay">+63</span>
-                            <input type="tel" class="form-control" id="mobile" name="mobile" placeholder="Enter mobile number..." required>
-                        </div>
+                        <label for="phone2" class="form-label">Phone (Optional):</label>
+                        <input class="form-control" id="phone2" name="phone2" type="tel">
+                        <span id="valid-msg2" class="hide">✓ Valid</span>
+                        <span id="error-msg2" class="hide"></span>
                     </div>
 
                     <div class="mb-3">
@@ -1484,8 +1468,85 @@ aria-hidden="true">
 
     });
 
+    // ===================================
+const input = document.querySelector("#phone");
+const input2 = document.querySelector("#phone2");
 
-  
+const button = document.querySelector("#btn");
+const errorMsg = document.querySelector("#error-msg");
+const validMsg = document.querySelector("#valid-msg");
+const errorMsg2 = document.querySelector("#error-msg2");
+const validMsg2 = document.querySelector("#valid-msg2");
+
+// here, the index maps to the error code returned from getValidationError - see readme
+const errorMap = ["Invalid number", "Invalid country code", "Too short", "Too long", "Invalid number"];
+const iti = window.intlTelInput(input, {
+    nationalMode: true,
+    initialCountry: "auto",
+    geoIpLookup: callback => {
+        fetch("https://ipapi.co/json")
+            .then(res => res.json())
+            .then(data => callback(data.country_code))
+            .catch(() => callback("us"));
+    },
+    utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/js/utils.js",
+});
+
+const iti2 = window.intlTelInput(input2, {
+    nationalMode: true,
+    initialCountry: "auto",
+    geoIpLookup: callback => {
+        fetch("https://ipapi.co/json")
+            .then(res => res.json())
+            .then(data => callback(data.country_code))
+            .catch(() => callback("us"));
+    },
+    utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/js/utils.js",
+});
+
+const reset = () => {
+    input.classList.remove("error");
+    errorMsg.innerHTML = "";
+    errorMsg.classList.add("hide");
+    validMsg.classList.add("hide");
+    input2.classList.remove("error");
+    errorMsg2.innerHTML = "";
+    errorMsg2.classList.add("hide");
+    validMsg2.classList.add("hide");
+
+};
+
+
+// on input: validate
+input.addEventListener('input', () => {
+    reset();
+    if (input.value.trim()) {
+        if (iti.isValidNumber()) {
+            validMsg.classList.remove("hide");
+        } else {
+            input.classList.add("error");
+            const errorCode = iti.getValidationError();
+            errorMsg.innerHTML = errorMap[errorCode];
+            errorMsg.classList.remove("hide");
+        }
+    }
+});
+
+
+// on input: validate
+input2.addEventListener('input', () => {
+    reset();
+    if (input2.value.trim()) {
+        if (iti2.isValidNumber()) {
+            validMsg2.classList.remove("hide");
+        } else {
+            input2.classList.add("error");
+            const errorCode = iti.getValidationError();
+            errorMsg2.innerHTML = errorMap[errorCode];
+            errorMsg2.classList.remove("hide");
+        }
+    }
+});
 </script>
 
 
