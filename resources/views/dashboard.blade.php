@@ -336,7 +336,7 @@ color: #fff;
                         <td>{{ $reservation->room->room_name }}</td>
                         <td>{{ $reservation->check_in_date }}</td>
                         <td>{{ date('g:i A', strtotime($reservation->check_in_time)) }}</td>
-                        <td>{{ $reservation->check_out_date }}</td>Up
+                        <td>{{ $reservation->check_out_date }}</td>
                         <td>{{ date('g:i A', strtotime($reservation->check_out_time)) }}</td>
                         <td>
                             <!-- Edit button -->
@@ -362,7 +362,7 @@ color: #fff;
                                                     <label for="room_id">Room Name:</label>
                                                     <select class="form-select" id="room_id" name="room_id" required>
                                                         @foreach($rooms as $roomId => $roomName)
-                                                            <option value="{{ $roomId }}" {{ $roomId == $reservation->room_id ? 'selected' : '' }}>{{ $roomName }}</option>
+                                                            <option value="{{ $roomId }}" {{ $roomId = $reservation->room_id ? 'selected' : '' }}>{{ $roomName }}</option>
                                                         @endforeach
                                                     </select>
                                                 </div>

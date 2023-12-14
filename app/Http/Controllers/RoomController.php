@@ -153,10 +153,10 @@ class RoomController extends Controller
         $reservations = Reservation::all();
 
         $roomStatuses = DB::table('rooms')
-            ->select('rooms.room_name', DB::raw("CASE WHEN reservations.checked_out_at >= NOW() THEN CONCAT('Occupied until ', DATE_FORMAT(reservations.checked_out_at, '%M %e, %Y at %l:%i %p')) ELSE 'Available' END as status"))
+            ->select('rooms.room_name', DB::raw("CASE WHEN reservations.check_out_date >= NOW() THEN CONCAT('Occupied until ', DATE_FORMAT(reservations.check_out_date, '%M %e, %Y at %l:%i %p')) ELSE 'Available' END as status"))
             ->leftJoin('reservations', function ($join) {
                 $join->on('rooms.id', '=', 'reservations.room_id')
-                    ->where('reservations.checked_out_at', '=', DB::raw('(SELECT MAX(checked_out_at) FROM reservations WHERE room_id = rooms.id)'));
+                    ->where('reservations.check_out_date', '=', DB::raw('(SELECT MAX(check_out_date) FROM reservations WHERE room_id = rooms.id)'));
             })
             ->get();
 
