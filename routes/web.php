@@ -79,17 +79,14 @@ Route::middleware(['auth'])->group(function () {
         }
     })->name('dashboard');
 
-    Route::put('/dashboard/reservations/{id}', [ReservationController::class, 'updateReservation'])->name('dashboard.reservations.update');
+    Route::put('/dashboard/reservations', [ReservationController::class, 'update'])->name('dashboard.reservations.update');
     Route::delete('/dashboard/reservations/cancel/{id}', [ReservationController::class, 'cancelReservation'])->name('dashboard.reservations.cancel');
     Route::get('/dashboard/reservations', [ReservationController::class, 'showReservations'])->name('dashboard.reservations');
-
-
     Route::get('/dashboard/home', [ReservationController::class, 'homeView'])->name('dashboard.home');
     Route::get('/dashboard/rooms', [RoomController::class, 'showAllRooms'])->name('dashboard.rooms');
     Route::get('/dashboard/roomStatuses', [RoomController::class, 'showRoomStatus'])->name('dashboard.roomStatuses');
     Route::get('/dashboard/users', [UserController::class, 'showAllUsers'])->name('dashboard.users');
     Route::get('/dashboard/personnel', [PersonnelController::class, 'viewPersonnels'])->name('dashboard.personnel');
-
     Route::post('/dashboard/personnel/store', [PersonnelController::class, 'store'])->name('personnel.store');
     Route::get('/dashboard/personnel/{id}', [PersonnelController::class, 'show'])->name('personnel.show');
     Route::get('/dashboard/personnel/{id}/edit', [PersonnelController::class, 'edit'])->name('personnel.edit');

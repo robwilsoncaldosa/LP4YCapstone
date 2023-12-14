@@ -7,6 +7,7 @@ use App\Models\Payment;
 use App\Models\Room;
 use App\Models\User;
 use App\Models\Reservation;
+
 class PaymentController extends Controller
 {
 
@@ -57,20 +58,20 @@ class PaymentController extends Controller
     }
 
 
-public function showTransactions()
-{
-    // Fetch payment data from the database
-    $payments = Payment::with('reservation.user', 'reservation.room')->get();
+    public function showTransactions()
+    {
+        // Fetch payment data from the database
+        $payments = Payment::with('reservation.user', 'reservation.room')->get();
 
-    $rooms = Room::pluck('room_name', 'id');
-    $reservations = Reservation::all();
-
-
-  return view('dashboard', ['payments' => $payments, 'rooms' => $rooms, 'reservations' => $reservations]);
-}
+        $rooms = Room::pluck('room_name', 'id');
+        $reservations = Reservation::all();
 
 
-public function getTotalAmount()
+        return view('dashboard', ['payments' => $payments, 'rooms' => $rooms, 'reservations' => $reservations]);
+    }
+
+
+    public function getTotalAmount()
     {
         $totalAmount = Payment::sum('amount');
         $totalRemainingBalance = Payment::sum('remaining_total');
@@ -83,62 +84,35 @@ public function getTotalAmount()
 
     public function storeTransaction(Request $request)
     {
-        // Validate and store your transaction data here
+        // Validate the payment data here
         $request->validate([
-            'name' => 'required|string',
-            'email' => 'required|email',
-            'country_code' => 'required|string', // Add validation for the country code
-            'mobile' => 'required|string', // Add validation for the mobile number
-            'room_id' => 'required|exists:rooms,id',
-            'amount' => 'required|numeric|min:0',
+            'reservation_id' => 'required|exists:reservations,id',
+            'amount' => 'nullable|numeric|min:0',
             'payment_method' => 'required|string',
-            'check_in_date' => 'required|date',
-            'check_in_time' => 'required|date_format:H:i',
-            'check_out_date' => 'required|date',
-            'check_out_time' => 'required|date_format:H:i',
         ]);
 
-        // Combine date and time strings for check-in and check-out
-        $checkInDateTime = $request->input('check_in_date') . ' ' . $request->input('check_in_time');
-        $checkOutDateTime = $request->input('check_out_date') . ' ' . $request->input('check_out_time');
+        // Retrieve the latest payment record based on the provided reservation_id
+        $reservation = Payment::where('reservation_id', $request->input('reservation_id'))
+            ->latest('created_at')
+            ->firstOrFail();
 
-        // Check if the chosen room is currently occupied or not available
-        $isRoomAvailable = $this->isRoomAvailable($request->input('room_id'), $checkInDateTime, $checkOutDateTime);
+            $remainingTotal= $reservation ->remaining_total = $reservation->remaining_total - $request->input('amount');
 
-        if (!$isRoomAvailable) {
-            return redirect()->route('dashboard.transactions')->with('error', 'The chosen room is not available at this chosen date.');
-        }
 
-        // Create or find the user based on the provided email
-        $user = User::firstOrCreate(
-            ['email' => $request->input('email')],
-            [
-                'name' => $request->input('name'),
-                'contact_number' => $request->input('country_code') . $request->input('mobile'),
-            ]
-        );
-
-        // Create a reservation for the user
-        $reservation = Reservation::create([
-            'user_id' => $user->id,
-            'room_id' => $request->input('room_id'),
-            'check_in_date' => $checkInDateTime,
-            'check_out_date' => $checkOutDateTime,
-            // Add other reservation fields as needed
-        ]);
 
         // Create a payment for the reservation
-        $payment = Payment::create([
+         Payment::create([
             'reservation_id' => $reservation->id,
-            'remaining_total' => $reservation->room->price_per_night - $request->input('amount'),
+            'remaining_total' => $remainingTotal,
             'amount' => $request->input('amount'),
             'payment_method' => $request->input('payment_method'),
             // Add other payment fields as needed
         ]);
 
-        // You can redirect to the transactions page or any other page after storing
-        return redirect()->route('dashboard.transactions')->with('success', 'Transaction created successfully!');
+        // You can redirect to the transactions page or any other page after storing the payment
+        return redirect()->route('dashboard.transactions')->with('success', 'Payment created successfully!');
     }
+
 
     /**
      * Check if the room is available for the given dates.
