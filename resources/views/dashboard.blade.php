@@ -2,7 +2,7 @@
 
 <style>
     body {
-        overflow-x: hidden;
+        overflow: hidden;
     }
 
     .nav-link,
@@ -460,9 +460,9 @@
                         <td>{{ $reservation->check_in_time ? date('g:i A', strtotime($reservation->check_in_time)) : '' }}</td>
                         <td>{{ $reservation->check_out_date }}</td>
                         <td>{{ $reservation->check_out_time ? date('g:i A', strtotime($reservation->check_out_time)) : '' }}</td>
-                        <td>
+                        <td class="d-flex justify-content-center">
                             <!-- Edit button -->
-                            <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editReservationModal{{ $reservation->id }}" >Update</a>
+                            <a href="#" class="btn btn-primary m-1" data-bs-toggle="modal" data-bs-target="#editReservationModal{{ $reservation->id }}" >Update</a>
 
 
                             <!-- Modal for editing reservation -->
@@ -519,7 +519,7 @@
                             </div>
 
                             <!-- Cancel button -->
-                            <form action="{{ route('dashboard.reservations.cancel', ['id' => $reservation->id]) }}" method="post" class="d-inline">
+                            <form action="{{ route('dashboard.reservations.cancel', ['id' => $reservation->id]) }}" method="post" class="d-block m-1">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to cancel this reservation?')">
@@ -1136,7 +1136,7 @@ aria-hidden="true">
 <div class="modal-dialog modal-sm">
     <div class="modal-content">
         <div class="modal-header">
-            <h5 class="modal-title" id="createPaymentModalLabel">Create New Payment</h5>
+            <h5 class="modal-title" id="createPaymentModalLabel">Create New Transaction</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
@@ -1149,7 +1149,7 @@ aria-hidden="true">
                     <label for="reservation_id">Reservation Name:</label>
                     <select class="form-select" id="reservation_id" name="reservation_id" required>
                         @foreach ($reservations as $reservation)
-                            <option value="{{ $reservation->id }}">{{ $reservation->user->name }} - Room: {{ $reservation->room->room_name }}</option>
+                            <option value="{{ $reservation->id }}">Name: {{ $reservation->user->name }} - Room: {{ $reservation->room->room_name }}</option>
                         @endforeach
                     </select>
                 </div>
