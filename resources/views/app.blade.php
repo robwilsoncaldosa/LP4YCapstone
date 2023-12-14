@@ -210,8 +210,15 @@
                 <input type="radio" name="review-radio" id="review4">
                 <label for="review4"></label>
             </div>
+
+    <!-- Add Review Button (Lower Left) -->
+    <button class="btn-black-hover mt-3" id="addReviewBtn" style="position: absolute; bottom: 0; left: 0; width: calc(50% - 30px); border-radius: 4px; margin: 30px; padding: 5px;" onclick="location.href='{{ route('review') }}'">Add Review</button>
+
+<!-- See More Reviews Button (Lower Right) -->
+<button class="btn-black-hover mt-3" id="seeMoreReviewsBtn" style="position: absolute; bottom: 0; right: 0; width: calc(50% - 30px); border-radius: 4px; margin: 30px; padding:5px">See More Reviews</button>
+</section>
         </div>
-    </section>
+
     <br>
     <br>
     <br>

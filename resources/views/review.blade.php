@@ -143,26 +143,38 @@ button.btn-secondary:hover {
     
 
 
- 
     <form action="{{ route('submit-review') }}" method="post" id="review-form">
     @csrf
 
     <div class="form-group">
-        <input type="text" class="form-control" id="name" name="name" style="height: 50px;" placeholder="Your Name" required>
+        <input type="email" class="form-control" id="email" name="email" style="height: 50px;" placeholder="Enter your email..." required>
     </div>
 
     <div class="form-group">
-        <input type="number" class="form-control" id="rating" name="rating" style="height: 50px;" min="1" max="5"
-            placeholder="Rating (1-5)" required>
+    <!-- Add a dropdown for room names -->
+    <select class="form-control" id="room_name" name="room_name" style="height: 50px;" required>
+        <option value="" disabled selected>Select room</option>
+        <!-- Populate the options dynamically from your database -->
+        @foreach($rooms as $room)
+            <option value="{{ $room->room_name }}">{{ $room->room_name }}</option>
+        @endforeach
+    </select>
+</div>
+
+    <div class="form-group">
+        <textarea class="form-control" id="room_comment" name="room_comment" style="height: 200px;" placeholder="What can you say about this room?" required></textarea>
     </div>
 
     <div class="form-group">
-        <textarea class="form-control" id="comment" name="comment" style="height: 200px;" placeholder="Write your review here" required></textarea>
+        <input type="number" class="form-control" id="rating" name="rating" style="height: 50px;" min="1" max="5" placeholder="Rating (1-5)" required>
+    </div>
+
+    <div class="form-group">
+        <textarea class="form-control" id="comment" name="comment" style="height: 200px;" placeholder="Write your overall experience" required></textarea>
     </div>
 
     <button type="submit" class="btn btn-primary">Publish</button>
     <button type="button" class="btn btn-secondary" onclick="cancelReview()">Cancel</button>
-    
 </form>
 
 
@@ -175,27 +187,27 @@ button.btn-secondary:hover {
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-    $(document).ready(function () {
-        $('#review-form').on('submit', function (e) {
-            e.preventDefault();
+$(document).ready(function () {
+    $('#review-form').on('submit', function (e) {
+        e.preventDefault();
 
-            var formData = $(this).serialize();
+        var formData = $(this).serialize();
 
-            $.ajax({
-                type: 'POST',
-                url: $(this).attr('action'),
-                data: formData,
-                success: function () {
-                    $('#review-form').hide();
-                    $('#thank-you-message').show();
-                }
-            });
+        $.ajax({
+            type: 'POST',
+            url: $(this).attr('action'),
+            data: formData,
+            success: function (response) {
+                console.log(response); // Log the response to the console
+                $('#review-form').hide();
+                $('#thank-you-message').show();
+            },
+            error: function (xhr, status, error) {
+                console.error(xhr.responseText); // Log the error to the console
+            }
         });
     });
+});
 
-    function cancelReview() {
-     
-        document.getElementById("review-form").reset();
-    }
 </script>
 @endsection

@@ -2,73 +2,62 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Room;
 use App\Models\Review;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class ReviewController extends Controller
 {
-      
-    //    public function showReviewPopup()
-    //    {
-    //        return view('review');
-    //    }
-   
-    //   public function submitReview(Request $request)
-    //   {
-    //       $request->validate([
-    //           'name' => 'required',
-    //           'rating' => 'required|numeric|between:1,5',
-    //           'comment' => 'required',
-    //       ]);
-      
-    //       // Save the review to the database (use the Review model)
-    //       $review = new Review([
-    //           'name' => $request->input('name'),
-    //           'rating' => $request->input('rating'),
-    //           'comment' => $request->input('comment'),
-    //       ]);
-    //       $review->save();
-      
-    //       return response()->json(['message' => 'Review submitted successfully']);
-    //   }
-  
-    //   public function getGuestReviews()
-    //   {
-    //       $reviews = Review::all(); // Fetch all reviews from the database
-      
-    //       return view('app', ['reviews' => $reviews]);
-    //   }
-
-
-    public function showReviewPopup(Reservation $reservation)
+    public function showReviewPopup()
     {
-        return view('review', compact('reservation'));
+        return view('review');
     }
 
-    public function submitReview(Request $request, Reservation $reservation)
+    public function submitReview(Request $request)
     {
         $request->validate([
-            'name' => 'required',
+            'email' => 'required|email',
+            'room_name' => 'required',
+            'room_comment' => 'required',
             'rating' => 'required|numeric|between:1,5',
             'comment' => 'required',
         ]);
-
-        // Save the review to the database (use the Review model)
-        $review = new Review([
-            'name' => $request->input('name'),
-            'rating' => $request->input('rating'),
-            'comment' => $request->input('comment'),
-        ]);
-        $reservation->review()->save($review);
-
-        return response()->json(['message' => 'Review submitted successfully']);
+    
+        $user = User::where('email', $request->input('email'))->first();
+    
+        if ($user) {
+            $review = new Review([
+                'user_id' => $user->id, 
+                'email' => $request->input('email'),
+                'room_name' => $request->input('room_name'),
+                'room_comment' => $request->input('room_comment'),
+                'rating' => $request->input('rating'),
+                'comment' => $request->input('comment'),
+            ]);
+    
+            $review->save();
+    
+            return response()->json(['message' => 'Review submitted successfully']);
+        } else {
+            return response()->json(['error' => 'Email not found'], 404);
+        }
     }
-
-        public function getGuestReviews()
+    
+    public function showReviewForm()
     {
-        $reviews = Review::all(); 
+        $rooms = Room::pluck('room_name');
         
-        return view('app', ['reviews' => $reviews]); 
+        return view('review', compact('rooms'));
     }
 
+
+
+    public function getGuestReviews()
+    {
+        $reviews = Review::all(); // Fetch all reviews from the database
+
+        return view('app', ['reviews' => $reviews]);
+    }
+    
 }

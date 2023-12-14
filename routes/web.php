@@ -149,14 +149,12 @@ Route::get('/success', [StripeController::class, 'success'])->name('success');
 Route::get('/dashboard/reservations', [ReservationController::class, 'showReservations'])->name('dashboard.reservations');
 
 
-Route::get('/write-review/{reservation}', [ReviewController::class, 'showReviewPopup'])->name('review')->middleware('auth');
-Route::post('/submit-review/{reservation}', [ReviewController::class, 'submitReview'])->name('submit-review')->middleware('auth');
+// Route::get('/write-review/{reservation}', [ReviewController::class, 'showReviewPopup'])->name('review')->middleware('auth');
+// Route::post('/submit-review/{reservation}', [ReviewController::class, 'submitReview'])->name('submit-review')->middleware('auth');
 
 
-// Route::get('/write-review', [ReviewController::class, 'showReviewPopup'])->name('review');
-// Route::post('/submit-review', [ReviewController::class, 'submitReview'])->name('submit-review');
-
-
-
+Route::get('/write-review', [ReviewController::class, 'showReviewForm'])->name('review');
+Route::post('/submit-review', [ReviewController::class, 'submitReview'])->name('submit-review');
 
 // <!-- <form action="{{ route('submit-review', ['reservation' => $reservation->id]) }}" method="post" id="review-form"> -->
+Route::get('/get-room-id/{room_name}', [ReviewController::class, 'getRoomId']);

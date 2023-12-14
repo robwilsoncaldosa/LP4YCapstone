@@ -1365,3 +1365,17 @@
                                        height: 110vh!important;
                                    }
                                }
+
+
+
+     .btn-black-hover {
+        background-color: transparent;
+        color: #000;
+        border: 1px solid #000;
+        transition: background-color 0.3s, color 0.3s;
+    }
+
+    .btn-black-hover:hover {
+        background-color: #000;
+        color: #fff;
+    }
