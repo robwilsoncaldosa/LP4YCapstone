@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\Response;
 use Illuminate\Http\Request;
 use App\Models\Reservation;
 use App\Models\Payment;
@@ -101,6 +101,117 @@ public function cancelReservation($id)
     // Redirect back to the reservations page with a success message
     return redirect()->route('dashboard.reservations')->with('success', 'Reservation canceled successfully.');
 }
+
+
+
+
+
+
+
+public function storeReservation(Request $request)
+{
+    // Validate and store your transaction data here
+    $request->validate([
+        'name' => 'required|string',
+        'email' => 'required|email',
+        'country_code' => 'required|string', // Add validation for the country code
+        'mobile' => 'required|string', // Add validation for the mobile number
+        'room_id' => 'required|exists:rooms,id',
+        'amount' => 'required|numeric|min:0',
+        'payment_method' => 'required|string',
+        'check_in_date' => 'required|date',
+        // 'check_in_time' => 'required|date_format:H:i',
+        'check_out_date' => 'required|date',
+        // 'check_out_time' => 'required|date_format:H:i',
+    ]);
+
+    // Combine date and time strings for check-in and check-out
+    $checkInDateTime = $request->input('check_in_date') . ' ' . $request->input('check_in_time');
+    $checkOutDateTime = $request->input('check_out_date') . ' ' . $request->input('check_out_time');
+
+    // Check if the chosen room is currently occupied or not available
+    $isRoomAvailable = $this->isRoomAvailable($request->input('room_id'), $checkInDateTime, $checkOutDateTime);
+
+    if (!$isRoomAvailable) {
+        return redirect()->route('dashboard.transactions')->with('error', 'The chosen room is not available at this chosen date.');
+    }
+
+    // Create or find the user based on the provided email
+    $user = User::firstOrCreate(
+        ['email' => $request->input('email')],
+        [
+            'name' => $request->input('name'),
+            'contact_number' => $request->input('country_code') . $request->input('mobile'), 
+        ]
+    );
+
+    // Create a reservation for the user
+    $reservation = Reservation::create([
+        'user_id' => $user->id,
+        'room_id' => $request->input('room_id'),
+        'check_in_date' => $checkInDateTime,
+        'check_out_date' => $checkOutDateTime,
+        // Add other reservation fields as needed
+    ]);
+
+    // Create a payment for the reservation
+    $payment = Payment::create([
+        'reservation_id' => $reservation->id,
+        'remaining_total' => $reservation->room->price_per_night - $request->input('amount'),
+        'amount' => $request->input('amount'),
+        'payment_method' => $request->input('payment_method'),
+        // Add other payment fields as needed
+    ]);
+
+    // You can redirect to the transactions page or any other page after storing
+    return redirect()->route('dashboard.reservations')->with('success', 'Transaction created successfully!');
+}
+
+/**
+ * Check if the room is available for the given dates.
+ *
+ * @param int $roomId
+ * @param string $checkInDateTime
+ * @param string $checkOutDateTime
+ * @return bool
+ */
+private function isRoomAvailable($roomId, $checkInDateTime, $checkOutDateTime)
+{
+    
+    $existingReservations = Reservation::where('room_id', $roomId)
+        ->where(function ($query) use ($checkInDateTime, $checkOutDateTime) {
+            $query->whereBetween('check_in_date', [$checkInDateTime, $checkOutDateTime])
+                ->orWhereBetween('check_out_date', [$checkInDateTime, $checkOutDateTime]);
+        })
+        ->exists();
+
+    return !$existingReservations;
+}
+
+
+
+
+
+
+
+// Will check and get the name of the guest from the prevs guest list
+public function checkUserByEmail(Request $request)
+{
+    $email = $request->input('email');
+
+    // Check if the user with the given email exists
+    $user = User::where('email', $email)->first();
+
+    if ($user) {
+        // If the user exists, return the user's name
+        return Response::json(['success' => true, 'name' => $user->name]);
+    } else {
+        // If the user doesn't exist, return a response indicating that
+        return Response::json(['success' => false]);
+    }
+}
+
+
 
 
 

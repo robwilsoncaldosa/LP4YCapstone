@@ -79,6 +79,12 @@ Route::middleware(['auth'])->group(function () {
         }
     })->name('dashboard');
 
+
+
+Route::post('/reservations/checkUserByEmail', [ReservationController::class, 'checkUserByEmail'])->name('dashboard.reservations.checkUserByEmail');
+
+    Route::post('/reservations/storeReservation', [ReservationController::class, 'storeReservation'])->name('dashboard.reservations.storeReservation');
+
     Route::put('/dashboard/reservations', [ReservationController::class, 'update'])->name('dashboard.reservations.update');
     Route::delete('/dashboard/reservations/cancel/{id}', [ReservationController::class, 'cancelReservation'])->name('dashboard.reservations.cancel');
     Route::get('/dashboard/reservations', [ReservationController::class, 'showReservations'])->name('dashboard.reservations');

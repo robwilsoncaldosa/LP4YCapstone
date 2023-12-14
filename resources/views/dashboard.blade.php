@@ -420,18 +420,25 @@
     <h2>Reservations</h2>
 
     <div class="row">
-        <!-- Search Bar -->
-        <div class="col-md-6 mb-3">
-            <label for="reservationSearch">Search:</label>
-            <input type="text" id="reservationSearch" class="form-control search-filter" placeholder="Enter name, email, or room name">
-        </div>
-
-        <!-- Filter by Date -->
-        <div class="col-md-6 mb-3">
-            <label for="dateFilter">Filter by Date:</label>
-            <input type="date" id="dateFilter" class="form-control search-filter" placeholder="Select date">
-        </div>
+    <!-- Search Bar -->
+    <div class="col-md-4 mb-3">
+        <label for="reservationSearch">Search:</label>
+        <input type="text" id="reservationSearch" class="form-control search-filter" placeholder="Enter name, email, or room name">
     </div>
+
+    <!-- Filter by Date -->
+    <div class="col-md-4 mb-3">
+        <label for="dateFilter">Filter by Date:</label>
+        <input type="date" id="dateFilter" class="form-control search-filter" placeholder="Select date">
+    </div>
+
+    <!-- Create New Reservation Button -->
+    <div class="col-md-4 mb-3 d-flex align-items-end">
+        <button type="button"  class="btn btn-success" data-bs-toggle="modal" data-bs-target="#createReservationModal">
+            Create New Reservation
+        </button>
+    </div>
+</div>
 
 
 
@@ -537,6 +544,92 @@
         </table>
     </div>
 
+
+  <!-- Modal for creating new Reservation -->
+<div class="modal fade" id="createReservationModal" tabindex="-1" aria-labelledby="createReservationModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="createReservationModalLabel">Create New Reservation</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="{{ route('dashboard.reservations.storeReservation') }}" method="post">
+                    @csrf
+
+                    <div class="mb-3">
+                        <label for="email">Email:</label>
+                        <input type="email" class="form-control" id="email" name="email" placeholder="Enter email..." required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="name">Name:</label>
+                        <input type="text" class="form-control" id="name" name="name" placeholder="Enter name..." required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="country_code">Country Code:</label>
+                        <select class="form-select" id="country_code" name="country_code" required>
+                            <option value="+63">+63 (Philippines)</option>
+                            <option value="+1">+1 (United States)</option>
+                            <option value="+44">+44 (United Kingdom)</option>
+                            <option value="+33">+33 (France)</option>
+                            <option value="+49">+49 (Germany)</option>
+                            <option value="+81">+81 (Japan)</option>
+                            <option value="+86">+86 (China)</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="mobile">Mobile Number:</label>
+                        <div class="input-group">
+                            <span class="input-group-text" id="countryCodeDisplay">+63</span>
+                            <input type="tel" class="form-control" id="mobile" name="mobile" placeholder="Enter mobile number..." required>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="room_id">Room Name:</label>
+                        <select class="form-select" id="room_id" name="room_id" required>
+                            @foreach($rooms as $roomId => $room)
+                                <option value="{{ $roomId }}">{{ $room }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="amount">Amount:</label>
+                        <input type="number" class="form-control" id="amount" name="amount" step="0.01" min="0" placeholder="Enter amount..." required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="payment_method">Payment Method:</label>
+                        <select class="form-select" id="payment_method" name="payment_method" required>
+                            <option value="cash">Cash</option>
+                            <option value="credit_card">Credit Card</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="check_in_date">Check-in Date:</label>
+                        <input type="date" class="form-control" id="check_in_date" name="check_in_date" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="check_out_date">Check-out Date:</label>
+                        <input type="date" class="form-control" id="check_out_date" name="check_out_date" required>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Create Reservation</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script>
         $(document).ready(function() {
@@ -573,6 +666,31 @@
                 });
             });
         });
+
+        $(document).ready(function () {
+        // On email input change
+        $('#email').on('change', function () {
+            var email = $(this).val();
+
+            // Send an AJAX request to check if the email exists in the users' database
+            $.ajax({
+                url: "{{ route('dashboard.reservations.checkUserByEmail') }}", // Replace with your actual route name
+                type: "POST",
+                data: {
+                    _token: "{{ csrf_token() }}",
+                    email: email
+                },
+                success: function (response) {
+                    // If the email exists, update the 'Name' field
+                    if (response.success) {
+                        $('#name').val(response.name);
+                    }
+                }
+            });
+        });
+    });
+
+
     </script>
 @endif
 
@@ -1365,6 +1483,9 @@ aria-hidden="true">
         });
 
     });
+
+
+  
 </script>
 
 
