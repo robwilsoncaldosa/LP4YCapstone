@@ -263,6 +263,8 @@ $(document).ready(function() {
 });
 
 
+
+///script for phone number is below
 const input = document.querySelector("#phone");
 const input2 = document.querySelector("#phone2");
 

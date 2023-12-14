@@ -206,6 +206,10 @@
     td,.btn{
         text-transform: uppercase;
     }
+    th{
+        text-transform: uppercase;
+    }
+
 </style>
 
 @if (auth()->check())
