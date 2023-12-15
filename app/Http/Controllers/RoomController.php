@@ -86,9 +86,9 @@ class RoomController extends Controller
     public function moreinfo(string $name)
     {
         $room = Room::where('room_name', $name)->firstOrFail(); // Retrieve the room by name
-
-        return view('more_info', compact('room')); // Pass the room data to the view
-
+        $roomReviews = $room->reviews; // Retrieve reviews associated with the room
+    
+        return view('more_info', compact('room', 'roomReviews')); // Pass the room and reviews data to the view
     }
 
     /**

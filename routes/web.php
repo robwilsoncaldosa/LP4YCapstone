@@ -158,3 +158,4 @@ Route::post('/submit-review', [ReviewController::class, 'submitReview'])->name('
 
 // <!-- <form action="{{ route('submit-review', ['reservation' => $reservation->id]) }}" method="post" id="review-form"> -->
 Route::get('/get-room-id/{room_name}', [ReviewController::class, 'getRoomId']);
+Route::get('/more_info/{room_name}', [ReviewController::class, 'showAllReviewsForRoom'])->name('more_info');

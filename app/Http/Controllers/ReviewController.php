@@ -59,7 +59,16 @@ public function showAllReviews()
     return view('allreviews', ['reviews' => $reviews]);
 }
 
+public function showAllReviewsForRoom($room_name)
+{
+    // Fetch reviews for the specified room name
+    $reviews = Review::with('user')
+        ->where('room_name', $room_name)
+        ->get();
 
+    // Pass the room reviews to the "moreinfo" view
+    return view('more_info', ['reviews' => $reviews]);
+}
 
     
 }

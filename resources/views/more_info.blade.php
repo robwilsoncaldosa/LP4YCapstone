@@ -130,7 +130,23 @@
                 </div>
                 <hr class="divider">
 
+              
+              <!-- Display reviews for the room -->
+                    @if ($roomReviews->count() > 0)
+                        <h5>Reviews for {{ $room->room_name }} Room</h5>
+                        <ul>
+                            @foreach ($roomReviews as $review)
+                                <li>
+                                    <strong>{{ $review->user->name }}</strong> - {{ $review->room_comment }}
+                                    <!-- Add other review details you want to display -->
+                                </li>
+                            @endforeach
+                        </ul>
+                    @else
+                        <p>No reviews for {{ $room->room_name }} Room yet.</p>
+                    @endif
 
+                 <hr class="divider">      
                 <div class="map-container">
                     <iframe
                         src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d490.68891707319847!2d123.9490603791058!3d10.300900522871656!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x33a9999278be73df%3A0x375659c7ec469226!2sLife%20Project%204%20Youth%20(LP4Y)%20-%20Center%20and%20Guest%20houses!5e0!3m2!1sen!2sph!4v1688547750578!5m2!1sen!2sph"
@@ -211,11 +227,6 @@
                 <!-- Button to trigger the modal for full payment -->
                 <button class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#fullpayment">Full
                     Payment</button>
-
-
-
-
-
 
                 </form>
             </div>
