@@ -22,7 +22,7 @@
         background-color: white; /* Set background to transparent or white */
         padding: 30px;
         border: 1px solid black; 
-       
+       text-align:center;
         
     }
 
@@ -98,8 +98,8 @@ button.btn-secondary:hover {
     }
 
     h1 {
-        text-align: left;
-        margin-top: 35px;
+        margin-right: 15px;
+        margin-top: 40px;
         color: black;
     }
 
@@ -129,14 +129,34 @@ button.btn-secondary:hover {
             color: black;
         }
     }
+    #error-popup {
+        display: none;
+        position: fixed;
+        top: 20%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        padding: 20px;
+        background-color: #ffcccc;
+        border: 1px solid #ff0000;
+        border-radius: 5px;
+        z-index: 1000;
+    }
+
+    #close-error-popup {
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        cursor: pointer;
+    }
+    
 </style>
 
 <div class="container-xl">
     <div class="row">
-        <div class="col-lg-3 col-md-12 mx-auto"> <!-- Center the column -->
+        <div class="col-lg-3 col-md-12 mx-auto"> 
             <img src="../img/HostLogo.png" alt="Logo">
         </div>
-        <div class="col-lg-9 col-md-12">
+        <div class="col-lg-9 col-md-12 mx-auto">
             <h1>Leave a Review</h1>
         </div>
     </div>
@@ -152,17 +172,17 @@ button.btn-secondary:hover {
 
     <div class="form-group">
     <!-- Add a dropdown for room names -->
-    <select class="form-control" id="room_name" name="room_name" style="height: 50px;" required>
+    <select class="form-control" id="room_name" name="room_name" style="height: 50px; margin-top:20px" required>
         <option value="" disabled selected>Select room</option>
         <!-- Populate the options dynamically from your database -->
         @foreach($rooms as $room)
-            <option value="{{ $room->room_name }}">{{ $room->room_name }}</option>
+            <option value="{{ $room }}">{{ $room }}</option>
         @endforeach
     </select>
 </div>
 
     <div class="form-group">
-        <textarea class="form-control" id="room_comment" name="room_comment" style="height: 200px;" placeholder="What can you say about this room?" required></textarea>
+        <textarea class="form-control" id="room_comment" name="room_comment" style="height: 100px;" placeholder="What can you say about this room?" required></textarea>
     </div>
 
     <div class="form-group">
@@ -170,7 +190,7 @@ button.btn-secondary:hover {
     </div>
 
     <div class="form-group">
-        <textarea class="form-control" id="comment" name="comment" style="height: 200px;" placeholder="Write your overall experience" required></textarea>
+        <textarea class="form-control" id="comment" name="comment" style="height: 100px;" placeholder="Write your overall experience" required></textarea>
     </div>
 
     <button type="submit" class="btn btn-primary">Publish</button>
@@ -179,35 +199,88 @@ button.btn-secondary:hover {
 
 
 
-    <!-- Thank you message div -->
-    <div id="thank-you-message" style="display: none; margin-top: 20px;">
-        Thank you dear guest! We appreciate your time and effort for writing a review.
-    </div>
+ 
+</div>
+
+<div id="error-popup">
+    <span id="close-error-popup">&times;</span>
+    <p id="error-message"></p>
 </div>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- Add this script block to the end of your blade file, after including jQuery -->
+
+<!-- Add this script block to the end of your blade file, after including jQuery -->
+
 <script>
-$(document).ready(function () {
-    $('#review-form').on('submit', function (e) {
-        e.preventDefault();
+   $(document).ready(function () {
+        $('#review-form').on('submit', function (e) {
+            e.preventDefault();
 
-        var formData = $(this).serialize();
+            var formData = $(this).serialize();
 
-        $.ajax({
-            type: 'POST',
-            url: $(this).attr('action'),
-            data: formData,
-            success: function (response) {
-                console.log(response); // Log the response to the console
-                $('#review-form').hide();
-                $('#thank-you-message').show();
-            },
-            error: function (xhr, status, error) {
-                console.error(xhr.responseText); // Log the error to the console
+            $.ajax({
+                type: 'POST',
+                url: $(this).attr('action'),
+                data: formData,
+                success: function (response) {
+                    console.log(response);
+
+                   
+
+                    // Show the success message
+                    showSuccessPopup();
+
+                    // Optionally, you can redirect after a delay
+                    setTimeout(function() {
+                        window.location.href = '/';
+                    }, 3000); // 3000 milliseconds (3 seconds) delay before redirecting
+                },
+                error: function (xhr, status, error) {
+                    console.error(xhr.responseText);
+                    showErrorPopup(xhr.responseText);
+                }
+            });
+        });
+
+        // Confirmation popup when clicking the "Cancel" button
+        $('button.btn-secondary').on('click', function () {
+            var isConfirmed = confirm('Are you sure you want to cancel writing the review?');
+            if (isConfirmed) {
+                // User clicked "OK" in the confirmation popup
+                window.location.href = '/';
+            }
+            // If the user clicked "Cancel," do nothing
+        });
+
+        // Close the error popup when the close button is clicked
+        $('#close-error-popup').on('click', function () {
+            $('#error-popup').hide();
+        });
+
+        // Close the error popup when clicking anywhere outside the popup
+        $(document).on('click', function (e) {
+            if (!$(e.target).closest('#error-popup').length && !$(e.target).is('#error-popup')) {
+                $('#error-popup').hide();
             }
         });
-    });
-});
 
+        // Function to show the success popup
+        function showSuccessPopup() {
+            // Display your success message or any other content
+            alert('Review submitted successfully!');
+
+            // Optionally, you can customize a modal or use a library like Bootstrap modal for a better user experience
+        }
+
+        // Function to show the error popup
+        function showErrorPopup(errorMessage) {
+            // Display your error message or any other content
+            alert('Error: ' + errorMessage);
+
+            // Optionally, you can customize a modal or use a library like Bootstrap modal for a better user experience
+        }
+    });
 </script>
+
 @endsection

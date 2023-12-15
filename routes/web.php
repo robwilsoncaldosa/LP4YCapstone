@@ -131,7 +131,7 @@ Route::get('/dashboard/transactions/total-amount', [PaymentController::class, 'g
 
 
 
-
+Route::get('/allreviews', [ReviewController::class, 'showAllReviews'])->name('all-reviews');
 
 Route::get('/book', [RoomController::class, 'showBookingView'])->name('book');
 

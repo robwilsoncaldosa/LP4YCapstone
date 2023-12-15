@@ -259,6 +259,14 @@
     js.src = 'https://connect.facebook.net/en_US/sdk/xfbml.customerchat.js';
     fjs.parentNode.insertBefore(js, fjs);
   }(document, 'script', 'facebook-jssdk'));
+
+
+
+    // Add a click event listener to the button
+    document.getElementById('seeMoreReviewsBtn').addEventListener('click', function() {
+        // Redirect to the allreviews page
+        window.location.href = "{{ route('all-reviews') }}";
+    });
 </script>
 
 

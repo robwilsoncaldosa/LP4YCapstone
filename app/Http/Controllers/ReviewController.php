@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+
 use App\Models\Room;
 use App\Models\Review;
 use App\Models\User;
@@ -52,12 +53,13 @@ class ReviewController extends Controller
     }
 
 
+public function showAllReviews()
+{
+    $reviews = Review::with('user')->get();
+    return view('allreviews', ['reviews' => $reviews]);
+}
 
-    public function getGuestReviews()
-    {
-        $reviews = Review::all(); // Fetch all reviews from the database
 
-        return view('app', ['reviews' => $reviews]);
-    }
+
     
 }
