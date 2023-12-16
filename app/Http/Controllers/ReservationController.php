@@ -8,6 +8,7 @@ use App\Models\Payment;
 use App\Models\User;
 use App\Models\Room;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 class ReservationController extends Controller
 {
 
@@ -28,8 +29,6 @@ class ReservationController extends Controller
 
 public function homeView()
 {
-    $reservations = Reservation::all();
-
     // Calculate the total number of bookings
     $totalBookings = Reservation::count();
 
@@ -41,13 +40,26 @@ public function homeView()
         ->where('check_in_date', '<', Carbon::now())
         ->count();
 
-        return view('dashboard', [
+    // Fetch room status data
+    $roomStatuses = Room::select('room_name', DB::raw("CASE WHEN reservations.check_out_date >= NOW() THEN CONCAT('Occupied until ', DATE_FORMAT(reservations.check_out_date, '%M %e, %Y at %l:%i %p')) ELSE 'Available' END as status"))
+        ->leftJoin('reservations', function ($join) {
+            $join->on('rooms.id', '=', 'reservations.room_id')
+                ->where('reservations.check_out_date', '=', DB::raw('(SELECT MAX(check_out_date) FROM reservations WHERE room_id = rooms.id)'));
+        })
+        ->get();
+
+    // Fetch all reservations data
+    $reservations = Reservation::all();
+
+    return view('dashboard', [
         'totalBookings' => $totalBookings,
         'newClientsThisMonth' => $newClientsThisMonth,
         'returningClients' => $returningClients,
         'reservations' => $reservations,
+        'roomStatuses' => $roomStatuses,
     ]);
 }
+
 
 
 public function checkout($reservationId)

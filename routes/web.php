@@ -81,6 +81,9 @@ Route::middleware(['auth'])->group(function () {
 
 
 
+
+
+
 Route::post('/reservations/checkUserByEmail', [ReservationController::class, 'checkUserByEmail'])->name('dashboard.reservations.checkUserByEmail');
 
     Route::post('/reservations/storeReservation', [ReservationController::class, 'storeReservation'])->name('dashboard.reservations.storeReservation');
@@ -105,22 +108,26 @@ Route::post('/rooms', [RoomController::class, 'store'])->name('rooms.store');
 Route::put('dashboard/rooms/{id}', [RoomController::class, 'update'])->name('rooms.update');
 
 // Delete room
-Route::delete('/rooms/{id}', [RoomController::class, 'destroy'])->name('rooms.destroy');
+    Route::delete('/rooms/{id}', [RoomController::class, 'destroy'])->name('rooms.destroy');
 
-Route::delete('/users/{id}', [UserController::class, 'destroy'])->name('users.destroy');
-Route::post('/personnel/reset-password/{id}', [PersonnelController::class, 'resetPassword'])->name('personnel.resetPassword');
+    Route::delete('/users/{id}', [UserController::class, 'destroy'])->name('users.destroy');
+    Route::post('/personnel/reset-password/{id}', [PersonnelController::class, 'resetPassword'])->name('personnel.resetPassword');
 
 
-Route::get('/dashboard/transactions', [PaymentController::class, 'showTransactions'])->name('dashboard.transactions');
-// Route::get('/dashboard/transactions/{id}/edit', [PaymentController::class, 'edit'])->name('dashboard.transactions.edit');
-Route::put('/dashboard/transactions/{id}', [PaymentController::class, 'update'])->name('dashboard.transactions.update');
-Route::delete('/dashboard/transactions/{id}', [PaymentController::class, 'destroy'])->name('dashboard.transactions.destroy');
-Route::get('/dashboard/transactions/total-amount', [PaymentController::class, 'getTotalAmount']);
+    Route::get('/dashboard/transactions', [PaymentController::class, 'showTransactions'])->name('dashboard.transactions');
+    // Route::get('/dashboard/transactions/{id}/edit', [PaymentController::class, 'edit'])->name('dashboard.transactions.edit');
+    Route::put('/dashboard/transactions/{id}', [PaymentController::class, 'update'])->name('dashboard.transactions.update');
+    Route::delete('/dashboard/transactions/{id}', [PaymentController::class, 'destroy'])->name('dashboard.transactions.destroy');
+    Route::get('/dashboard/transactions/total-amount', [PaymentController::class, 'getTotalAmount']);
 
 
     // Route::get('dashboard/transactions/rooms', [PaymentController::class, 'createTransaction'])->name('dashboard.transactions.rooms');
     Route::post('/transactions/storeTransaction', [PaymentController::class, 'storeTransaction'])->name('dashboard.transactions.storeTransaction');
 
+    Route::get('dashboard/reviews', [ReviewController::class, 'showReviews'])->name('dashboard.reviews');
+
+
+    Route::delete('/dashboard/reviews/delete/{id}', [ReviewController::class, 'deleteReview'])->name('dashboard.reviews.delete');
 
 
 

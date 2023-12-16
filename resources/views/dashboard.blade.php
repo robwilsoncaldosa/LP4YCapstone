@@ -238,10 +238,18 @@
                                 class="far fa-calendar-check"></i> RESERVATION</a>
                     </li>
 
+                 
+
                     <li class="nav-item w-100 p-2">
-                        <a class="nav-link" href="{{ route('dashboard.roomStatuses') }}"><i
-                                class="fas fa-door-closed"></i> ROOM STATUS</a>
+                        <a class="nav-link" href="{{ route('dashboard.reviews') }}">
+                            <i class="fas fa-star"></i> REVIEWS
+                        </a>
                     </li>
+
+                        <li class="nav-item w-100 p-2">
+                            <a class="nav-link" href="{{ route('dashboard.transactions') }}"><i
+                                    class="fas fa-exchange-alt"></i> TRANSACTIONS</a>
+                        </li>
 
                 </ul>
             </div>
@@ -258,10 +266,7 @@
                                     class="fas fa-door-open"></i>ROOM</a>
                         </li>
 
-                        <li class="nav-item w-100 p-2">
-                            <a class="nav-link" href="{{ route('dashboard.transactions') }}"><i
-                                    class="fas fa-exchange-alt"></i> TRANSACTIONS</a>
-                        </li>
+                     
 
                         <li class="nav-item w-100 p-2">
                             <a class="nav-link" href="{{ route('dashboard.users') }}"><i
@@ -272,6 +277,12 @@
                             <a class="nav-link" href="{{ route('dashboard.personnel') }}"><i
                                     class="fas fa-id-badge"></i> PERSONNEL</a>
                         </li>
+
+                       
+
+
+
+                        
                     </ul>
                 </div>
             @endif
@@ -325,8 +336,8 @@
                             <a class="nav-link" href="#" onclick="showReservations()">
                                 <i class="far fa-bell" style="color:black; font-size: 35px;"></i>
                                 <span class="notification-count" id="notificationCount">
-                                    {{ $reservations->count() }}
-                                </span>
+                                    {{ $reservations->count() }} 
+                                </span> 
                             </a>
                         </li>
                     </ul>
@@ -411,6 +422,32 @@
                             </div>
                         </div>
                     </div>
+                      
+                    
+                    <div class="r_status" style="margin-top:100px">
+                    <!-- Room Status Section -->
+                    <h2>Room Status</h2>
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Room Name</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($roomStatuses as $roomStatus)
+                                        <tr>
+                                            <td>{{ $roomStatus->room_name }}</td>
+                                            <td>{{ $roomStatus->status }}</td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                </div>
+
+
                 @endif
 
                 @if(request()->is('dashboard/reservations'))
@@ -566,11 +603,12 @@
                  
 
                     <div class="mb-3">
-                        <label for="phone2" class="form-label">Phone (Optional):</label>
-                        <input class="form-control" id="phone2" name="phone2" type="tel">
-                        <span id="valid-msg2" class="hide">✓ Valid</span>
-                        <span id="error-msg2" class="hide"></span>
+                        <label for="phone3" class="form-label">Phone (Optional):</label>
+                        <input class="form-control" id="phone3" name="phone3" type="tel">
+                        <span id="valid-msg3" class="hide">✓ Valid</span>
+                        <span id="error-msg3" class="hide"></span>
                     </div>
+
 
                     <div class="mb-3">
                         <label for="room_id">Room Name:</label>
@@ -937,30 +975,7 @@
                 @endif
 
 
-                @if (request()->is('dashboard/roomStatuses'))
-                    <h2>Room Status</h2>
-                    <div class="table-responsive">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>Room Name</th>
-                                    <th>Status</th>
-                                </tr>
-                            </thead>
-
-                            <tbody>
-                                @foreach ($roomStatuses as $roomStatus)
-                                    <tr>
-                                        <td>{{ $roomStatus->room_name }}</td>
-                                        <td>{{ $roomStatus->status }}</td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                @endif
-
-
+              
                 @if (request()->is('dashboard/users'))
                     <div class="container-fluid">
                         <h2 class="mt-4">Guest</h2>
@@ -1037,7 +1052,7 @@
                             <button class="btn btn-outline-dark" type="button" id="createButton"
                                 data-bs-toggle="modal" data-bs-target="#createPersonnelModal">Create</button>
                         </div>
-
+                
                         <div class="table-responsive mt-4">
                             <table class="table">
                                 <thead>
@@ -1393,6 +1408,51 @@ aria-hidden="true">
                         </div>
                     @endforeach
                 @endif
+
+         @if (request()->is('dashboard/reviews'))
+
+    <div class="container mt-4 ps-4 pe-0">
+        <h5 class="text-uppercase fw-bold" style="color: #776061; font-size: 18px;">Reviews Management</h5>
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>User</th>
+                            <th>Room Name</th>
+                            <th>Rating</th>
+                            <th>Comment</th>
+                            <th>Room Comment</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($reviews as $review)
+                            <tr>
+                                <td>{{ $review->user->name }}</td>
+                                <td>{{ $review->room_name }}</td>
+                                <td>{{ $review->rating }}</td>
+                                <td>{{ $review->comment }}</td>
+                                <td>{{ $review->room_comment }}</td>
+                                <td>
+                                <form action="{{ route('dashboard.reviews.delete', ['id' => $review->id]) }}" method="post">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this review?')">Delete</button>
+                                </form>
+
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+                {{ $reviews->links() }} <!-- Pagination links -->
+            </div>
+        </div>
+    </div>
+@endif
+
+
             </main>
 
         </div>
@@ -1400,6 +1460,9 @@ aria-hidden="true">
     </nav>
 
 @endif
+
+
+
 
 <!-- Add this script at the end of your Blade layout file -->
 @if (session('success'))
@@ -1468,85 +1531,6 @@ aria-hidden="true">
 
     });
 
-    // ===================================
-const input = document.querySelector("#phone");
-const input2 = document.querySelector("#phone2");
-
-const button = document.querySelector("#btn");
-const errorMsg = document.querySelector("#error-msg");
-const validMsg = document.querySelector("#valid-msg");
-const errorMsg2 = document.querySelector("#error-msg2");
-const validMsg2 = document.querySelector("#valid-msg2");
-
-// here, the index maps to the error code returned from getValidationError - see readme
-const errorMap = ["Invalid number", "Invalid country code", "Too short", "Too long", "Invalid number"];
-const iti = window.intlTelInput(input, {
-    nationalMode: true,
-    initialCountry: "auto",
-    geoIpLookup: callback => {
-        fetch("https://ipapi.co/json")
-            .then(res => res.json())
-            .then(data => callback(data.country_code))
-            .catch(() => callback("us"));
-    },
-    utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/js/utils.js",
-});
-
-const iti2 = window.intlTelInput(input2, {
-    nationalMode: true,
-    initialCountry: "auto",
-    geoIpLookup: callback => {
-        fetch("https://ipapi.co/json")
-            .then(res => res.json())
-            .then(data => callback(data.country_code))
-            .catch(() => callback("us"));
-    },
-    utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/js/utils.js",
-});
-
-const reset = () => {
-    input.classList.remove("error");
-    errorMsg.innerHTML = "";
-    errorMsg.classList.add("hide");
-    validMsg.classList.add("hide");
-    input2.classList.remove("error");
-    errorMsg2.innerHTML = "";
-    errorMsg2.classList.add("hide");
-    validMsg2.classList.add("hide");
-
-};
-
-
-// on input: validate
-input.addEventListener('input', () => {
-    reset();
-    if (input.value.trim()) {
-        if (iti.isValidNumber()) {
-            validMsg.classList.remove("hide");
-        } else {
-            input.classList.add("error");
-            const errorCode = iti.getValidationError();
-            errorMsg.innerHTML = errorMap[errorCode];
-            errorMsg.classList.remove("hide");
-        }
-    }
-});
-
-
-// on input: validate
-input2.addEventListener('input', () => {
-    reset();
-    if (input2.value.trim()) {
-        if (iti2.isValidNumber()) {
-            validMsg2.classList.remove("hide");
-        } else {
-            input2.classList.add("error");
-            const errorCode = iti.getValidationError();
-            errorMsg2.innerHTML = errorMap[errorCode];
-            errorMsg2.classList.remove("hide");
-        }
-    }
-});
 </script>
 
 

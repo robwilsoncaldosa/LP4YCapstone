@@ -267,12 +267,16 @@ $(document).ready(function() {
 ///script for phone number is below
 const input = document.querySelector("#phone");
 const input2 = document.querySelector("#phone2");
+const input3 = document.querySelector("#phone3");
 
 const button = document.querySelector("#btn");
 const errorMsg = document.querySelector("#error-msg");
 const validMsg = document.querySelector("#valid-msg");
 const errorMsg2 = document.querySelector("#error-msg2");
 const validMsg2 = document.querySelector("#valid-msg2");
+
+const errorMsg3 = document.querySelector("#error-msg3");
+const validMsg3 = document.querySelector("#valid-msg3");
 
 // here, the index maps to the error code returned from getValidationError - see readme
 const errorMap = ["Invalid number", "Invalid country code", "Too short", "Too long", "Invalid number"];
@@ -300,6 +304,19 @@ const iti2 = window.intlTelInput(input2, {
     utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/js/utils.js",
 });
 
+
+const iti3 = window.intlTelInput(input3, {
+    nationalMode: true,
+    initialCountry: "auto",
+    geoIpLookup: callback => {
+        fetch("https://ipapi.co/json")
+            .then(res => res.json())
+            .then(data => callback(data.country_code))
+            .catch(() => callback("us"));
+    },
+    utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/js/utils.js",
+});
+
 const reset = () => {
     input.classList.remove("error");
     errorMsg.innerHTML = "";
@@ -309,7 +326,12 @@ const reset = () => {
     errorMsg2.innerHTML = "";
     errorMsg2.classList.add("hide");
     validMsg2.classList.add("hide");
-
+    
+    input3.classList.remove("error");
+    errorMsg3.innerHTML = "";
+    errorMsg3.classList.add("hide");
+    validMsg3.classList.add("hide");
+    
 };
 
 
@@ -340,6 +362,22 @@ input2.addEventListener('input', () => {
             const errorCode = iti.getValidationError();
             errorMsg2.innerHTML = errorMap[errorCode];
             errorMsg2.classList.remove("hide");
+        }
+    }
+});
+
+
+// on input: validate
+input3.addEventListener('input', () => {
+    reset();
+    if (input3.value.trim()) {
+        if (iti3.isValidNumber()) {
+            validMsg3.classList.remove("hide");
+        } else {
+            input3.classList.add("error");
+            const errorCode = iti.getValidationError();
+            errorMsg3.innerHTML = errorMap[errorCode];
+            errorMsg3.classList.remove("hide");
         }
     }
 });

@@ -28,4 +28,10 @@ class Review extends Model
     {
         return $this->belongsTo(Admin_User::class, 'admin_id');
     }
+
+    public function room()
+    {
+        // Assuming you have a 'room_name' column in your reviews table
+        return $this->belongsTo(Room::class, 'room_name', 'room_name');
+    }
 }

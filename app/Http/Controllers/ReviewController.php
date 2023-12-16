@@ -7,7 +7,7 @@ use App\Models\Room;
 use App\Models\Review;
 use App\Models\User;
 use Illuminate\Http\Request;
-
+use App\Models\Reservation;
 class ReviewController extends Controller
 {
     public function showReviewPopup()
@@ -69,6 +69,31 @@ public function showAllReviewsForRoom($room_name)
     // Pass the room reviews to the "moreinfo" view
     return view('more_info', ['reviews' => $reviews]);
 }
+
+
+public function deleteReview($id)
+{
+    $review = Review::findOrFail($id);
+
+
+    $review->delete();
+
+    return redirect()->route('dashboard.reviews')->with('success', 'Review deleted successfully');
+}
+
+
+
+public function showReviews()
+{
+    // Retrieve reviews with user and room relationships
+    $reviews = Review::with(['user', 'room'])->latest()->paginate(10);
+
+    // Assuming $reservations is another variable you want to pass
+    $reservations = Reservation::all();
+
+    return view('dashboard', ['reviews' => $reviews, 'reservations' => $reservations]);
+}
+
 
     
 }
