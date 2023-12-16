@@ -240,11 +240,7 @@
 
                  
 
-                    <li class="nav-item w-100 p-2">
-                        <a class="nav-link" href="{{ route('dashboard.reviews') }}">
-                            <i class="fas fa-star"></i> REVIEWS
-                        </a>
-                    </li>
+                   
 
                         <li class="nav-item w-100 p-2">
                             <a class="nav-link" href="{{ route('dashboard.transactions') }}"><i
@@ -279,7 +275,11 @@
                         </li>
 
                        
-
+                        <li class="nav-item w-100 p-2">
+                        <a class="nav-link" href="{{ route('dashboard.reviews') }}">
+                            <i class="fas fa-star"></i> REVIEWS
+                        </a>
+                    </li>
 
 
                         
