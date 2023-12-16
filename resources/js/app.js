@@ -275,12 +275,6 @@ const validMsg = document.querySelector("#valid-msg");
 const errorMsg2 = document.querySelector("#error-msg2");
 const validMsg2 = document.querySelector("#valid-msg2");
 
-<<<<<<< HEAD
-const errorMsg3 = document.querySelector("#error-msg3");
-const validMsg3 = document.querySelector("#valid-msg3");
-=======
-
->>>>>>> a194339a22547b3a1a35608d940ee434b680e088
 
 // here, the index maps to the error code returned from getValidationError - see readme
 const errorMap = ["Invalid number", "Invalid country code", "Too short", "Too long", "Invalid number"];
@@ -309,20 +303,6 @@ const iti2 = window.intlTelInput(input2, {
 });
 
 
-<<<<<<< HEAD
-const iti3 = window.intlTelInput(input3, {
-    nationalMode: true,
-    initialCountry: "auto",
-    geoIpLookup: callback => {
-        fetch("https://ipapi.co/json")
-            .then(res => res.json())
-            .then(data => callback(data.country_code))
-            .catch(() => callback("us"));
-    },
-    utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/js/utils.js",
-});
-=======
->>>>>>> a194339a22547b3a1a35608d940ee434b680e088
 
 const reset = () => {
     input.classList.remove("error");
@@ -333,17 +313,8 @@ const reset = () => {
     errorMsg2.innerHTML = "";
     errorMsg2.classList.add("hide");
     validMsg2.classList.add("hide");
-<<<<<<< HEAD
-    
-    input3.classList.remove("error");
-    errorMsg3.innerHTML = "";
-    errorMsg3.classList.add("hide");
-    validMsg3.classList.add("hide");
-    
-=======
 
 
->>>>>>> a194339a22547b3a1a35608d940ee434b680e088
 };
 
 
