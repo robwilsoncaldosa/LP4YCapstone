@@ -425,7 +425,7 @@
                       
                     
                     <div class="r_status" style="margin-top:100px">
-                    <!-- Room Status Section -->
+                
                     <h2>Room Status</h2>
                         <div class="table-responsive">
                             <table class="table">
@@ -446,7 +446,6 @@
                             </table>
                         </div>
                 </div>
-
 
                 @endif
 
