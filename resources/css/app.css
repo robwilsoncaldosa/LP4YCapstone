@@ -4,23 +4,23 @@
                                    font-weight: 400;
                                    color: #212529!important;
                                }
-
+                               
                                .hide {
                                    display: none;
                                }
-
+                               
                                section {
                                    width: 100%;
                                    min-height: 440px;
                                    margin: auto;
                                    overflow-y: hidden!important;
                                }
-
+                               
                                .services {
                                    overflow-y: unset!important;
                                }
                                /* *********************************  FACEBOOK & INSTAGRAM ICONS ON THE RIGHT  *********************************************** */
-
+                               
                                .fixed-icons {
                                    position: fixed;
                                    top: 50%;
@@ -35,55 +35,55 @@
                                    gap: 2rem;
                                    background-color: white;
                                }
-
+                               
                                .fixed-icons a i {
                                    color: rgb(36, 35, 35);
                                }
                                /* *********************************  HEADER  *********************************************** */
-
+                               
                                .navbar-custom {
                                    background-color: rgb(36, 35, 35);
                                }
-
+                               
                                .navbar-custom .nav-item .nav-link {
                                    color: rgb(245, 245, 245);
                                }
-
+                               
                                .navbar-custom .navbar-nav .nav-link.active,
                                .navbar-custom .navbar-nav .show>.nav-link {
                                    color: rgb(112, 112, 112);
                                }
-
+                               
                                .navbar-custom .navbar-nav .nav-item .btn-book-room {
                                    background-color: transparent;
                                    border: 1px solid white;
                                    color: white;
                                }
-
+                               
                                .navbar-custom .navbar-nav .nav-item .btn-book-room:hover {
                                    background-color: white;
                                    color: black;
                                }
-
+                               
                                .navbar-toggler-icon {
                                    color: #fff;
                                }
-
+                               
                                .nav-link {
                                    color: #fff;
                                }
-
+                               
                                .navbar-custom .nav-item .hover {
                                    background-color: transparent;
                                    color: white;
                                }
-
+                               
                                .navbar-custom .nav-item .hover:hover {
                                    background-color: white;
                                    color: black;
                                }
                                /* *********************************  Home  *********************************************** */
-
+                               
                                .home {
                                    position: relative;
                                    /* Ensure the ::before pseudo-element is positioned relative to this element */
@@ -95,7 +95,7 @@
                                    color: white;
                                    height: 800px;
                                }
-
+                               
                                .home::before {
                                    content: "";
                                    position: absolute;
@@ -104,19 +104,19 @@
                                    bottom: 0;
                                    left: 0;
                                }
-
+                               
                                .home .text-center {
                                    font-size: 60px;
                                    background-color: rgba(0, 0, 0, 0.3);
                                    font-family: 'Poppins';
                                }
-
+                               
                                .home .fst-italic {
                                    font-size: 30px;
                                    font-family: 'Courier New', Courier, monospace, cursive;
                                    font-weight: lighter;
                                }
-
+                               
                                .search {
                                    display: flex;
                                    width: 70%;
@@ -125,7 +125,7 @@
                                    margin-right: auto;
                                    margin-top: 1.5rem;
                                }
-
+                               
                                label {
                                    position: absolute;
                                    top: -20px;
@@ -133,7 +133,7 @@
                                    font-size: 12px;
                                    color: #555;
                                }
-
+                               
                                .search-button {
                                    background-color: black;
                                    color: white;
@@ -141,7 +141,7 @@
                                    border-radius: 4px;
                                }
                                /* *********************************  About  *********************************************** */
-
+                               
                                .about * {
                                    color: #737373;
                                    font-weight: 100;
@@ -151,14 +151,14 @@
                                    width: 75%;
                                    font-size: 30px;
                                }
-
+                               
                                .about h5 {
                                    font-weight: lighter;
                                    line-height: 32px;
                                    font-family: 'Poppins';
                                }
                                /* *********************************  Rooms  *********************************************** */
-
+                               
                                .rooms {
                                    background-image: url("./img/sample_room_background.jpg");
                                    background-size: cover;
@@ -173,7 +173,7 @@
                                    text-align: center;
                                    width: 100%;
                                }
-
+                               
                                .rooms .card {
                                    background-color: white;
                                    padding: auto;
@@ -183,12 +183,12 @@
                                    padding: 50px;
                                    font-family: 'Poppins'!important;
                                }
-
+                               
                                .card h5 {
                                    font-size: 18px;
                                    color: #737373;
                                }
-
+                               
                                .rooms .btn-book-room {
                                    background-color: transparent;
                                    border: 1px solid black;
@@ -196,43 +196,43 @@
                                    width: 140px;
                                    align-self: center;
                                }
-
+                               
                                .rooms .btn-book-room:hover {
                                    background-color: #101010;
                                    color: white;
                                }
                                /* *********************************  Services  *********************************************** */
-
+                               
                                .services {
                                    height: 300px;
                                }
                                /* *********************************  Gallery  *********************************************** */
-
+                               
                                .gallery {
                                    max-width: 100%;
                                }
-
+                               
                                .gallery-card {
                                    min-width: 70%;
                                    margin: auto;
                                }
-
+                               
                                .carousel {
                                    min-width: 70%;
                                    margin: auto;
                                }
-
+                               
                                .carousel-image {
                                    min-width: 100%;
                                    height: 80vh;
                                    object-fit: cover;
                                }
-
+                               
                                .gallery-card p {
                                    font-style: italic;
                                }
                                /* *********************************  Guest Review  *********************************************** */
-
+                               
                                .guest-review {
                                    background-image: url("./img/sample_guestreview_background.jpg");
                                    background-size: contain;
@@ -247,7 +247,7 @@
                                    text-align: center;
                                    width: 100%;
                                }
-
+                               
                                .guest-review .card {
                                    background-color: white;
                                    padding: 3rem;
@@ -255,21 +255,21 @@
                                    height: 370px;
                                    width: 392px;
                                }
-
+                               
                                .review-container {
                                    display: flex;
                                    flex-direction: column;
                                    align-items: center;
                                }
-
+                               
                                .review {
                                    display: none;
                                }
-
+                               
                                .review.active {
                                    display: block;
                                }
-
+                               
                                .radio-buttons {
                                    position: absolute;
                                    bottom: 20%;
@@ -279,34 +279,34 @@
                                    margin: auto;
                                }
                                /* *********************************  CONTACT  *********************************************** */
-
+                               
                                .contact {
                                    background-color: rgb(245, 245, 245);
                                    width: 100%;
                                    height: auto;
                                }
-
+                               
                                .contact-details {
                                    width: 70%;
                                    margin: auto;
                                }
-
+                               
                                .contact .container {
                                    width: 50%;
                                    margin: auto;
                                }
-
+                               
                                .contact-form .form-group {
                                    margin-bottom: 20px;
                                }
-
+                               
                                .contact-form label {
                                    display: block;
                                    font-weight: bold;
                                    position: relative;
                                    top: 0;
                                }
-
+                               
                                .contact-form input[type="text"],
                                .contact-form input[type="email"],
                                .contact-form textarea {
@@ -316,22 +316,22 @@
                                    border-radius: 4px;
                                    font-size: 16px;
                                }
-
+                               
                                .contact-form textarea {
                                    resize: vertical;
                                }
-
+                               
                                .contact-form .form-group {
                                    display: grid;
                                    grid-template-columns: 1fr;
                                    grid-gap: 10px;
                                }
-
+                               
                                .contact-form .form-group input,
                                .contact-form .form-group textarea {
                                    grid-column: 1 / -1;
                                }
-
+                               
                                .contact-form button[type="submit"] {
                                    padding: 5px 20px;
                                    font-size: 15px;
@@ -342,12 +342,12 @@
                                    cursor: pointer;
                                    margin-bottom: 4rem;
                                }
-
+                               
                                .contact-form button[type="submit"]:hover {
                                    background-color: #45a049;
                                }
                                /* *********************************  Footer  *********************************************** */
-
+                               
                                footer {
                                    border: 0;
                                    background-color: #101010;
@@ -357,31 +357,31 @@
                                    padding: 20px 0px;
                                }
                                /* *************************************** Book A Room***************************************** */
-
+                               
                                .book_container {
                                    background-color: white;
                                }
-
+                               
                                .book_t_content {
                                    padding: 20px;
                                    width: 65%;
                                    margin-left: auto;
                                    margin-right: auto;
                                }
-
+                               
                                .h_line {
                                    margin-top: 10px;
                                    margin-bottom: 20px;
                                    border: none;
                                    border-top: 1px solid #dee2e6;
                                }
-
+                               
                                .book_t_content h1 {
                                    text-align: center;
                                    font-weight: 50;
                                    font-size: 35px;
                                }
-
+                               
                                .search_book {
                                    display: flex;
                                    width: 65%;
@@ -389,19 +389,19 @@
                                    margin-right: auto;
                                    align-items: center;
                                }
-
+                               
                                .search-button {
                                    flex: 1;
                                    display: flex;
                                    align-items: center;
                                    justify-content: center;
                                }
-
+                               
                                .room {
                                    width: 65%;
                                    margin: 20px auto;
                                }
-
+                               
                                .room-container {
                                    display: flex;
                                    align-items: center;
@@ -410,27 +410,27 @@
                                    margin: 0 auto;
                                    /* max-width: 900px; */
                                }
-
+                               
                                .room-content {
                                    flex: 0 0 70%;
                                    margin: auto;
                                }
-
+                               
                                .room-details {
                                    display: flex;
                                    justify-content: space-between;
                                }
-
+                               
                                .separator {
                                    border-left: 1px solid #ccc;
                                    height: 25px;
                                }
-
+                               
                                .l_content {
                                    flex-grow: 1;
                                    margin-right: 30px;
                                }
-
+                               
                                .r_content {
                                    flex-shrink: 0;
                                    text-align: center;
@@ -447,7 +447,7 @@
     height: auto;
     border-radius: 2px;
 } */
-
+                               
                                .room-image {
                                    flex: 0 0 40%;
                                    margin-right: 50px;
@@ -457,7 +457,7 @@
                                    /* Set a fixed height for the image container */
                                    overflow: hidden;
                                }
-
+                               
                                .room-image img {
                                    width: 100%;
                                    height: 100%;
@@ -466,16 +466,16 @@
                                    border-radius: 2px;
                                }
                                /* ----------------- */
-
+                               
                                .room-container {
                                    position: relative;
                                }
-
+                               
                                .room-image {
                                    position: relative;
                                    overflow: hidden;
                                }
-
+                               
                                .more-info-hov {
                                    text-align: center;
                                    position: absolute;
@@ -491,44 +491,44 @@
                                    pointer-events: none;
                                    cursor: pointer;
                                }
-
+                               
                                .room-image:hover .more-info-hov {
                                    transform: translateY(-40px);
                                    opacity: 1;
                                }
-
+                               
                                .room-image:not(:hover) .more-info-hov {
                                    opacity: 1;
                                    transform: translateY(40px);
                                }
                                /* --------------- */
-
+                               
                                #room-name {
                                    font-size: 24px;
                                    margin-bottom: 10px;
                                }
-
+                               
                                .room-description {
                                    font-size: 16px;
                                    margin-bottom: 10px;
                                }
-
+                               
                                .room-features {
                                    font-size: 16px;
                                    margin-bottom: 10px;
                                }
-
+                               
                                .room-price {
                                    font-size: 30px;
                                    font-weight: 50;
                                    margin-bottom: 10px;
                                }
-
+                               
                                .room-beds {
                                    font-size: 16px;
                                    margin-bottom: 10px;
                                }
-
+                               
                                .divider {
                                    border: none;
                                    border-top: 1px solid #7a7474;
@@ -536,14 +536,14 @@
                                    margin-right: 30px;
                                    margin: 20px 0px;
                                }
-
+                               
                                .more-info {
                                    margin-top: 20px;
                                    background-color: #000;
                                    padding: 5px;
                                    text-align: center;
                                }
-
+                               
                                .more-info-button {
                                    color: #fff;
                                    background-color: transparent;
@@ -553,7 +553,7 @@
                                    cursor: pointer;
                                    white-space: nowrap;
                                }
-
+                               
                                .circle {
                                    display: inline-block;
                                    width: 7px;
@@ -562,22 +562,22 @@
                                    border-radius: 50%;
                                    margin-right: 5px;
                                }
-
+                               
                                dialog {
                                    border: 0;
                                }
-
+                               
                                .room-details-price:before {
                                    position: absolute;
                                    content: "₱";
                                    left: 20px;
                                }
-
+                               
                                .room-details-con h5 {
                                    min-width: 150px;
                                }
                                /* *********************************  Room Details Styles  *********************************************** */
-
+                               
                                dialog {
                                    z-index: 10;
                                    margin-top: 10px;
@@ -588,7 +588,7 @@
                                    right: -130%;
                                    max-width: 300px;
                                }
-
+                               
                                .room-details-back {
                                    /* position: absolute; */
                                    top: 20px;
@@ -600,12 +600,12 @@
                                    font-size: 20px;
                                    z-index: 2;
                                }
-
+                               
                                .room-details-back span {
                                    font-size: 30px;
                                }
                                /* Room Details Styling */
-
+                               
                                .room-details-container {
                                    margin: 30px;
                                    display: flex;
@@ -613,76 +613,76 @@
                                    position: relative;
                                    /* Adjust this value based on your preference */
                                }
-
+                               
                                .room-details-deets {
                                    max-width: 70%;
                                }
-
+                               
                                .room-details-content {
                                    position: absolute;
                                    top: 70px;
                                    right: 0px;
                                    width: 25%;
                                }
-
+                               
                                .room-details-deets img {
                                    width: 100%;
                                    height: auto;
                                }
-
+                               
                                .room-details-back i {
                                    margin-right: 5px;
                                    /* margin-bottom: 20px; */
                                    font-size: 30px;
                                }
-
+                               
                                .v-line {
                                    margin-left: 20px;
                                    margin-right: 20px;
                                    color: grey;
                                }
                                /* Box Styling */
-
+                               
                                .room-details-box {
                                    border: 1px solid grey;
                                    padding: 20px;
                                    margin-top: 20px;
                                }
-
+                               
                                .room-details-box p {
                                    margin: 0;
                                }
-
+                               
                                .room-details-box hr {
                                    margin: 20px 0;
                                }
-
+                               
                                .additional-details {
                                    display: flex;
                                    justify-content: space-between;
                                }
-
+                               
                                table {
                                    width: 100%;
                                }
-
+                               
                                table td {
                                    padding: 8px;
                                }
-
+                               
                                table tr:nth-child(even) {
                                    background-color: #f2f2f2;
                                }
                                /*
                 ============= */
-
+                               
                                .room-details-con {
                                    max-width: 100%;
                                    margin-left: auto;
                                    margin-right: auto;
                                    font-size: 15px;
                                }
-
+                               
                                .property-details,
                                .more-info,
                                .amenities,
@@ -690,71 +690,71 @@
                                .terms {
                                    margin-bottom: 20px;
                                }
-
+                               
                                .property-details p,
                                .more-info p,
                                .check-in-out p,
                                .terms p {
                                    margin: 0;
                                }
-
+                               
                                .amenities ul {
                                    list-style-type: none;
                                    padding: 0;
                                }
-
+                               
                                .amenities ul li {
                                    display: inline-block;
                                    margin-right: 10px;
                                }
                                /* ================== */
-
+                               
                                .amenities {
                                    display: flex;
                                    align-items: center;
                                    justify-content: space-between;
                                }
-
+                               
                                .amenit {
                                    display: flex;
                                    flex-direction: column;
                                    justify-content: flex-start;
                                    align-items: flex-start;
                                }
-
+                               
                                .amenit li {
                                    list-style-type: none;
                                    margin-left: 20px;
                                }
-
+                               
                                .amenit div {
                                    width: 150px;
                                    display: flex;
                                    align-items: center;
                                }
-
+                               
                                .amenit div:nth-child(2) {
                                    margin-top: 20px;
                                }
-
+                               
                                .amenit div i,
                                .amenit div li {
                                    display: inline-block;
                                }
-
+                               
                                .amenit-icons-container {
                                    display: flex;
                                    justify-content: flex-start;
                                    width: 75%;
                                    gap: 20%;
                                }
-
+                               
                                h5 {
                                    font-size: 16px;
                                    font-weight: bold;
                                }
                                /* ============== */
-
+                               
                                .properties-deets-container {
                                    display: flex;
                                    width: 75%;
@@ -762,23 +762,23 @@
                                    justify-content: flex-start;
                                    gap: 20%;
                                }
-
+                               
                                .properties-deets-container div {
                                    width: 150px;
                                    display: flex;
                                }
-
+                               
                                .property-details {
                                    display: flex;
                                    flex-direction: row;
                                    align-items: center;
                                    justify-content: space-between;
                                }
-
+                               
                                .property-details p {
                                    margin-right: 20px;
                                }
-
+                               
                                .prop-menu {
                                    display: flex;
                                    margin: 15px 0;
@@ -786,7 +786,7 @@
                                    max-width: 300px;
                                    padding: 0px;
                                }
-
+                               
                                .more-info {
                                    display: flex;
                                    flex-direction: row;
@@ -794,13 +794,13 @@
                                    justify-content: center;
                                    margin-bottom: 0;
                                }
-
+                               
                                f .more-info p {
                                    margin-left: 100px;
                                    margin-bottom: 0;
                                    display: flex;
                                }
-
+                               
                                .more-info-details {
                                    margin-left: 0!important;
                                    margin-bottom: 0;
@@ -809,29 +809,29 @@
                                    display: flex;
                                    justify-content: space-evenly;
                                }
-
+                               
                                .more-info_deets {
                                    display: flex;
                                    justify-content: space-between;
                                }
-
+                               
                                .more-info-text {
                                    width: 125px;
                                }
                                /* ====================== */
-
+                               
                                .check-deets-container {
                                    display: flex;
                                    width: 75%;
                                    justify-content: flex-start;
                                    gap: 20%;
                                }
-
+                               
                                .check-deets-container div {
                                    width: 150px;
                                    display: flex;
                                }
-
+                               
                                .check-deets {
                                    display: flex;
                                    margin-top: 15px;
@@ -839,7 +839,7 @@
                                    width: 100%;
                                    padding: 0px;
                                }
-
+                               
                                .check-in-out {
                                    display: flex;
                                    flex-direction: row;
@@ -848,14 +848,14 @@
                                }
                                /*
                 =================== */
-
+                               
                                .terms-deets-container {
                                    display: flex;
                                    width: 75%;
                                    justify-content: flex-start;
                                    gap: 20%;
                                }
-
+                               
                                .terms-deets {
                                    display: flex;
                                    margin-top: 15px;
@@ -867,31 +867,31 @@
                                    padding: 0px;
                                    /* margin-left: 110px; */
                                }
-
+                               
                                .room-name-container {
                                    width: 100%!important;
                                    gap: 20px;
                                    align-items: flex-start;
                                    justify-content: flex-start;
                                }
-
+                               
                                .terms {
                                    display: flex;
                                    flex-direction: row;
                                    align-items: center;
                                    justify-content: space-between;
                                }
-
+                               
                                .terms a {
                                    color: #000;
                                    text-decoration: underline;
                                }
-
+                               
                                .terms a:hover {
                                    color: #333;
                                }
                                /* Custom CSS to remove the label background color */
-
+                               
                                .form-floating .form-control:focus~label::after,
                                .form-floating .form-control:not(:placeholder-shown)~label::after,
                                .form-floating .form-control-plaintext~label::after,
@@ -899,48 +899,48 @@
                                    background-color: transparent !important;
                                    /* Remove the background color */
                                }
-
+                               
                                .i_content i {
                                    font-size: 25px;
                                    padding: 5px;
                                }
-
+                               
                                .i_content i {
                                    font-size: 25px;
                                    padding: 5px;
                                }
                                /* =================================== */
                                /* to display towel image  */
-
+                               
                                .i_content {
                                    display: flex;
                                    align-items: center;
                                }
-
+                               
                                .icon {
                                    width: 25px;
                                    height: 25px;
                                }
-
+                               
                                #downpayment .modal-dialog {
                                    transform: translate(0, 30%)!important;
                                }
-
+                               
                                #fullpayment .modal-dialog {
                                    transform: translate(0, 60%)!important;
                                }
-
+                               
                                .modal-body label {
                                    position: static;
                                    display: block;
                                    font-weight: bolder;
                                    font-size: 12px;
                                }
-
+                               
                                .dashboard-nav {
                                    height: 100vh;
                                }
-
+                               
                                .profile-section {
                                    padding-left: 1.5rem!important;
                                    padding-right: 0!important;
@@ -948,7 +948,7 @@
                                /* ========= */
                                /* ========= */
                                /* 720p Viewport */
-
+                               
                                @media screen and (min-width: 601px) {
                                    section {
                                        width: 75%;
@@ -978,7 +978,7 @@
                                    }
                                }
                                /* Adjust the Datepicker's position */
-
+                               
                                @media only screen and (max-width: 768px) {
                                    g .room-details-container {
                                        flex-direction: column;
@@ -1026,7 +1026,7 @@
                                    }
                                }
                                /* Mobile Viewport */
-
+                               
                                @media screen and (max-width: 600px) {
                                    .home .fst-italic {
                                        font-size: 25px;
@@ -1200,7 +1200,7 @@
                                        margin: 0!important;
                                    }
                                }
-
+                               
                                @media screen and (max-width: 426px) {
                                    .nav-item .nav-link {
                                        margin-left: 10px!important;
@@ -1353,10 +1353,10 @@
                                        width: 100%;
                                    }
                                    .container-xl.position-relative {
-                                       height: 750px;
+                                       height: 825px;
                                    }
                                }
-
+                               
                                @media screen and (max-width: 1440px) {
                                    .dashboard-nav {
                                        height: 110vh;
@@ -1365,17 +1365,15 @@
                                        height: 110vh!important;
                                    }
                                }
-
-
-
-     .btn-black-hover {
-        background-color: transparent;
-        color: #000;
-        border: 1px solid #000;
-        transition: background-color 0.3s, color 0.3s;
-    }
-
-    .btn-black-hover:hover {
-        background-color: #000;
-        color: #fff;
-    }
+                               
+                               .btn-black-hover {
+                                   background-color: transparent;
+                                   color: #000;
+                                   border: 1px solid #000;
+                                   transition: background-color 0.3s, color 0.3s;
+                               }
+                               
+                               .btn-black-hover:hover {
+                                   background-color: #000;
+                                   color: #fff;
+                               }

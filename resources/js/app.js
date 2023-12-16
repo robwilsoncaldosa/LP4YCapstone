@@ -187,15 +187,38 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 
-
 const reviewRadios = document.querySelectorAll('input[name="review-radio"]');
 const reviews = document.querySelectorAll('.review');
 
+// Function to handle radio button change
+function handleRadioChange(index) {
+    reviews.forEach(review => review.classList.remove('active'));
+    reviews[index].classList.add('active');
+}
+
+// Add event listener for radio button change
 reviewRadios.forEach((radio, index) => {
     radio.addEventListener('change', () => {
-        reviews.forEach(review => review.classList.remove('active'));
-        reviews[index].classList.add('active');
+        handleRadioChange(index);
     });
+});
+
+// Initialize Hammer.js for swipe detection
+var hammer = new Hammer(document.querySelector('.review-container'));
+var currentIndex = 0;
+
+hammer.on('swipeleft', function() {
+    // Handle swipe left
+    currentIndex = (currentIndex + 1) % reviewRadios.length;
+    reviewRadios[currentIndex].checked = true;
+    handleRadioChange(currentIndex);
+});
+
+hammer.on('swiperight', function() {
+    // Handle swipe right
+    currentIndex = (currentIndex - 1 + reviewRadios.length) % reviewRadios.length;
+    reviewRadios[currentIndex].checked = true;
+    handleRadioChange(currentIndex);
 });
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -207,19 +230,25 @@ document.addEventListener('DOMContentLoaded', function() {
             var target = this.getAttribute('href');
             var currentPage = window.location.pathname; // Get the current page URL
 
-            if (target.startsWith('#')) {
-                // Check if target is a valid selector
-                var targetElement = document.querySelector(target);
-                if (targetElement) {
-                    var offsetTop = targetElement.offsetTop - 150; // Subtract 150 pixels offset
-                    window.scrollTo({
-                        top: offsetTop,
-                        behavior: 'smooth'
-                    });
+            if (currentPage === '/') {
+                // If the current page is '/', perform smooth scrolling
+                if (target.startsWith('#')) {
+                    // Check if target is a valid selector
+                    var targetElement = document.querySelector(target);
+                    if (targetElement) {
+                        var offsetTop = targetElement.offsetTop - 150; // Subtract 150 pixels offset
+                        window.scrollTo({
+                            top: offsetTop,
+                            behavior: 'smooth'
+                        });
+                    }
+                } else {
+                    // Check if target is a valid URL
+                    window.location.href = target;
                 }
             } else {
-                // Check if target is a valid URL
-                window.location.href = target;
+                // If the current page is not '/', redirect to the target
+                window.location.href = "/" + target;
             }
         });
     });
@@ -256,10 +285,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
 $(document).ready(function() {
     $(".navbar-nav .nav-link").on("click", function() {
-        $(".navbar-toggler").click();
+        // Check if the screen width is 425px
+        if (window.innerWidth <= 600) {
+            $(".navbar-toggler").click();
+        }
     });
-
-
 });
 
 
