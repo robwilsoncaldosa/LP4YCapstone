@@ -552,7 +552,7 @@
                                                     <input type="time" class="form-control" id="check_out_time" name="check_out_time" value="{{ $reservation->check_out_time }}" required>
                                                 </div>
 
-                                    
+
 
                                                 <button type="submit" class="btn btn-primary">Save Changes</button>
                                             </form>
@@ -599,13 +599,13 @@
                         <input type="text" class="form-control" id="name" name="name" placeholder="Enter name..." required>
                     </div>
 
-                 
+
 
                     <div class="mb-3">
                         <label for="phone3" class="form-label">Phone (Optional):</label>
                         <input class="form-control" id="phone3" name="phone3" type="tel">
-                        <span id="valid-msg3" class="hide">✓ Valid</span>
-                        <span id="error-msg3" class="hide"></span>
+                        <span id="valid-msg3" class="hide" style="white-space:nowrap">✓ Valid</span>
+                        <span id="error-msg3" class="hide" style="white-space:nowrap"></span>
                     </div>
 
 
@@ -711,7 +711,43 @@
         });
     });
 
+    const input3 = document.querySelector("#phone3");
+    const errorMsg3 = document.querySelector("#error-msg3");
+const validMsg3 = document.querySelector("#valid-msg3");
+const errorMap = ["Invalid number", "Invalid country code", "Too short", "Too long", "Invalid number"];
+const iti3 = window.intlTelInput(input3, {
+    nationalMode: true,
+    initialCountry: "auto",
+    geoIpLookup: callback => {
+        fetch("https://ipapi.co/json")
+            .then(res => res.json())
+            .then(data => callback(data.country_code))
+            .catch(() => callback("us"));
+    },
+    utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/js/utils.js",
+});
+const reset = () => {
 
+    input3.classList.remove("error");
+    errorMsg3.innerHTML = "";
+    errorMsg3.classList.add("hide");
+    validMsg3.classList.add("hide");
+
+};
+// on input: validate
+input3.addEventListener('input', () => {
+    reset();
+    if (input3.value.trim()) {
+        if (iti3.isValidNumber()) {
+            validMsg3.classList.remove("hide");
+        } else {
+            input3.classList.add("error");
+            const errorCode = iti3.getValidationError();
+            errorMsg3.innerHTML = errorMap[errorCode];
+            errorMsg3.classList.remove("hide");
+        }
+    }
+});
     </script>
 @endif
 
