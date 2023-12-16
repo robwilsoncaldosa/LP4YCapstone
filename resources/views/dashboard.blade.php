@@ -238,7 +238,7 @@
                                 class="far fa-calendar-check"></i> RESERVATION</a>
                     </li>
 
-                 
+
 
                     <li class="nav-item w-100 p-2">
                         <a class="nav-link" href="{{ route('dashboard.reviews') }}">
@@ -266,7 +266,7 @@
                                     class="fas fa-door-open"></i>ROOM</a>
                         </li>
 
-                     
+
 
                         <li class="nav-item w-100 p-2">
                             <a class="nav-link" href="{{ route('dashboard.users') }}"><i
@@ -278,11 +278,11 @@
                                     class="fas fa-id-badge"></i> PERSONNEL</a>
                         </li>
 
-                       
 
 
 
-                        
+
+
                     </ul>
                 </div>
             @endif
@@ -336,8 +336,8 @@
                             <a class="nav-link" href="#" onclick="showReservations()">
                                 <i class="far fa-bell" style="color:black; font-size: 35px;"></i>
                                 <span class="notification-count" id="notificationCount">
-                                    {{ $reservations->count() }} 
-                                </span> 
+                                    {{ $reservations->count() }}
+                                </span>
                             </a>
                         </li>
                     </ul>
@@ -422,10 +422,10 @@
                             </div>
                         </div>
                     </div>
-                      
-                    
+
+
                     <div class="r_status" style="margin-top:100px">
-                
+
                     <h2>Room Status</h2>
                         <div class="table-responsive">
                             <table class="table">
@@ -552,7 +552,7 @@
                                                     <input type="time" class="form-control" id="check_out_time" name="check_out_time" value="{{ $reservation->check_out_time }}" required>
                                                 </div>
 
-                                    
+
 
                                                 <button type="submit" class="btn btn-primary">Save Changes</button>
                                             </form>
@@ -599,7 +599,7 @@
                         <input type="text" class="form-control" id="name" name="name" placeholder="Enter name..." required>
                     </div>
 
-                 
+
 
                     <div class="mb-3">
                         <label for="phone3" class="form-label">Phone (Optional):</label>
@@ -654,6 +654,54 @@
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script>
         $(document).ready(function() {
+
+            const input3 = document.querySelector("#phone3");
+
+            const validMsg3 = document.querySelector("#valid-msg3");
+
+            const errorMsg3 = document.querySelector("#error-msg3");
+
+            const iti3 = window.intlTelInput(input3, {
+                nationalMode: true,
+                initialCountry: "auto",
+                geoIpLookup: callback => {
+                    fetch("https://ipapi.co/json")
+                        .then(res => res.json())
+                        .then(data => callback(data.country_code))
+                        .catch(() => callback("us"));
+                },
+                utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/js/utils.js",
+            });
+
+
+
+
+            const reset2 = () => {
+                input3.classList.remove("error");
+                errorMsg3.innerHTML = "";
+                errorMsg3.classList.add("hide");
+                validMsg3.classList.add("hide");
+
+
+
+            };
+
+
+            // on input: validate
+            input3.addEventListener('input', () => {
+                reset2();
+                if (input3.value.trim()) {
+                    if (iti3.isValidNumber()) {
+                        validMsg3.classList.remove("hide");
+                    } else {
+                        input3.classList.add("error");
+                        const errorCode = iti.getValidationError();
+                        errorMsg3.innerHTML = errorMap[errorCode];
+                        errorMsg3.classList.remove("hide");
+                    }
+                }
+            });
+
             // Handle date filter change
             $('#dateFilter').change(function() {
                 var selectedDate = $(this).val();
@@ -710,6 +758,8 @@
             });
         });
     });
+
+
 
 
     </script>
@@ -974,7 +1024,7 @@
                 @endif
 
 
-              
+
                 @if (request()->is('dashboard/users'))
                     <div class="container-fluid">
                         <h2 class="mt-4">Guest</h2>
@@ -1051,7 +1101,7 @@
                             <button class="btn btn-outline-dark" type="button" id="createButton"
                                 data-bs-toggle="modal" data-bs-target="#createPersonnelModal">Create</button>
                         </div>
-                
+
                         <div class="table-responsive mt-4">
                             <table class="table">
                                 <thead>

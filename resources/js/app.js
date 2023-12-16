@@ -267,13 +267,14 @@ $(document).ready(function() {
 ///script for phone number is below
 const input = document.querySelector("#phone");
 const input2 = document.querySelector("#phone2");
-const input3 = document.querySelector("#phone3");
 
 const button = document.querySelector("#btn");
 const errorMsg = document.querySelector("#error-msg");
 const validMsg = document.querySelector("#valid-msg");
-const errorMsg2 = document.querySelector("#error-msg2");
 const validMsg2 = document.querySelector("#valid-msg2");
+
+const errorMsg2 = document.querySelector("#error-msg2");
+
 
 
 // here, the index maps to the error code returned from getValidationError - see readme
@@ -315,6 +316,7 @@ const reset = () => {
     validMsg2.classList.add("hide");
 
 
+
 };
 
 
@@ -345,22 +347,6 @@ input2.addEventListener('input', () => {
             const errorCode = iti.getValidationError();
             errorMsg2.innerHTML = errorMap[errorCode];
             errorMsg2.classList.remove("hide");
-        }
-    }
-});
-
-
-// on input: validate
-input3.addEventListener('input', () => {
-    reset();
-    if (input3.value.trim()) {
-        if (iti3.isValidNumber()) {
-            validMsg3.classList.remove("hide");
-        } else {
-            input3.classList.add("error");
-            const errorCode = iti.getValidationError();
-            errorMsg3.innerHTML = errorMap[errorCode];
-            errorMsg3.classList.remove("hide");
         }
     }
 });

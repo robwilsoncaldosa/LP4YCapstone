@@ -127,7 +127,7 @@ public function storeReservation(Request $request)
         'name' => 'required|string',
         'email' => 'required|email',
         'country_code' => 'required|string', // Add validation for the country code
-        'mobile' => 'required|string', // Add validation for the mobile number
+        'phone3' => 'required|string', // Add validation for the mobile number
         'room_id' => 'required|exists:rooms,id',
         'amount' => 'required|numeric|min:0',
         'payment_method' => 'required|string',
@@ -153,7 +153,7 @@ public function storeReservation(Request $request)
         ['email' => $request->input('email')],
         [
             'name' => $request->input('name'),
-            'contact_number' => $request->input('country_code') . $request->input('mobile'), 
+            'contact_number' => $request->input('phone3'),
         ]
     );
 
@@ -189,7 +189,7 @@ public function storeReservation(Request $request)
  */
 private function isRoomAvailable($roomId, $checkInDateTime, $checkOutDateTime)
 {
-    
+
     $existingReservations = Reservation::where('room_id', $roomId)
         ->where(function ($query) use ($checkInDateTime, $checkOutDateTime) {
             $query->whereBetween('check_in_date', [$checkInDateTime, $checkOutDateTime])
