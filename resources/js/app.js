@@ -274,6 +274,8 @@ const validMsg = document.querySelector("#valid-msg");
 const errorMsg2 = document.querySelector("#error-msg2");
 const validMsg2 = document.querySelector("#valid-msg2");
 
+
+
 // here, the index maps to the error code returned from getValidationError - see readme
 const errorMap = ["Invalid number", "Invalid country code", "Too short", "Too long", "Invalid number"];
 const iti = window.intlTelInput(input, {
@@ -300,6 +302,8 @@ const iti2 = window.intlTelInput(input2, {
     utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/js/utils.js",
 });
 
+
+
 const reset = () => {
     input.classList.remove("error");
     errorMsg.innerHTML = "";
@@ -309,6 +313,7 @@ const reset = () => {
     errorMsg2.innerHTML = "";
     errorMsg2.classList.add("hide");
     validMsg2.classList.add("hide");
+
 
 };
 
