@@ -127,7 +127,8 @@ Route::put('dashboard/rooms/{id}', [RoomController::class, 'update'])->name('roo
 
 
     // Route::get('dashboard/transactions/rooms', [PaymentController::class, 'createTransaction'])->name('dashboard.transactions.rooms');
-    Route::post('/transactions/storeTransaction', [PaymentController::class, 'storeTransaction'])->name('dashboard.transactions.storeTransaction');
+    Route::post('transactions/storeTransaction', [PaymentController::class, 'storeTransaction'])->name('dashboard.transactions.storeTransaction');
+
 
     Route::get('dashboard/reviews', [ReviewController::class, 'showReviews'])->name('dashboard.reviews');
 

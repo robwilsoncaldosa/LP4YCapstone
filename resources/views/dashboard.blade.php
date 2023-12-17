@@ -1294,8 +1294,6 @@ aria-hidden="true">
                     </select>
                 </div>
 
-                <!-- Add other fields as needed -->
-
                 <button type="submit" class="btn btn-primary">Create Payment</button>
             </form>
         </div>
@@ -1303,8 +1301,8 @@ aria-hidden="true">
 </div>
 </div>
 
-
-                    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+                
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
                     <script>
                         $(document).ready(function() {
                             function updateTotalAmount() {
