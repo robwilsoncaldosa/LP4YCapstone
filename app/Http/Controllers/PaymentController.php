@@ -7,7 +7,7 @@ use App\Models\Payment;
 use App\Models\Room;
 use App\Models\User;
 use App\Models\Reservation;
-
+use App\Models\Activity;
 class PaymentController extends Controller
 {
 
@@ -41,6 +41,15 @@ class PaymentController extends Controller
             // Add other fields as needed
         ]);
 
+        Activity::create([
+            'personnel_name' => auth()->user()->name,
+            'activity' => 'Updated Transaction', // or 'delete'
+            'status' => 'active', // or 'recently_active' or any other valid value
+            'datetime' => now(), // or provide a valid timestamp
+            'target_model' => 'Payment',
+            'target_id' => $payment->id,
+        ]);
+
         return redirect()->route('dashboard.transactions')->with('success', 'Payment updated successfully.');
     }
 
@@ -53,6 +62,16 @@ class PaymentController extends Controller
         $payment = Payment::findOrFail($id);
         $payment->delete();
 
+        
+        Activity::create([
+            'personnel_name' => auth()->user()->name,
+            'activity' => 'Deleted Transaction', // or 'delete'
+            'status' => 'active', // or 'recently_active' or any other valid value
+            'datetime' => now(), // or provide a valid timestamp
+            'target_model' => 'Payment',
+            'target_id' => $payment->id,
+        ]);
+
         return redirect()->route('dashboard.transactions')->with('success', 'Payment deleted successfully.');
     }
 
@@ -64,6 +83,7 @@ class PaymentController extends Controller
 
         $rooms = Room::pluck('room_name', 'id');
         $reservations = Reservation::all();
+
 
 
         return view('dashboard', ['payments' => $payments, 'rooms' => $rooms, 'reservations' => $reservations]);
@@ -81,36 +101,54 @@ class PaymentController extends Controller
         ]);
     }
 
-    public function storeTransaction(Request $request)
-    {
-        // Validate the payment data here
-        $request->validate([
-            'reservation_id' => 'required|exists:reservations,id',
-            'amount' => 'nullable|numeric|min:0',
-            'payment_method' => 'required|string',
-        ]);
+  public function storeTransaction(Request $request)
+{
+    // Validate the payment data here
+    $request->validate([
+        'reservation_id' => 'required|exists:reservations,id',
+        'amount' => 'nullable|numeric|min:0',
+        'payment_method' => 'required|string',
+    ]);
 
-        // Retrieve the latest payment record based on the provided reservation_id
-        $reservation = Payment::where('reservation_id', $request->input('reservation_id'))
-            ->latest('created_at')
-            ->firstOrFail();
+    // Retrieve the latest payment record based on the provided reservation_id
+    $reservation = Reservation::findOrFail($request->input('reservation_id'));
 
-            $remainingTotal= $reservation ->remaining_total = $reservation->remaining_total - $request->input('amount');
+    // Calculate the new amount by adding the existing amount to the user-input amount
+    $newAmount = $reservation->payments->sum('amount') + $request->input('amount');
 
+    // Check if the new amount is almost equal to the remaining balance
+    $remainingBalance = $reservation->room->price_per_night - $reservation->payments->sum('amount');
+    $tolerance = 0.01; // Adjust this tolerance value based on your precision requirements
 
-
-        // Create a payment for the reservation
-         Payment::create([
-            'reservation_id' => $reservation->id,
-            'remaining_total' => $remainingTotal,
-            'amount' => $request->input('amount'),
-            'payment_method' => $request->input('payment_method'),
-            // Add other payment fields as needed
-        ]);
-
-        // You can redirect to the transactions page or any other page after storing the payment
-        return redirect()->route('dashboard.transactions')->with('success', 'Payment created successfully!');
+    if (abs($newAmount - $reservation->room->price_per_night) < $tolerance) {
+        // If the difference is within the tolerance, set the new amount to the remaining balance
+        $newAmount = $reservation->room->price_per_night;
+    } elseif ($newAmount > $reservation->room->price_per_night) {
+        return redirect()->route('dashboard.transactions')
+            ->with('error', "Overpriced Amount! Please check the remaining balance.");
     }
+
+    // Create a payment for the reservation
+    Payment::create([
+        'reservation_id' => $reservation->id,
+        'remaining_total' => $reservation->room->price_per_night - $newAmount,
+        'amount' => $request->input('amount'),
+        'payment_method' => $request->input('payment_method'),
+        // Add other payment fields as needed
+    ]);
+
+    Activity::create([
+        'personnel_name' => auth()->user()->name,
+        'activity' => 'Created Payment',
+        'status' => 'active',
+        'datetime' => now(),
+        'target_model' => 'Reservation',
+        'target_id' => $reservation->id,
+    ]);
+
+    // You can redirect to the transactions page or any other page after storing the payment
+    return redirect()->route('dashboard.transactions')->with('success', 'Payment created successfully!');
+}
 
 
     /**

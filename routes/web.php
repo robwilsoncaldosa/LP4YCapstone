@@ -11,6 +11,7 @@ use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PaymentController;
 use App\Models\Reservation;
+use App\Http\Controllers\ActivityController;
 use App\Models\room;
 use Carbon\Carbon;
 
@@ -84,6 +85,9 @@ Route::middleware(['auth'])->group(function () {
 
 
 
+    Route::delete('/dashboard/activities/{id}', [ActivitytController::class, 'destroy'])->name('dashboard.activities.destroy');
+    Route::get('/dashboard/activities', [ActivityController::class, 'index'])->name('dashboard.activities');
+    
 Route::post('/reservations/checkUserByEmail', [ReservationController::class, 'checkUserByEmail'])->name('dashboard.reservations.checkUserByEmail');
 
     Route::post('/reservations/storeReservation', [ReservationController::class, 'storeReservation'])->name('dashboard.reservations.storeReservation');

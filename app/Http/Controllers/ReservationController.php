@@ -16,17 +16,18 @@ class ReservationController extends Controller
 
 
     public function showReservations()
-{
-    $reservations = Reservation::all();
-
-    $rooms = Room::pluck('room_name', 'id');
-
-
-    return view('dashboard', ['reservations' => $reservations, 'rooms' => $rooms]);
-
-    // return view('dashboard', ['reservations' => $reservations]);
-}
-
+    {
+        $reservations = Reservation::all();
+        $rooms = Room::pluck('room_name', 'id');
+        $roomPrices = Room::pluck('price_per_night', 'id');
+    
+        return view('dashboard', [
+            'reservations' => $reservations,
+            'rooms' => $rooms,
+            'roomPrices' => $roomPrices,
+        ]);
+    }
+    
 
 public function homeView()
 {
@@ -143,26 +144,21 @@ public function cancelReservation($id)
 
 public function storeReservation(Request $request)
 {
-
-    
     // Validate and store your transaction data here
     $request->validate([
         'name' => 'required|string',
         'email' => 'required|email',
-        'country_code' => 'required|string', // Add validation for the country code
-        'mobile' => 'required|string', // Add validation for the mobile number
+        'phone3' => 'nullable|string', // Change to nullable
         'room_id' => 'required|exists:rooms,id',
         'amount' => 'required|numeric|min:0',
         'payment_method' => 'required|string',
         'check_in_date' => 'required|date',
-        // 'check_in_time' => 'required|date_format:H:i',
         'check_out_date' => 'required|date',
-        // 'check_out_time' => 'required|date_format:H:i',
     ]);
 
-    // Combine date and time strings for check-in and check-out
-    $checkInDateTime = $request->input('check_in_date') . ' ' . $request->input('check_in_time');
-    $checkOutDateTime = $request->input('check_out_date') . ' ' . $request->input('check_out_time');
+    // Use Carbon to create DateTime objects
+    $checkInDateTime = Carbon::parse($request->input('check_in_date'));
+    $checkOutDateTime = Carbon::parse($request->input('check_out_date'));
 
     // Check if the chosen room is currently occupied or not available
     $isRoomAvailable = $this->isRoomAvailable($request->input('room_id'), $checkInDateTime, $checkOutDateTime);
@@ -176,7 +172,7 @@ public function storeReservation(Request $request)
         ['email' => $request->input('email')],
         [
             'name' => $request->input('name'),
-            'contact_number' => $request->input('country_code') . $request->input('mobile'), 
+            'contact_number' => $request->input('phone3'), // Use 'phone3' instead of concatenation
         ]
     );
 
@@ -188,7 +184,6 @@ public function storeReservation(Request $request)
         'check_out_date' => $checkOutDateTime,
         // Add other reservation fields as needed
     ]);
-    
 
     // Create a payment for the reservation
     $payment = Payment::create([
@@ -201,13 +196,12 @@ public function storeReservation(Request $request)
 
     Activity::create([
         'personnel_name' => auth()->user()->name,
-        'activity' => 'Created Reservation', // or 'delete'
-        'status' => 'active', // or 'recently_active' or any other valid value
-        'datetime' => now(), // or provide a valid timestamp
+        'activity' => 'Created Reservation',
+        'status' => 'active',
+        'datetime' => now(),
         'target_model' => 'Reservation',
         'target_id' => $reservation->id,
     ]);
-    
 
     // You can redirect to the transactions page or any other page after storing
     return redirect()->route('dashboard.reservations')->with('success', 'Transaction created successfully!');

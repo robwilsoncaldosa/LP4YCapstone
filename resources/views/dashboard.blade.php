@@ -279,6 +279,9 @@
                         </a>
                     </li>
 
+                    <li class="nav-item w-100 p-2">
+                <a class="nav-link" href="{{ route('dashboard.activities') }}"><i class="fas fa-clipboard-list"></i> ACTIVITIES</a>
+                   </li>
 
                         
                     </ul>
@@ -1452,6 +1455,68 @@ aria-hidden="true">
 @endif
 
 
+@if (request()->is('dashboard/activities'))
+<div class="container mt-4">
+    <h2>Activities</h2>
+
+    <!-- Filter by name -->
+    <div class="mb-3">
+        <label for="filterByName">Filter by Name:</label>
+        <input type="text" id="filterByName" class="form-control" placeholder="Enter name...">
+    </div>
+
+    <!-- Display activities table -->
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Personnel Name</th>
+                <th>Activity</th>
+                <th>Status</th>
+                <th>Datetime</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody class="activityTableBody">
+            @foreach($activities as $activity)
+                <tr class="activityRow">
+                    <td>{{ $activity->personnel_name }}</td>
+                    <td>{{ $activity->activity }}</td>
+                    <td>{{ $activity->status }}</td>
+                    <td>{{ $activity->datetime }}</td>
+                    <td>
+                        <form action="{{ route('dashboard.activities.destroy', $activity->id) }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            @endforeach
+        </tbody>
+    </table>
+
+    <script>
+        $(document).ready(function() {
+            // Handle search bar input
+            $('#filterByName').keyup(function() {
+                var searchText = $(this).val().toLowerCase();
+
+                // Filter rows based on user input
+                $('.activityRow').each(function() {
+                    var personnelName = $(this).find('td:eq(0)').text().toLowerCase(); // Adjust the index based on your table structure
+
+                    if (personnelName.includes(searchText)) {
+                        $(this).show();
+                    } else {
+                        $(this).hide();
+                    }
+                });
+            });
+        });
+    </script>
+</div>
+@endif
+
             </main>
 
         </div>
@@ -1529,6 +1594,9 @@ aria-hidden="true">
         });
 
     });
+
+
+   
 
 </script>
 
