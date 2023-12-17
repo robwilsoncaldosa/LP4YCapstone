@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\Personnel;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class PersonnelSeeder extends Seeder
@@ -14,31 +15,30 @@ class PersonnelSeeder extends Seeder
      */
     public function run(): void
     {
-       // Sample data
-       $data = [
-        [
-            'name' => 'Rob Wilson Caldosa',
-            'email' => 'caldozarobwilson@gmail.com',
-            'password' => Hash::make('password'), // Hashed password
-            'role' => 'admin',
-            'status' => 'active',
-        ],
-        [
-            'name' => 'Rogina Rolloque',
-            'email' => 'roginarolloque@gmail.com',
-            'password' => Hash::make('password'), // Hashed password
-            'role' => 'staff',
-            'status' => 'active',
-        ],
-    ];
+        // Check if the table exists
+        if (!DB::table('personnels')->exists()) {
+            // Sample data
+            $data = [
+                [
+                    'name' => 'Rob Wilson Caldosa',
+                    'email' => 'caldozarobwilson@gmail.com',
+                    'password' => Hash::make('password'), // Hashed password
+                    'role' => 'admin',
+                    'status' => 'active',
+                ],
+                [
+                    'name' => 'Rogina Rolloque',
+                    'email' => 'roginarolloque@gmail.com',
+                    'password' => Hash::make('password'), // Hashed password
+                    'role' => 'staff',
+                    'status' => 'active',
+                ],
+            ];
 
-    // Insert data if not exists
-    foreach ($data as $item) {
-        $existingRecord = Personnel::where('email', $item['email'])->first();
-
-        if (!$existingRecord) {
-            Personnel::create($item);
+            // Insert data if the table exists
+            foreach ($data as $item) {
+                Personnel::create($item);
+            }
         }
-    }
     }
 }
