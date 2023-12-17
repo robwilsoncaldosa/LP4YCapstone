@@ -238,9 +238,7 @@
                                 class="far fa-calendar-check"></i> RESERVATION</a>
                     </li>
 
-                 
-
-                   
+            
 
                         <li class="nav-item w-100 p-2">
                             <a class="nav-link" href="{{ route('dashboard.transactions') }}"><i
@@ -518,9 +516,9 @@
                                         </div>
                                         <div class="modal-body">
                                             <!-- Your form for editing a reservation goes here -->
-                                            <form action="{{ route('dashboard.reservations.update', ['id' => $reservation->id]) }}" method="post">
-                                                @csrf
-                                                @method('PUT')
+                                            <form action="{{ route('dashboard.reservations.update', ['id' => $reservation->id]) }}" method="POST">
+                                        @csrf
+                                        @method('PUT')
 
                                                 <!-- Add your form fields for editing a reservation -->
                                                 <div class="mb-3">
@@ -586,8 +584,10 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form action="{{ route('dashboard.reservations.storeReservation') }}" method="post">
+            <form action="{{ route('dashboard.reservations.storeReservation') }}" method="post">
+
                     @csrf
+                  
 
                     <div class="mb-3">
                         <label for="email">Email:</label>

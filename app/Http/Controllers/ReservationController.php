@@ -7,6 +7,7 @@ use App\Models\Reservation;
 use App\Models\Payment;
 use App\Models\User;
 use App\Models\Room;
+use App\Models\Activity;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 class ReservationController extends Controller
@@ -73,7 +74,7 @@ public function checkout($reservationId)
     // Return a response or redirect as needed
 }
 
-public function updateReservation(Request $request, $id)
+public function update(Request $request, $id)
 {
     $reservation = Reservation::findOrFail($id);
 
@@ -97,6 +98,16 @@ public function updateReservation(Request $request, $id)
         // Update other reservation fields as needed
     ]);
 
+    Activity::create([
+        'personnel_name' => auth()->user()->name,
+        'activity' => 'Updated Reservation', // or 'delete'
+        'status' => 'active', // or 'recently_active' or any other valid value
+        'datetime' => now(), // or provide a valid timestamp
+        'target_model' => 'Reservation',
+        'target_id' => $reservation->id,
+    ]);
+    
+
     // Redirect back to the reservations page with a success message
     return redirect()->route('dashboard.reservations')->with('success', 'Reservation updated successfully.');
 }
@@ -110,6 +121,16 @@ public function cancelReservation($id)
     // Delete the reservation
     $reservation->delete();
 
+    Activity::create([
+        'personnel_name' => auth()->user()->name,
+        'activity' => 'Cancelled Reservation', // or 'delete'
+        'status' => 'active', // or 'recently_active' or any other valid value
+        'datetime' => now(), // or provide a valid timestamp
+        'target_model' => 'Reservation',
+        'target_id' => $reservation->id,
+    ]);
+    
+
     // Redirect back to the reservations page with a success message
     return redirect()->route('dashboard.reservations')->with('success', 'Reservation canceled successfully.');
 }
@@ -122,6 +143,8 @@ public function cancelReservation($id)
 
 public function storeReservation(Request $request)
 {
+
+    
     // Validate and store your transaction data here
     $request->validate([
         'name' => 'required|string',
@@ -165,6 +188,7 @@ public function storeReservation(Request $request)
         'check_out_date' => $checkOutDateTime,
         // Add other reservation fields as needed
     ]);
+    
 
     // Create a payment for the reservation
     $payment = Payment::create([
@@ -174,6 +198,16 @@ public function storeReservation(Request $request)
         'payment_method' => $request->input('payment_method'),
         // Add other payment fields as needed
     ]);
+
+    Activity::create([
+        'personnel_name' => auth()->user()->name,
+        'activity' => 'Created Reservation', // or 'delete'
+        'status' => 'active', // or 'recently_active' or any other valid value
+        'datetime' => now(), // or provide a valid timestamp
+        'target_model' => 'Reservation',
+        'target_id' => $reservation->id,
+    ]);
+    
 
     // You can redirect to the transactions page or any other page after storing
     return redirect()->route('dashboard.reservations')->with('success', 'Transaction created successfully!');

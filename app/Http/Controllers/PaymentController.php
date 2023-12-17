@@ -15,7 +15,6 @@ class PaymentController extends Controller
     {
         $request->validate([
             'amount' => 'required|numeric',
-            // Add other validation rules as needed
         ]);
 
         $payment = Payment::findOrFail($id);
@@ -134,7 +133,4 @@ class PaymentController extends Controller
 
         return !$existingReservations;
     }
-
-
-
 }
