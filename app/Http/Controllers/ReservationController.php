@@ -12,6 +12,23 @@ use Illuminate\Support\Facades\DB;
 class ReservationController extends Controller
 {
 
+    public function getReservedDatesByRoom($room_id)
+    {
+        $reservations = Reservation::where('room_id', $room_id)->get();
+
+        $reservedDates = [];
+
+        foreach ($reservations as $reservation) {
+            $reservedDates[] = $reservation->check_in_date;
+
+            // Include the check_out_date as well, excluding the last day
+            $checkOutDate = date('Y-m-d', strtotime($reservation->check_out_date));
+            $reservedDates[] = $checkOutDate;
+        }
+
+        return response()->json(['reservations' => $reservations, 'reservedDates' => $reservedDates]);
+    }
+
 
 
     public function showReservations()

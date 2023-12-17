@@ -78,15 +78,6 @@ book_now.click(function() {
     }
 });
 
-checkInButton.focus(function() {
-    dialogContent.html(` <i class="fas fa-info-circle" style="font-size:15px"></i> Check-in is available from Tuesday to Saturday.`);
-    dialog.show();
-});
-
-checkOutButton.focus(function() {
-    dialogContent.html(` <i class="fas fa-info-circle"  style="font-size:15px"></i> Check-out is available from Tuesday to Saturday, and the maximum stay is 4 nights.`);
-    dialog.show();
-});
 
 closeDialogButton.click(function() {
     dialog.hide();
@@ -99,74 +90,200 @@ $("#check-in").click(function() {
 
 
 });
-
 const today = new Date();
 const defaultCheckoutDays = 3;
+const roomid = $('#room_id').val();
+
 $.datepicker.setDefaults({
     dateFormat: "MM d, yy"
-});
+}); // Fetch reserved dates for the specific room from the server
+$.ajax({
+    url: '/dashboard/reserved-dates/' + roomid,
+    method: 'GET',
+    success: function(data) {
+        const reservedDates = data.reservedDates;
+        console.log(reservedDates);
 
-$('#check-in').datepicker({
-    minDate: today,
-    beforeShow: function(input, inst) {
-        // Position the datepicker to the left of the input field
-        var inputWidth = $(input).outerWidth();
-        inst.dpDiv.css({
-            top: $(input).offset().top + $(input).outerHeight(),
-            left: $(input).offset().left - inputWidth + 5 // Adjust as needed
+        // Create date ranges every two elements in the array
+        const dateRanges = [];
+        for (let i = 0; i < reservedDates.length; i += 2) {
+            const startDate = reservedDates[i];
+            const endDate = reservedDates[i + 1];
+            dateRanges.push(`${startDate} to ${endDate}`);
+        }
+
+        // Initialize datepicker for check-in
+        $('#check-in').datepicker({
+            minDate: today,
+            numberOfMonths: 2,
+            showButtonPanel: true,
+            changeMonth: true,
+            changeYear: true,
+            beforeShow: function(input, inst) {
+                // Position the datepicker to the left of the input field
+                var inputWidth = $(input).outerWidth();
+                inst.dpDiv.css({
+                    top: $(input).offset().top + $(input).outerHeight(),
+                    left: $(input).offset().left - inputWidth + 5 // Adjust as needed
+                });
+            },
+            beforeShowDay: function(date) {
+                const day = date.getDay();
+                const dateString = $.datepicker.formatDate("yy-mm-dd", date);
+
+                // Check if the date falls within a range of reserved dates
+                const isReservedRange = dateRanges.some(range => {
+                    const [start, end] = range.split(" to ");
+                    return dateString >= start && dateString <= end;
+                });
+
+                // Ensure that the current date is not reserved, not on Monday or Sunday, and not within the range
+                return [(day !== 0 && day !== 1) && !isReservedRange, isReservedRange ? 'reserved-date' : ''];
+            },
+
+            onSelect: function(selectedDate) {
+                const selected = new Date(selectedDate);
+                const checkoutDate = new Date(selected.getTime() + defaultCheckoutDays * 24 * 60 * 60 * 1000);
+
+                // Configure check-out datepicker
+                $('#check-out').datepicker('option', 'minDate', selected);
+                $('#check-out').datepicker('option', 'maxDate', checkoutDate);
+
+                $('#check-out').datepicker('option', 'beforeShowDay', function(date) {
+                    const day = date.getDay();
+                    const isWithin3Days = date >= selected && date <= checkoutDate;
+                    const isCheckin = date.getTime() === selected.getTime();
+                    return [(day !== 0 && day !== 1) && isWithin3Days && !isCheckin];
+                });
+
+                // Delay showing the check-out datepicker by a small amount of time
+                setTimeout(function() {
+                    $("#check-out").datepicker("show");
+                }, 100);
+
+                // Update the total when the check-in date is selected
+                updateTotal();
+            }
         });
     },
-    beforeShowDay: function(date) {
-        const day = date.getDay();
-        return [(day !== 0 && day !== 1)];
-    },
-    onSelect: function(selectedDate) {
-        const selected = new Date(selectedDate);
-        const checkoutDate = new Date(selected.getTime() + defaultCheckoutDays * 24 * 60 * 60 * 1000);
+    error: function(err) {
+        // Initialize datepicker for check-in
+        $('#check-in').datepicker({
+            minDate: today,
+            numberOfMonths: 2,
+            showButtonPanel: true,
+            changeMonth: true,
+            changeYear: true,
+            beforeShow: function(input, inst) {
+                // Position the datepicker to the left of the input field
+                var inputWidth = $(input).outerWidth();
+                inst.dpDiv.css({
+                    top: $(input).offset().top + $(input).outerHeight(),
+                    left: $(input).offset().left - inputWidth + 5 // Adjust as needed
+                });
+            },
+            beforeShowDay: function(date) {
+                const day = date.getDay();
 
-        $('#check-out').datepicker('option', 'minDate', selected);
-        $('#check-out').datepicker('option', 'maxDate', checkoutDate);
 
-        $('#check-out').datepicker('option', 'beforeShowDay', function(date) {
-            const day = date.getDay();
-            const isWithin3Days = date >= selected && date <= checkoutDate;
-            const isCheckin = date.getTime() === selected.getTime();
-            return [(day !== 0 && day !== 1) && isWithin3Days && !isCheckin];
+                // Ensure that the current date is not reserved, not on Monday or Sunday, and not within the range
+                return [(day !== 0 && day !== 1)];
+            },
+
+            onSelect: function(selectedDate) {
+                const selected = new Date(selectedDate);
+                const checkoutDate = new Date(selected.getTime() + defaultCheckoutDays * 24 * 60 * 60 * 1000);
+
+                // Configure check-out datepicker
+                $('#check-out').datepicker('option', 'minDate', selected);
+                $('#check-out').datepicker('option', 'maxDate', checkoutDate);
+
+                $('#check-out').datepicker('option', 'beforeShowDay', function(date) {
+                    const day = date.getDay();
+                    const isWithin3Days = date >= selected && date <= checkoutDate;
+                    const isCheckin = date.getTime() === selected.getTime();
+                    return [(day !== 0 && day !== 1) && isWithin3Days && !isCheckin];
+                });
+
+                // Delay showing the check-out datepicker by a small amount of time
+                setTimeout(function() {
+                    $("#check-out").datepicker("show");
+                }, 100);
+
+                // Update the total when the check-in date is selected
+                updateTotal();
+            }
         });
-
-        // Delay showing the check-out datepicker by a small amount of time
-        setTimeout(function() {
-            $("#check-out").datepicker("show");
-        }, 100);
-
-        // Update the total when the check-in date is selected
-        updateTotal();
     }
-
 });
 
-$('#check-out').datepicker({
-    beforeShow: function(input, inst) {
-        // Calculate the position of the datepicker relative to the input field
-        var inputOffset = $(input).offset();
-        var inputWidth = $(input).outerWidth();
-        var dpWidth = $(inst.dpDiv).outerWidth();
 
-        // Position the datepicker to the left of the input field
-        $(inst.dpDiv).css({
-            top: inputOffset.top + $(input).outerHeight(),
-            left: inputOffset.left - dpWidth + inputWidth,
+// Fetch reserved dates for the specific room from the server
+$.ajax({
+    url: '/dashboard/reserved-dates/' + roomid, // Replace with your actual endpoint
+    method: 'GET',
+    success: function(data) {
+        const reservedDates = data.reservedDates;
+
+        $('#check-out').datepicker({
+            changeMonth: true,
+            changeYear: true,
+            numberOfMonths: 2,
+            showButtonPanel: true,
+            beforeShow: function(input, inst) {
+                // Calculate the position of the datepicker relative to the input field
+                var inputOffset = $(input).offset();
+                var inputWidth = $(input).outerWidth();
+                var dpWidth = $(inst.dpDiv).outerWidth();
+
+                // Position the datepicker to the left of the input field
+                $(inst.dpDiv).css({
+                    top: inputOffset.top + $(input).outerHeight(),
+                    left: inputOffset.left - dpWidth + inputWidth,
+                });
+            },
+            beforeShowDay: function(date) {
+                const day = date.getDay();
+                const dateString = $.datepicker.formatDate("yy-mm-dd", date);
+                const isReserved = reservedDates.indexOf(dateString) !== -1;
+                return [(day !== 0 && day !== 1) && !isReserved];
+            },
+            onSelect: function() {
+                updateTotal();
+            }
         });
+
     },
-    beforeShowDay: function(date) {
-        const day = date.getDay();
-        return [(day !== 0 && day !== 1)];
-    },
-    onSelect: function() {
-        updateTotal();
+    error: function(err) {
+        console.error('Error fetching reserved dates:', err);
+
+        $('#check-out').datepicker({
+            changeMonth: true,
+            changeYear: true,
+            numberOfMonths: 2,
+            showButtonPanel: true,
+            beforeShow: function(input, inst) {
+                // Calculate the position of the datepicker relative to the input field
+                var inputOffset = $(input).offset();
+                var inputWidth = $(input).outerWidth();
+                var dpWidth = $(inst.dpDiv).outerWidth();
+
+                // Position the datepicker to the left of the input field
+                $(inst.dpDiv).css({
+                    top: inputOffset.top + $(input).outerHeight(),
+                    left: inputOffset.left - dpWidth + inputWidth,
+                });
+            },
+            beforeShowDay: function(date) {
+                const day = date.getDay();
+                return [(day !== 0 && day !== 1)];
+            },
+            onSelect: function() {
+                updateTotal();
+            }
+        });
     }
 });
-
 
 
 
@@ -292,94 +409,4 @@ $(document).ready(function() {
             $(".navbar-toggler").click();
         }
     });
-});
-
-
-
-
-///script for phone number is below
-const input = document.querySelector("#phone");
-const input2 = document.querySelector("#phone2");
-
-const button = document.querySelector("#btn");
-const errorMsg = document.querySelector("#error-msg");
-const validMsg = document.querySelector("#valid-msg");
-const validMsg2 = document.querySelector("#valid-msg2");
-
-const errorMsg2 = document.querySelector("#error-msg2");
-
-
-
-// here, the index maps to the error code returned from getValidationError - see readme
-const errorMap = ["Invalid number", "Invalid country code", "Too short", "Too long", "Invalid number"];
-const iti = window.intlTelInput(input, {
-    nationalMode: true,
-    initialCountry: "auto",
-    geoIpLookup: callback => {
-        fetch("https://ipapi.co/json")
-            .then(res => res.json())
-            .then(data => callback(data.country_code))
-            .catch(() => callback("us"));
-    },
-    utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/js/utils.js",
-});
-
-const iti2 = window.intlTelInput(input2, {
-    nationalMode: true,
-    initialCountry: "auto",
-    geoIpLookup: callback => {
-        fetch("https://ipapi.co/json")
-            .then(res => res.json())
-            .then(data => callback(data.country_code))
-            .catch(() => callback("us"));
-    },
-    utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/js/utils.js",
-});
-
-
-
-const reset = () => {
-    input.classList.remove("error");
-    errorMsg.innerHTML = "";
-    errorMsg.classList.add("hide");
-    validMsg.classList.add("hide");
-    input2.classList.remove("error");
-    errorMsg2.innerHTML = "";
-    errorMsg2.classList.add("hide");
-    validMsg2.classList.add("hide");
-
-
-
-};
-
-
-// on input: validate
-input.addEventListener('input', () => {
-    reset();
-    if (input.value.trim()) {
-        if (iti.isValidNumber()) {
-            validMsg.classList.remove("hide");
-        } else {
-            input.classList.add("error");
-            const errorCode = iti.getValidationError();
-            errorMsg.innerHTML = errorMap[errorCode];
-            errorMsg.classList.remove("hide");
-        }
-    }
-});
-
-
-// on input: validate
-input2.addEventListener('input', () => {
-    reset();
-    if (input2.value.trim()) {
-        if (iti2.isValidNumber()) {
-            validMsg2.classList.remove("hide");
-        } else {
-            input2.classList.add("error");
-            const errorCode = iti.getValidationError();
-            errorMsg2.innerHTML = errorMap[errorCode];
-            errorMsg2.classList.remove("hide");
-        }
-    }
 });

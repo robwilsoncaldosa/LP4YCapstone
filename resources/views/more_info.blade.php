@@ -15,11 +15,76 @@
 
 
 <!-- ************************************** Content *************************************************** -->
+<style>
 
+
+.user-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    color: #fff;
+    font-size: 20px;
+    font-weight: bold;
+    margin: auto;
+}
+
+    .review-card {
+        transition: transform 0.3s ease-in-out;
+    }
+
+    .review-card:hover {
+        transform: scale(1.03);
+    }
+
+
+    .star-rating {
+        color: #ffd700; /* Gold color for stars */
+        font-size: 25px;
+    }
+
+    .user-details {
+        flex-grow: 1;
+    }
+
+    .card-title {
+        margin-bottom: 0.5rem;
+    }
+
+    .card-text {
+        color: #555;
+    }
+    ul{
+        margin: 0!important;
+        padding: 0!important;
+    }.reserved-date {
+    background-color: #FFA07A; /* Light Salmon color */
+    color: white;
+    font-weight: bold;
+    position: relative;
+}
+
+.reserved-date::before {
+    content: "Reserved";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(50deg);
+    font-size: 10px; /* Adjust the font size as needed */
+    color: black;
+    font-weight: bolder;
+}
+
+
+
+</style>
 
 <div class="container">
 
-
+<input type="hidden" value="{{$room->id}}" id="room_id">
     <div class="room-details-container">
         <!-- ---room details---- -->
         <div class="room-details-deets" id="room_details">
@@ -57,7 +122,7 @@
                         </h5>
                     </div>
                     <div class="more-info-details">
-                        <p class="room-description">{{ $room->description }}
+                        <p class="room-description w-75">{{ $room->description }}
 
                         </p>
                     </div>
@@ -166,10 +231,7 @@
                 </div>
 
 
-                <div class="input-container p-2">
-                    <input type="number" name='adult' class="form-control rounded-0" id="adults"
-                        placeholder="Adults">
-                </div>
+
 
                 <div class="input-container p-2 d-flex justify-content-between align-items-center">
                     <span class="">Total:</span>
@@ -185,21 +247,58 @@
 
             </div>
 
-            <!-- Display reviews for the room -->
-            @if ($roomReviews->count() > 0)
-            <h5>Reviews for {{ $room->room_name }} Room</h5>
-            <ul>
-                @foreach ($roomReviews as $review)
-                    <li>
-                        <strong>{{ $review->user->name }}</strong> - {{ $review->room_comment }}
-                        <!-- Add other review details you want to display -->
-                    </li>
-                @endforeach
-            </ul>
-        @else
-            <p>No reviews for {{ $room->room_name }} Room yet.</p>
-        @endif
+            <br>
+            <br>
+<div class="card d-flex p-2 text-center alert alert-danger ">
+    <p> <i class="fas fa-info-circle" style="font-size:15px"></i>
+   <strong>
+    Check-out is available from Tuesday to Saturday, and the maximum stay is 4 nights.
+    </strong>
+    </p>
+</div>
 
+              <!-- Display reviews for the room -->
+    @if ($roomReviews->count() > 0)
+    <h5>Reviews</h5>
+    <br>
+    <br>
+
+    <ul>
+        @foreach ($roomReviews as $review)
+            <li class="card review-card">
+                <div class="card-body d-flex align-items-start">
+                    @php
+                        $initial = strtoupper(substr($review->user->name, 0, 1));
+                        $randomColor = '#' . str_pad(dechex(mt_rand(0, 0xFFFFFF)), 6, '0', STR_PAD_LEFT);
+                    @endphp
+
+
+                    <div class="user-details ml-3 mt-2 ms-3 text-center ">
+                        @php
+                        $initial = strtoupper(substr($review->user->name, 0, 1));
+                        $randomColor = '#' . str_pad(dechex(mt_rand(0, 0xFFFFFF)), 6, '0', STR_PAD_LEFT);
+                    @endphp
+                    <div class="user-avatar" style="background-color: {{ $randomColor }};">
+                        <span>{{ $initial }}</span>
+                    </div>
+                        <strong>{{ $review->user->name }}</strong> <br> {{ $review->room_comment }} <br>
+                        <span class="star-rating d-flex align-items-center justify-content-center">
+                            @for ($i = 1; $i <= $review->rating; $i++)
+                                &#9733;
+                            @endfor
+                            @for ($i = $review->rating + 1; $i <= 5; $i++)
+                                &#9734;
+                            @endfor
+                        </span>
+                        <!-- Add other review details you want to display -->
+                    </div>
+                </div>
+            </li>
+        @endforeach
+    </ul>
+@else
+    <p>No reviews for {{ $room->room_name }} Room yet.</p>
+@endif
         </div>
         <dialog id="reservation-dialog">
             <p id="dialog-content"></p>
@@ -268,12 +367,10 @@
                         <span id="valid-msg2" class="hide">✓ Valid</span>
                         <span id="error-msg2" class="hide"></span>
                     </div>
-                    <div class="text-danger" style="display: flex;">
-                        <div class="text-center">
-                            <i class="fas fa-info-circle"></i> Minimum Downpayment is 15% of the total price of
-                            ₱  <input id="total" class="total text-danger text-center" name="total" style="border:none;display:inline" readonly>
+                    <div class="text-danger text-start " style="display: flex;">
 
-                        </div>
+                                 <input id="total" class="total text-danger text-center" name="total" hidden style="border:none;display:inline;background-color:transparent" readonly>
+
 
                     </div>
                     <div class="mb-3">
@@ -289,11 +386,22 @@
                     </div>
                     <div class="mb-3">
                         <label for="downpayment" class="form-label">Enter Downpayment Amount:</label>
-                        <input type="number" id="downpaymentinput" class="form-control" name="downpayment" required>
+                        <input type="number" id="downpaymentinput" class="form-control w-50" name="downpayment" required>
+                        <div class="alert alert-dark  mt-4 text-center">
+                            <strong><i class="fas fa-info-circle"></i> Minimum Downpayment would be 15% of the total price</strong>
+                        </div>
                     </div>
 
+                    <div class="form-group">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="acceptTerms" name="acceptTerms" required>
+                            <label class="form-check-label" for="acceptTerms">
+                                I have read and accept the <a href="{{ route('terms_and_conditions') }}" target="_blank">terms and conditions</a>.
+                            </label>
+                        </div>
+                    </div>
 
-
+                    <br>
                     <br>
 
                     <button type="submit" class="btn btn-dark">Confirm Payment</button>
@@ -355,6 +463,16 @@
                         <input class="total" name="total" hidden>
                     </div>
 
+                    <div class="form-group">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="acceptTerms" name="acceptTerms" required>
+                            <label class="form-check-label" for="acceptTerms">
+                                I have read and accept the <a href="{{ route('terms_and_conditions') }}" target="_blank">terms and conditions</a>.
+                            </label>
+                        </div>
+                    </div>
+ <br>
+ <br>
                     <button type="submit" class="btn btn-dark">Pay in Full</button>
                 </form>
             </div>
@@ -362,6 +480,99 @@
     </div>
 </div>
 
+
+<script>
+
+///script for phone number is below
+const input = document.querySelector("#phone");
+const input2 = document.querySelector("#phone2");
+
+const errorMsg = document.querySelector("#error-msg");
+const validMsg = document.querySelector("#valid-msg");
+const validMsg2 = document.querySelector("#valid-msg2");
+
+const errorMsg2 = document.querySelector("#error-msg2");
+
+
+
+// here, the index maps to the error code returned from getValidationError - see readme
+const errorMap = ["Invalid number", "Invalid country code", "Too short", "Too long", "Invalid number"];
+const errorMap2 = ["Invalid number", "Invalid country code", "Too short", "Too long", "Invalid number"];
+
+
+const iti = window.intlTelInput(input, {
+    nationalMode: true,
+    initialCountry: "auto",
+    geoIpLookup: callback => {
+        fetch("https://ipapi.co/json")
+            .then(res => res.json())
+            .then(data => callback(data.country_code))
+            .catch(() => callback("us"));
+    },
+    utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/js/utils.js",
+});
+
+const iti2 = window.intlTelInput(input2, {
+    nationalMode: true,
+    initialCountry: "auto",
+    geoIpLookup: callback => {
+        fetch("https://ipapi.co/json")
+            .then(res => res.json())
+            .then(data => callback(data.country_code))
+            .catch(() => callback("us"));
+    },
+    utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/js/utils.js",
+});
+
+
+
+const reset = () => {
+    input.classList.remove("error");
+    errorMsg.innerHTML = "";
+    errorMsg.classList.add("hide");
+    validMsg.classList.add("hide");
+    input2.classList.remove("error");
+    errorMsg2.innerHTML = "";
+    errorMsg2.classList.add("hide");
+    validMsg2.classList.add("hide");
+
+
+
+};
+
+
+// on input: validate
+input.addEventListener('input', () => {
+    reset();
+    if (input.value.trim()) {
+        if (iti.isValidNumber()) {
+            validMsg.classList.remove("hide");
+        } else {
+            input.classList.add("error");
+            const errorCode = iti.getValidationError();
+            errorMsg.innerHTML = errorMap[errorCode];
+            errorMsg.classList.remove("hide");
+        }
+    }
+});
+
+
+// on input: validate
+input2.addEventListener('input', () => {
+    reset();
+    if (input2.value.trim()) {
+        if (iti2.isValidNumber()) {
+            validMsg2.classList.remove("hide");
+        } else {
+            input2.classList.add("error");
+            const errorCode = iti2.getValidationError();
+            errorMsg2.innerHTML = errorMap2[errorCode];
+            errorMsg2.classList.remove("hide");
+        }
+    }
+});
+
+</script>
 
 
 <!--******************************************  Contact  ***********************************************-->

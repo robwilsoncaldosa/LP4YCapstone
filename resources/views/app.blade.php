@@ -4,6 +4,18 @@
 <!--***************************************Header***********************************************-->
 @include('partials._header')
 <!--***************************************Home***********************************************-->
+@if(session('success'))
+    <div class="alert alert-success">
+        <h4 class="alert-heading">Success!</h4>
+        {!! session('success') !!}
+        @if(session('contactMessage'))
+            <hr>
+            <p class="mb-0">{!! session('contactMessage') !!}</p>
+        @endif
+    </div>
+@endif
+
+
 <section class="home d-flex justify-content-center" id="home">
     <div class="text-center container w-75 m-auto ">HOST 4 <br> CHANGE <br> CEBU <br><span class="fst-italic">Guesthouse &
             Training center </span></div>
@@ -12,7 +24,7 @@
 <!--***************************************About************************************************-->
 <section class="about text-center mt-5 " id="about">
     <div style="width:60%;display: block;">
-        <h1 style="font-size: 25px;font-weight: bolder;color:black">ABOUT</h1>
+        <h1>ABOUT</h1>
         <br>
         <h5><i>Looking for an unique experience? Welcome in our guest house HOST 4 CHANGE !</i></h5>
         <br>
@@ -172,61 +184,63 @@
             event.stopPropagation();
         });
     </script>
-
+<br><br>
     <h2 class="text-center mt-5">Explore & Engage at LP4Y Guest House Where Experiences Come to Life!</h2>
     <br>
     <br>
-    <div class="gallery-card  d-flex justify-content-between">
-        <div class="card border-0 w-100 align-items-center  ">
-            <h5>Guitar Training</h5>
-            <p class="text-center ">
+    <br>
+    <div class="gallery-card d-flex justify-content-between">
+        <div class="card border-0 w-100 align-items-center">
+            <i class="fas fa-guitar" style="font-size: 50px; color: #808080;"></i> <br>
 
+            <p class="text-center w-75">
                 <b>Strum and Shine: </b> <br> Jam with the Youth for Guitar Training Fun!
-            </p>
             </p>
         </div>
 
-        <div class="card border-0 w-100  align-items-center">
-            <h5>Bisaya Training
-
-
-            </h5>
-            <p class="text-center ">
+        <div class="card border-0 w-100 align-items-center">
+            <i class="fas fa-language" style="font-size: 50px; color: #808080;"></i> <br>
+            <p class="text-center w-75">
                 <b>Unlock the Beauty of Bisaya:</b> <br> Join our Youth-led Bisaya Dialect Training!
             </p>
         </div>
-        <div class="card border-0 w-100  align-items-center">
-            <h5>Lunch Together with the Youth </h5>
-            <p class="text-center ">
-                <b> Guest can have fun Lunching with the Youth:</b> <br> A Delightful Fusion of Fun, Good Vibes, and Cherished Moments.
+
+        <div class="card border-0 w-100 align-items-center">
+            <i class="fas fa-coffee" style="font-size: 50px; color: #808080;"></i> <br>
+            <p class="text-center w-75">
+                <b> Fun Lunching with the Youth:</b> <br> A Delightful Fusion of Fun, Good Vibes, and Cherished Moments.
             </p>
         </div>
     </div>
     <br>
-    <div class="gallery-card  d-flex justify-content-between ">
-        <div class="card border-0 w-100 align-items-center  ">
-            <h5>Catalyst eating breakfast</h5>
-            <p class="text-center ">
+    <br>
+    <br>
+    <div class="gallery-card d-flex justify-content-between">
+        <div class="card border-0 w-100 align-items-center">
+            <i class="fas fa-sun" style="font-size: 50px; color: #808080;"></i> <br>
+            <p class="text-center w-75">
                 <b> Start Your Day Right: </b><br> Savor Breakfast with the Youth for a Special and Unforgettable Guest House Experience.
             </p>
         </div>
 
-        <div class="card border-0 w-100  align-items-center">
-            <h5>Lessons with John Delaporte</h5>
-            <p class="text-center ">
+        <div class="card border-0 w-100 align-items-center">
+            <i class="fas fa-book" style="font-size: 50px; color: #808080;"></i> <br>
+            <p class="text-center w-75">
                 <b> Enriching Lessons:</b> <br> Embark on a Journey of Knowledge and Excellence with the Youth.
             </p>
         </div>
-        <div class="card border-0 w-100  align-items-center">
-            <h5>Quality Rest
-            </h5>
-            <p class="text-center ">
-                Time to relax !</p>
+
+        <div class="card border-0 w-100 align-items-center">
+            <i class="fas fa-bed" style="font-size: 50px; color: #808080;"></i> <br>
+            <p class="text-center w-75">
+                <b>Quality Rest:</b> <br> Time to relax!
+            </p>
         </div>
     </div>
+    <br><br><br>
     <!--********************************************* GUEST REVIEW *****************************************-->
-    <section class="guest-review" style="background-image: url('./img/sample_guestreview_background.jpg');">
-        <div class="card">
+    <section class="guest-review"">
+        <div class="card shadow  ">
             <h4>GUEST REVIEW</h4>
             <br>
 
@@ -235,18 +249,35 @@
                 <div class="review active">
                     <blockquote>
                         “Amazing stay in LP4Y Guest House! The room is super clean with AC and private comfort room and hot shower! Thank you again so much LP4Y for the accommodation”
+                        <p class="card-text">
+                            <span class="star-rating">
+                               &#9733;&nbsp;&#9733;&nbsp;&#9733;&nbsp;&#9733;&nbsp;&#9733;
+                            </span>
+                          </p>
                     </blockquote>
                     <p class="review-author">Albane d'Harcourt</p>
                 </div>
                 <div class="review">
                     <blockquote>
                         "Amazing experience in this guesthouse! The youth were very welcoming! As well , the guest house is super close to Cebu airport and well located for touristic visit!""
+
+                        <p class="card-text">
+                            <span class="star-rating">
+                                &#9733;&nbsp;&#9733;&nbsp;&#9733;&nbsp;&#9733;&nbsp;&#9733;
+                            </span>
+                          </p>
                     </blockquote>
                     <p class="review-author">Maiwenn Lion</p>
                 </div>
                 <div class="review">
                     <blockquote>
                         “A great organization where you can actually travel for a cause.”
+
+                        <p class="card-text">
+                            <span class="star-rating">
+                               &#9733;&nbsp;&#9733;&nbsp;&#9733;&nbsp;&#9733;&nbsp;&#9733;
+                            </span>
+                          </p>
                     </blockquote>
                     <p class="review-author">Kévin Labbé</p>
                 </div>
@@ -254,28 +285,36 @@
                 <div class="review">
                     <blockquote>
                         “The rooms are super nice and very affordable”
+
+                        <p class="card-text">
+                            <span class="star-rating">
+                               &#9733;&nbsp;&#9733;&nbsp;&#9733;&nbsp;&#9733;&nbsp;&#9733;
+                            </span>
+                          </p>
                     </blockquote>
                     <p class="review-author">Vince Samer</p>
                 </div>
             </div>
 
             <div class="radio-buttons">
-                <input type="radio" name="review-radio" id="review1" checked>
+                <input class="text-dark" type="radio" name="review-radio" id="review1" checked>
                 <label for="review1"></label>
-                <input type="radio" name="review-radio" id="review2">
+                <input class="text-dark" type="radio" name="review-radio" id="review2">
                 <label for="review2"></label>
-                <input type="radio" name="review-radio" id="review3">
+                <input class="text-dark" type="radio" name="review-radio" id="review3">
                 <label for="review3"></label>
-                <input type="radio" name="review-radio" id="review4">
+                <input class="text-dark" type="radio" name="review-radio" id="review4">
                 <label for="review4"></label>
             </div>
+<div class="d-flex mt-5 ">
+       <!-- Add Review Button (Lower Left) -->
+       <button class="btn-dark btn mt-3" id="addReviewBtn" style=" width: calc(50% - 30px); border-radius: 4px; margin: 30px; padding: 5px;" onclick="location.href='{{ route('review') }}'">Add Review</button>
+       <!-- See More Reviews Button (Lower Right) -->
+       <button class=" btn-dark  btn mt-3" id="seeMoreReviewsBtn" style="width: calc(50% - 30px); border-radius: 4px; margin: 30px; padding:5px;">See More Reviews</button>
+</div>
 
-            <!-- Add Review Button (Lower Left) -->
-            <button class="btn-black-hover mt-3" id="addReviewBtn" style="position: absolute; bottom: 0; left: 0; width: calc(50% - 30px); border-radius: 4px; margin: 30px; padding: 5px;" onclick="location.href='{{ route('review') }}'">Add Review</button>
 
-            <!-- See More Reviews Button (Lower Right) -->
-            <button class="btn-black-hover mt-3" id="seeMoreReviewsBtn" style="position: absolute; bottom: 0; right: 0; width: calc(50% - 30px); border-radius: 4px; margin: 30px; padding:5px">See
-                More Reviews</button>
+
     </section>
     </div>
 

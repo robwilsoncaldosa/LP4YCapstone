@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Models\Reservation;
 use App\Models\Payment;
 use Carbon\Carbon;
+use Redirect;
 
 class StripeController extends Controller
 {
@@ -81,7 +82,7 @@ class StripeController extends Controller
                 'room_id' => $request->get('room_id'),
                 'check-in' => $request->get('check-in'),
                 'check-out' => $request->get('check-out'),
-                'downpayment' =>$request->get('downpayment')
+                'downpayment' => $request->get('downpayment')
 
                 // Add other data as needed
             ]),
@@ -141,13 +142,13 @@ class StripeController extends Controller
         $downpaymentInCents = intval($downpayment * 100);
         $remainingTotalInCents = intval($remainingTotal * 100);
 
-          // Get customer email from the input
-          $userEmail = $request->get('email');
+        // Get customer email from the input
+        $userEmail = $request->get('email');
 
-          // Create a customer with the provided email
-          $customer = \Stripe\Customer::create([
-              'email' => $userEmail,
-          ]);
+        // Create a customer with the provided email
+        $customer = \Stripe\Customer::create([
+            'email' => $userEmail,
+        ]);
 
         $session = \Stripe\Checkout\Session::create([
             'customer' => $customer->id,
@@ -174,7 +175,7 @@ class StripeController extends Controller
                 'room_id' => $request->get('room_id'),
                 'check-in' => $request->get('check-in'),
                 'check-out' => $request->get('check-out'),
-                'downpayment' =>$request->get('downpayment')
+                'downpayment' => $request->get('downpayment')
 
                 // Add other data as needed
             ]),
@@ -253,8 +254,19 @@ class StripeController extends Controller
 
         // Save the payment to the database
         $payment->save();
+        // Build a custom success message
+           // Build a custom success message with customer-centric details
+    $successMessage = 'Booking successful! We appreciate your trust, ' . $name . '.';
+    $successMessage .= ' Your reservation for ' . $productName . ' has been confirmed.';
 
-        return "User with ID {$userId} has been booked successfully for {$productName}, {$totalPrice}, {$name}, {$email}, {$phone}. Reservation created for Room ID {$room_id} with check-in on {$check_in} and check-out on {$check_out}. Reservation ID is {$reservationId}. Payment processed with remaining total of {$payment->remaining_total}, amount {$payment->amount}, and payment method {$payment->payment_method}.";
+    // Include a message for further assistance via website contact section and messenger
+    $contactMessage = 'If you have any questions or need further assistance, feel free to reach out to us. ';
+    $contactMessage .= 'You can contact us through our <a href="/contact">contact section</a> on the website or by clicking the messenger icon in the lower right corner.';
+
+    // Redirect to the home route with the enhanced success message
+    return Redirect::to('/')
+        ->with('success', $successMessage)
+        ->with('contactMessage', $contactMessage);
     }
 }
 

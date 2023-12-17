@@ -1,444 +1,521 @@
-                               body {
-                                   font-family: 'Roboto Mono', monospace;
-                                   font-style: normal!important;
-                                   font-weight: 400;
-                                   color: #212529!important;
-                               }
-
-                               .hide {
-                                   display: none;
-                               }
-
-                               section {
-                                   width: 100%;
-                                   min-height: 440px;
-                                   margin: auto;
-                                   overflow-y: hidden!important;
-                               }
-
-                               .services {
-                                   overflow-y: unset!important;
-                               }
-                               /* *********************************  FACEBOOK & INSTAGRAM ICONS ON THE RIGHT  *********************************************** */
-
-                               .fixed-icons {
-                                   position: fixed;
-                                   top: 50%;
-                                   right: 0;
-                                   transform: translateY(-50%);
-                                   display: flex;
-                                   justify-content: center;
-                                   align-items: center;
-                                   flex-direction: column;
-                                   font-size: 1.6rem;
-                                   padding: 1.6rem;
-                                   gap: 2rem;
-                                   background-color: white;
-                               }
-
-                               .fixed-icons a i {
-                                   color: rgb(36, 35, 35);
-                               }
-                               /* *********************************  HEADER  *********************************************** */
-
-                               .navbar-custom {
-                                   background-color: rgb(36, 35, 35);
-                               }
-
-                               .navbar-custom .nav-item .nav-link {
-                                   color: rgb(245, 245, 245);
-                               }
-
-                               .navbar-custom .navbar-nav .nav-link.active,
-                               .navbar-custom .navbar-nav .show>.nav-link {
-                                   color: rgb(112, 112, 112);
-                               }
-
-                               .navbar-custom .navbar-nav .nav-item .btn-book-room {
-                                   background-color: transparent;
-                                   border: 1px solid white;
-                                   color: white;
-                               }
-
-                               .navbar-custom .navbar-nav .nav-item .btn-book-room:hover {
-                                   background-color: white;
-                                   color: black;
-                               }
-
-                               .navbar-toggler-icon {
-                                   color: #fff;
-                               }
-
-                               .nav-link {
-                                   color: #fff;
-                               }
-
-                               .navbar-custom .nav-item .hover {
-                                   background-color: transparent;
-                                   color: white;
-                               }
-
-                               .navbar-custom .nav-item .hover:hover {
-                                   background-color: white;
-                                   color: black;
-                               }
-                               /* *********************************  Home  *********************************************** */
-
-                               .home {
-                                   position: relative;
-                                   /* Ensure the ::before pseudo-element is positioned relative to this element */
-                                   background-image: url("/public/img/Group_picture.jfif");
-                                   background-size: cover;
-                                   background-position: center;
-                                   background-attachment: fixed;
-                                   background-repeat: no-repeat;
-                                   color: white;
-                                   height: 800px;
-                               }
-
-                               .home::before {
-                                   content: "";
-                                   position: absolute;
-                                   top: 0;
-                                   right: 0;
-                                   bottom: 0;
-                                   left: 0;
-                               }
-
-                               .home .text-center {
-                                   font-size: 80px;
-                                   background-color: rgba(0, 0, 0, 0.3);
-                                   font-family: 'Roboto Mono', monospace;
-                                   font-weight: 100;
-                               }
-
-                               .home .fst-italic {
-                                   font-size: 80px;
-                                   font-family: 'Tangerine', cursive;
-                                   font-weight: lighter;
-                               }
-
-                               .search {
-                                   display: flex;
-                                   width: 70%;
-                                   /* Set the desired width */
-                                   margin-left: auto;
-                                   margin-right: auto;
-                                   margin-top: 1.5rem;
-                               }
-
-                               label {
-                                   position: absolute;
-                                   top: -20px;
-                                   padding: 2px;
-                                   font-size: 12px;
-                                   color: #555;
-                               }
-
-                               .search-button {
-                                   background-color: black;
-                                   color: white;
-                                   border: none;
-                                   border-radius: 4px;
-                               }
-                               /* *********************************  About  *********************************************** */
-
-                               .about * {
-                                   color: #737373;
-                                   font-weight: 100;
-                                   margin: auto;
-                                   margin-bottom: 48px;
-                                   width: 75%;
-                                   font-size: 30px;
-                                   font-style: normal!important;
-                               }
-
-                               .about h5 {
-                                   font-weight: lighter;
-                                   line-height: 32px;
-                               }
-                               /* *********************************  Rooms  *********************************************** */
-
-                               .rooms {
-                                   background-image: url("./img/sample_room_background.jpg");
-                                   background-size: cover;
-                                   background-repeat: no-repeat;
-                                   background-position: center;
-                                   background-attachment: fixed;
-                                   color: #101010;
-                                   display: flex;
-                                   justify-content: center;
-                                   align-items: center;
-                                   flex-direction: column;
-                                   text-align: center;
-                                   width: 100%;
-                                   height: 600px;
-                               }
-
-                               .rooms .card {
-                                   background-color: rgba(255, 255, 255, 0.8);
-                                   padding: auto;
-                                   display: flex;
-                                   justify-content: center;
-                                   width: fit-content;
-                                   padding: 50px;
-                               }
-
-                               .card h5 {
-                                   font-size: 18px;
-                                   color: black;
-                                   font-family: 'Poppins'!important;
-                               }
-
-                               .rooms .btn-book-room {
-                                   background-color: white;
-                                   border: 1px solid black;
-                                   color: black;
-                                   width: 140px;
-                                   align-self: center;
-                               }
-
-                               .rooms .btn-book-room:hover {
-                                   background-color: #101010;
-                                   color: white;
-                               }
-                               /* *********************************  Services  *********************************************** */
-
-                               .services {
-                                   height: 800px;
-                               }
-                               /* *********************************  Gallery  *********************************************** */
-
-                               .gallery {
-                                   max-width: 100%;
-                               }
-
-                               .gallery-card {
-                                   min-width: 70%;
-                                   margin: auto;
-                               }
-
-                               .carousel {
-                                   min-width: 70%;
-                                   margin: auto;
-                               }
-
-                               .carousel-image {
-                                   min-width: 100%;
-                                   height: 80vh;
-                                   object-fit: cover;
-                               }
-
-                               .gallery-card p {
-                                   font-style: italic;
-                               }
-                               /* *********************************  Guest Review  *********************************************** */
-
-                               .guest-review {
-                                   background-image: url("./img/sample_guestreview_background.jpg");
-                                   background-size: contain;
-                                   background-repeat: no-repeat;
-                                   background-position: center;
-                                   background-attachment: fixed;
-                                   color: #101010;
-                                   display: flex;
-                                   justify-content: center;
-                                   align-items: center;
-                                   flex-direction: column;
-                                   text-align: center;
-                                   width: 100%;
-                               }
-
-                               .guest-review .card {
-                                   background-color: white;
-                                   padding: 3rem;
-                                   position: relative;
-                                   height: 370px;
-                                   width: 392px;
-                               }
-
-                               .review-container {
-                                   display: flex;
-                                   flex-direction: column;
-                                   align-items: center;
-                               }
-
-                               .review {
-                                   display: none;
-                               }
-
-                               .review.active {
-                                   display: block;
-                               }
-
-                               .radio-buttons {
-                                   position: absolute;
-                                   bottom: 20%;
-                                   right: 0;
-                                   left: 0;
-                                   width: 100%;
-                                   margin: auto;
-                               }
-                               /* *********************************  CONTACT  *********************************************** */
-
-                               .contact {
-                                   background-color: rgb(245, 245, 245);
-                                   width: 100%;
-                                   height: auto;
-                               }
-
-                               .contact-details {
-                                   width: 70%;
-                                   margin: auto;
-                               }
-
-                               .contact .container {
-                                   width: 50%;
-                                   margin: auto;
-                               }
-
-                               .contact-form .form-group {
-                                   margin-bottom: 20px;
-                               }
-
-                               .contact-form label {
-                                   display: block;
-                                   font-weight: bold;
-                                   position: relative;
-                                   top: 0;
-                               }
-
-                               .contact-form input[type="text"],
-                               .contact-form input[type="email"],
-                               .contact-form textarea {
-                                   width: 100%;
-                                   padding: 10px;
-                                   border: 1px solid #ccc;
-                                   border-radius: 4px;
-                                   font-size: 16px;
-                               }
-
-                               .contact-form textarea {
-                                   resize: vertical;
-                               }
-
-                               .contact-form .form-group {
-                                   display: grid;
-                                   grid-template-columns: 1fr;
-                                   grid-gap: 10px;
-                               }
-
-                               .contact-form .form-group input,
-                               .contact-form .form-group textarea {
-                                   grid-column: 1 / -1;
-                               }
-
-                               .contact-form button[type="submit"] {
-                                   padding: 5px 20px;
-                                   font-size: 15px;
-                                   background-color: #4CAF50;
-                                   color: #fff;
-                                   border: none;
-                                   border-radius: 4px;
-                                   cursor: pointer;
-                                   margin-bottom: 4rem;
-                               }
-
-                               .contact-form button[type="submit"]:hover {
-                                   background-color: #45a049;
-                               }
-                               /* *********************************  Footer  *********************************************** */
-
-                               footer {
-                                   border: 0;
-                                   background-color: #101010;
-                                   text-align: center;
-                                   color: white;
-                                   font-size: 14px;
-                                   padding: 20px 0px;
-                               }
-                               /* *************************************** Book A Room***************************************** */
-
-                               .book_container {
-                                   background-color: white;
-                               }
-
-                               .book_t_content {
-                                   padding: 20px;
-                                   width: 65%;
-                                   margin-left: auto;
-                                   margin-right: auto;
-                               }
-
-                               .h_line {
-                                   margin-top: 10px;
-                                   margin-bottom: 20px;
-                                   border: none;
-                                   border-top: 1px solid #dee2e6;
-                               }
-
-                               .book_t_content h1 {
-                                   text-align: center;
-                                   font-weight: 50;
-                                   font-size: 35px;
-                               }
-
-                               .search_book {
-                                   display: flex;
-                                   width: 65%;
-                                   margin-left: auto;
-                                   margin-right: auto;
-                                   align-items: center;
-                               }
-
-                               .search-button {
-                                   flex: 1;
-                                   display: flex;
-                                   align-items: center;
-                                   justify-content: center;
-                               }
-
-                               .room {
-                                   width: 65%;
-                                   margin: 20px auto;
-                               }
-
-                               .room-container {
-                                   display: flex;
-                                   align-items: center;
-                                   justify-content: space-between;
-                                   padding: 20px;
-                                   margin: 0 auto;
-                                   /* max-width: 900px; */
-                               }
-
-                               .room-content {
-                                   flex: 0 0 70%;
-                                   margin: auto;
-                               }
-
-                               .room-details {
-                                   display: flex;
-                                   justify-content: space-between;
-                               }
-
-                               .separator {
-                                   border-left: 1px solid #ccc;
-                                   height: 25px;
-                               }
-
-                               .l_content {
-                                   flex-grow: 1;
-                                   margin-right: 30px;
-                               }
-
-                               .r_content {
-                                   flex-shrink: 0;
-                                   text-align: center;
-                                   width: 28%;
-                                   padding-top: 30px;
-                               }
-                               /* .room-image {
+                           body {
+                               font-family: 'Roboto Mono', monospace;
+                               font-style: normal!important;
+                               font-weight: 400;
+                               color: #212529!important;
+                           }
+
+                           .hide {
+                               display: none;
+                           }
+
+                           section {
+                               width: 100%;
+                               min-height: 440px;
+                               margin: auto;
+                               overflow-y: hidden!important;
+                           }
+
+                           .services {
+                               overflow-y: unset!important;
+                           }
+                           /* *********************************  FACEBOOK & INSTAGRAM ICONS ON THE RIGHT  *********************************************** */
+
+                           .fixed-icons {
+                               position: fixed;
+                               top: 50%;
+                               right: 0;
+                               transform: translateY(-50%);
+                               display: flex;
+                               justify-content: center;
+                               align-items: center;
+                               flex-direction: column;
+                               font-size: 1.6rem;
+                               padding: 1.6rem;
+                               gap: 2rem;
+                               background-color: white;
+                           }
+
+                           .fixed-icons a i {
+                               color: rgb(36, 35, 35);
+                           }
+                           /* *********************************  HEADER  *********************************************** */
+
+                           .navbar-custom {
+                               background-color: rgb(36, 35, 35);
+                           }
+
+                           .navbar-custom .nav-item .nav-link {
+                               color: rgb(245, 245, 245);
+                               font-family: 'Roboto Mono', monospace!important;
+                           }
+
+                           .navbar-custom .navbar-nav .nav-link.active,
+                           .navbar-custom .navbar-nav .show>.nav-link {
+                               color: rgb(112, 112, 112);
+                           }
+
+                           .navbar-custom .navbar-nav .nav-item .btn-book-room {
+                               background-color: transparent;
+                               border: 1px solid white;
+                               color: white;
+                           }
+
+                           .navbar-custom .navbar-nav .nav-item .btn-book-room:hover {
+                               background-color: white;
+                               color: black;
+                           }
+
+                           .navbar-toggler-icon {
+                               color: #fff;
+                           }
+
+                           .nav-link {
+                               color: #fff;
+                           }
+
+                           .navbar-custom .nav-item .hover {
+                               background-color: transparent;
+                               color: white;
+                           }
+
+                           .navbar-custom .nav-item .hover:hover {
+                               background-color: white;
+                               color: black;
+                           }
+                           /* *********************************  Home  *********************************************** */
+
+                           .home {
+                               position: relative;
+                               /* Ensure the ::before pseudo-element is positioned relative to this element */
+                               background-image: url("/public/img/Group_picture.jfif");
+                               background-size: cover;
+                               background-position: center;
+                               background-attachment: fixed;
+                               background-repeat: no-repeat;
+                               color: white;
+                               height: 800px;
+                           }
+
+                           .home::before {
+                               content: "";
+                               position: absolute;
+                               top: 0;
+                               right: 0;
+                               bottom: 0;
+                               left: 0;
+                           }
+
+                           .home .text-center {
+                               font-size: 80px;
+                               background-color: rgba(0, 0, 0, 0.3);
+                               font-family: 'Roboto Mono', monospace;
+                               font-weight: 100;
+                           }
+
+                           .home .fst-italic {
+                               font-size: 80px;
+                               font-family: 'Tangerine', cursive;
+                               font-weight: lighter;
+                           }
+
+                           .search {
+                               display: flex;
+                               width: 70%;
+                               /* Set the desired width */
+                               margin-left: auto;
+                               margin-right: auto;
+                               margin-top: 1.5rem;
+                           }
+
+                           label {
+                               position: absolute;
+                               top: -20px;
+                               padding: 2px;
+                               font-size: 12px;
+                               color: #555;
+                           }
+
+                           .search-button {
+                               background-color: black;
+                               color: white;
+                               border: none;
+                               border-radius: 4px;
+                           }
+                           /* *********************************  About  *********************************************** */
+
+                           .about h1 {
+                               font-family: 'Roboto Mono';
+                               color: #212529;
+                               font-size: 28.8px;
+                           }
+
+                           .about * {
+                               color: #737373;
+                               font-weight: 100;
+                               margin: auto;
+                               margin-bottom: 48px;
+                               width: 75%;
+                               font-size: 30px;
+                               font-style: normal!important;
+                               font-family: "Nunito", sans-serif!important;
+                           }
+
+                           .about h5 {
+                               font-weight: lighter;
+                               line-height: 32px;
+                           }
+                           /* *********************************  Rooms  *********************************************** */
+
+                           .rooms h4 {
+                               font-family: 'Roboto Mono', monospace;
+                           }
+
+                           .rooms i {
+                               font-family: 'Nunito', sans-serif;
+                               font-style: normal;
+                               color: #737373;
+                           }
+
+                           .rooms {
+                               background-image: url("./img/sample_room_background.jpg");
+                               background-size: cover;
+                               background-repeat: no-repeat;
+                               background-position: center;
+                               background-attachment: fixed;
+                               color: #101010;
+                               display: flex;
+                               justify-content: center;
+                               align-items: center;
+                               flex-direction: column;
+                               text-align: center;
+                               width: 100%;
+                               height: 600px;
+                           }
+
+                           .rooms .card {
+                               background-color: rgba(255, 255, 255, 0.8);
+                               padding: auto;
+                               display: flex;
+                               justify-content: center;
+                               width: fit-content;
+                               padding: 50px;
+                           }
+
+                           .card h5 {
+                               font-size: 20px;
+                               color: black;
+                               font-family: 'Roboto Mono'!important;
+                           }
+
+                           .rooms .btn-book-room {
+                               background-color: white;
+                               border: 1px solid black;
+                               color: black;
+                               width: 140px;
+                               align-self: center;
+                               font-family: 'Roboto Mono', monospace;
+                               font-size: 14px;
+                           }
+
+                           .rooms .btn-book-room:hover {
+                               background-color: #101010;
+                               color: white;
+                           }
+                           /* *********************************  Services  *********************************************** */
+
+                           .services {
+                               height: 800px;
+                           }
+
+                           .services .text-center {
+                               font-family: 'Roboto Mono' !important;
+                               color: #212529;
+                           }
+                           /* *********************************  Gallery  *********************************************** */
+
+                           .gallery {
+                               max-width: 100%;
+                           }
+
+                           .gallery * {
+                               font-family: "Roboto Mono", monospace;
+                               color: #212529;
+                           }
+
+                           .gallery b {
+                               font-size: 18px;
+                           }
+
+                           .gallery .text-center {
+                               font-family: 'Roboto Mono', monospace!important;
+                               color: #212529;
+                           }
+
+                           .gallery-card {
+                               min-width: 70%;
+                               margin: auto;
+                           }
+
+                           .carousel {
+                               min-width: 70%;
+                               margin: auto;
+                           }
+
+                           .carousel-image {
+                               min-width: 100%;
+                               height: 80vh;
+                               object-fit: cover;
+                           }
+                           /* *********************************  Guest Review  *********************************************** */
+
+                           .guest-review {
+                               background-size: contain;
+                               background-repeat: no-repeat;
+                               background-position: center;
+                               background-attachment: fixed;
+                               color: #101010;
+                               display: flex;
+                               justify-content: center;
+                               align-items: center;
+                               flex-direction: column;
+                               text-align: center;
+                               width: 100%;
+                           }
+
+                           .guest-review .card {
+                               background-color: white;
+                               padding: 3rem;
+                               position: relative;
+                               height: 500px;
+                               width: 500px;
+                           }
+
+                           .review-container {
+                               display: flex;
+                               flex-direction: column;
+                               align-items: center;
+                           }
+
+                           .review {
+                               display: none;
+                           }
+
+                           .review.active {
+                               display: block;
+                           }
+
+                           .radio-buttons {
+                               position: absolute;
+                               bottom: 32%;
+                               right: 0;
+                               left: 0;
+                               width: 100%;
+                               margin: auto;
+                           }
+
+                           .radio-buttons input[type="radio"] {
+                               transform: scale(0.8);
+                               /* Adjust the scale factor as needed */
+                               color: black;
+                               background-color: #101010;
+                           }
+                           /* Change color when radio button is checked */
+
+                           .radio-buttons input[type="radio"]:checked+label {
+                               color: black;
+                           }
+
+                           .guest-review h4 {
+                               font-family: 'Roboto Mono', monospace!important;
+                               font-size: 28.8px;
+                           }
+
+                           .review-author {
+                               font-weight: bold;
+                               font-style: italic;
+                           }
+
+                           .review-container {
+                               min-height: 150px;
+                           }
+
+                           .star-rating {
+                               color: #ffcc00;
+                               /* Set the star color, you can adjust it to your preference */
+                               font-size: 2em;
+                           }
+                           /* *********************************  CONTACT  *********************************************** */
+
+                           .contact {
+                               background-color: rgb(245, 245, 245);
+                               width: 100%;
+                               height: auto;
+                           }
+
+                           .contact * {
+                               font-family: 'Roboto Mono', cursive!important;
+                           }
+
+                           .contact-details {
+                               width: 70%;
+                               margin: auto;
+                           }
+
+                           .contact .container {
+                               width: 50%;
+                               margin: auto;
+                           }
+
+                           .contact-form .form-group {
+                               margin-bottom: 20px;
+                           }
+
+                           .contact-form label {
+                               display: block;
+                               font-weight: bold;
+                               position: relative;
+                               top: 0;
+                           }
+
+                           .contact-form input[type="text"],
+                           .contact-form input[type="email"],
+                           .contact-form textarea {
+                               width: 100%;
+                               padding: 10px;
+                               border: 1px solid #ccc;
+                               border-radius: 4px;
+                               font-size: 16px;
+                           }
+
+                           .contact-form textarea {
+                               resize: vertical;
+                           }
+
+                           .contact-form .form-group {
+                               display: grid;
+                               grid-template-columns: 1fr;
+                               grid-gap: 10px;
+                           }
+
+                           .contact-form .form-group input,
+                           .contact-form .form-group textarea {
+                               grid-column: 1 / -1;
+                           }
+
+                           .contact-form button[type="submit"] {
+                               padding: 5px 20px;
+                               font-size: 15px;
+                               background-color: #4CAF50;
+                               color: #fff;
+                               border: none;
+                               border-radius: 4px;
+                               cursor: pointer;
+                               margin-bottom: 4rem;
+                           }
+
+                           .contact-form button[type="submit"]:hover {
+                               background-color: #45a049;
+                           }
+                           /* *********************************  Footer  *********************************************** */
+
+                           footer {
+                               border: 0;
+                               background-color: #101010;
+                               text-align: center;
+                               color: white;
+                               font-size: 14px;
+                               padding: 20px 0px;
+                           }
+                           /* *************************************** Book A Room***************************************** */
+
+                           .book_container {
+                               background-color: white;
+                           }
+
+                           .book_t_content {
+                               padding: 20px;
+                               width: 65%;
+                               margin-left: auto;
+                               margin-right: auto;
+                           }
+
+                           .h_line {
+                               margin-top: 10px;
+                               margin-bottom: 20px;
+                               border: none;
+                               border-top: 1px solid #dee2e6;
+                           }
+
+                           .book_t_content h1 {
+                               text-align: center;
+                               font-weight: 50;
+                               font-size: 35px;
+                           }
+
+                           .search_book {
+                               display: flex;
+                               width: 65%;
+                               margin-left: auto;
+                               margin-right: auto;
+                               align-items: center;
+                           }
+
+                           .search-button {
+                               flex: 1;
+                               display: flex;
+                               align-items: center;
+                               justify-content: center;
+                           }
+
+                           .room {
+                               width: 65%;
+                               margin: 20px auto;
+                           }
+
+                           .room-details-container h2,
+                           h3,
+                           h5,
+                           p {
+                               font-family: 'Roboto Mono', cursive!important;
+                           }
+
+                           .room-container {
+                               display: flex;
+                               align-items: center;
+                               justify-content: space-between;
+                               padding: 20px;
+                               margin: 0 auto;
+                               /* max-width: 900px; */
+                           }
+
+                           .room-content {
+                               flex: 0 0 70%;
+                               margin: auto;
+                           }
+
+                           .room-details {
+                               display: flex;
+                               justify-content: space-between;
+                           }
+
+                           .separator {
+                               border-left: 1px solid #ccc;
+                               height: 25px;
+                           }
+
+                           .l_content {
+                               flex-grow: 1;
+                               margin-right: 30px;
+                           }
+
+                           .r_content {
+                               flex-shrink: 0;
+                               text-align: center;
+                               width: 28%;
+                               padding-top: 30px;
+                           }
+                           /* .room-image {
     flex: 0 0 40%;
     margin-right: 50px;
 }
@@ -447,952 +524,957 @@
     width: 100%;
     height: auto;
                                    border-radius: 2px;
-} */
+                               } */
 
-                               .room-image {
-                                   flex: 0 0 40%;
-                                   margin-right: 50px;
-                                   width: 200px;
-                                   /* Set a fixed width for the image container */
-                                   height: 250px;
-                                   /* Set a fixed height for the image container */
-                                   overflow: hidden;
+                           .room-image {
+                               flex: 0 0 40%;
+                               margin-right: 50px;
+                               width: 200px;
+                               /* Set a fixed width for the image container */
+                               height: 250px;
+                               /* Set a fixed height for the image container */
+                               overflow: hidden;
+                           }
+
+                           .room-image img {
+                               width: 100%;
+                               height: 100%;
+                               object-fit: cover;
+                               /* Crop or stretch the image to fit the container */
+                               border-radius: 2px;
+                           }
+                           /* ----------------- */
+
+                           .room-container {
+                               position: relative;
+                           }
+
+                           .room-image {
+                               position: relative;
+                               overflow: hidden;
+                           }
+
+                           .more-info-hov {
+                               text-align: center;
+                               position: absolute;
+                               bottom: -40px;
+                               right: 0;
+                               width: 30%;
+                               padding: 10px;
+                               background-color: rgba(0, 0, 0, 0.8);
+                               color: #fff;
+                               opacity: 0;
+                               /* transition: opacity 0.3s ease; */
+                               transition: transform 0.3s ease-in-out;
+                               pointer-events: none;
+                               cursor: pointer;
+                           }
+
+                           .room-image:hover .more-info-hov {
+                               transform: translateY(-40px);
+                               opacity: 1;
+                           }
+
+                           .room-image:not(:hover) .more-info-hov {
+                               opacity: 1;
+                               transform: translateY(40px);
+                           }
+                           /* --------------- */
+
+                           #room-name {
+                               font-size: 24px;
+                               margin-bottom: 10px;
+                           }
+
+                           .room-description {
+                               font-size: 16px;
+                               margin-bottom: 10px;
+                           }
+
+                           .room-features {
+                               font-size: 16px;
+                               margin-bottom: 10px;
+                           }
+
+                           .room-price {
+                               font-size: 30px;
+                               font-weight: 50;
+                               margin-bottom: 10px;
+                           }
+
+                           .room-beds {
+                               font-size: 16px;
+                               margin-bottom: 10px;
+                           }
+
+                           .divider {
+                               border: none;
+                               border-top: 1px solid #7a7474;
+                               margin-bottom: 30px;
+                               margin-right: 30px;
+                               margin: 20px 0px;
+                           }
+
+                           .more-info {
+                               margin-top: 20px;
+                               background-color: #000;
+                               padding: 5px;
+                               text-align: center;
+                           }
+
+                           .more-info-button {
+                               color: #fff;
+                               background-color: transparent;
+                               border: none;
+                               font-size: 16px;
+                               font-weight: bold;
+                               cursor: pointer;
+                               white-space: nowrap;
+                           }
+
+                           .circle {
+                               display: inline-block;
+                               width: 7px;
+                               height: 7px;
+                               background-color: black;
+                               border-radius: 50%;
+                               margin-right: 5px;
+                           }
+
+                           dialog {
+                               border: 0;
+                           }
+
+                           .room-details-price:before {
+                               position: absolute;
+                               content: "\20B1";
+                               /* Unicode for the Philippine Peso sign */
+                               left: 20px;
+                               font-family: 'Roboto Mono', cursive;
+                           }
+
+                           .room-details-con h5 {
+                               min-width: 150px;
+                               font-weight: 600;
+                           }
+                           /* *********************************  Room Details Styles  *********************************************** */
+
+                           dialog {
+                               z-index: 10;
+                               margin-top: 10px;
+                               background: white;
+                               border: 1px solid grey;
+                               position: absolute;
+                               top: 18%;
+                               right: -130%;
+                               max-width: 300px;
+                           }
+
+                           .room-details-back {
+                               /* position: absolute; */
+                               top: 20px;
+                               left: 20px;
+                               display: flex;
+                               align-items: center;
+                               color: black;
+                               cursor: pointer;
+                               font-size: 20px;
+                               z-index: 2;
+                           }
+
+                           .room-details-back span {
+                               font-size: 30px;
+                           }
+                           /* Room Details Styling */
+
+                           .room-details-container {
+                               margin: 30px;
+                               display: flex;
+                               align-items: center;
+                               position: relative;
+                               /* Adjust this value based on your preference */
+                           }
+
+                           .room-details-deets {
+                               max-width: 70%;
+                           }
+
+                           .room-details-content {
+                               position: absolute;
+                               top: 70px;
+                               right: 0px;
+                               width: 25%;
+                               font-family: 'Roboto Mono', monospace!important;
+                           }
+
+                           .room-details-deets img {
+                               width: 100%;
+                               height: auto;
+                           }
+
+                           .room-details-back i {
+                               margin-right: 5px;
+                               /* margin-bottom: 20px; */
+                               font-size: 30px;
+                           }
+
+                           .v-line {
+                               margin-left: 20px;
+                               margin-right: 20px;
+                               color: grey;
+                           }
+                           /* Box Styling */
+
+                           .room-details-box {
+                               border: 1px solid grey;
+                               padding: 20px;
+                               margin-top: 20px;
+                               font-family: 'Roboto Mono', cursive!important;
+                           }
+
+                           .room-details-box p {
+                               margin: 0;
+                           }
+
+                           .room-details-box hr {
+                               margin: 20px 0;
+                           }
+
+                           .additional-details {
+                               display: flex;
+                               justify-content: space-between;
+                           }
+
+                           table {
+                               width: 100%;
+                           }
+
+                           table td {
+                               padding: 8px;
+                           }
+
+                           table tr:nth-child(even) {
+                               background-color: #f2f2f2;
+                           }
+                           /*
+                                               ============= */
+
+                           .room-details-con {
+                               max-width: 100%;
+                               margin-left: auto;
+                               margin-right: auto;
+                               font-size: 15px;
+                               font-family: 'Roboto Mono', cursive!important;
+                           }
+
+                           .property-details,
+                           .more-info,
+                           .amenities,
+                           .check-in-out,
+                           .terms {
+                               margin-bottom: 20px;
+                           }
+
+                           .property-details p,
+                           .more-info p,
+                           .check-in-out p,
+                           .terms p {
+                               margin: 0;
+                           }
+
+                           .amenities ul {
+                               list-style-type: none;
+                               padding: 0;
+                           }
+
+                           .amenities ul li {
+                               display: inline-block;
+                               margin-right: 10px;
+                           }
+                           /* ================== */
+
+                           .amenities {
+                               display: flex;
+                               align-items: center;
+                               justify-content: space-between;
+                           }
+
+                           .amenit {
+                               display: flex;
+                               flex-direction: column;
+                               justify-content: flex-start;
+                               align-items: flex-start;
+                           }
+
+                           .amenit li {
+                               list-style-type: none;
+                               margin-left: 20px;
+                           }
+
+                           .amenit div {
+                               width: 150px;
+                               display: flex;
+                               align-items: center;
+                           }
+
+                           .amenit div:nth-child(2) {
+                               margin-top: 20px;
+                           }
+
+                           .amenit div i,
+                           .amenit div li {
+                               display: inline-block;
+                           }
+
+                           .amenit-icons-container {
+                               display: flex;
+                               justify-content: flex-start;
+                               width: 75%;
+                               gap: 20%;
+                           }
+
+                           h5 {
+                               font-size: 16px;
+                               font-weight: bold;
+                           }
+                           /* ============== */
+
+                           .properties-deets-container {
+                               display: flex;
+                               width: 75%;
+                               align-items: center;
+                               justify-content: flex-start;
+                               gap: 20%;
+                           }
+
+                           .properties-deets-container div {
+                               width: 200px;
+                               display: flex;
+                           }
+
+                           .property-details {
+                               display: flex;
+                               flex-direction: row;
+                               align-items: center;
+                               justify-content: space-between;
+                           }
+
+                           .property-details p {
+                               margin-right: 20px;
+                           }
+
+                           .prop-menu {
+                               display: flex;
+                               margin: 15px 0;
+                               width: 100%;
+                               max-width: 300px;
+                               padding: 0px;
+                           }
+
+                           .more-info {
+                               display: flex;
+                               flex-direction: row;
+                               align-items: center;
+                               justify-content: center;
+                               margin-bottom: 0;
+                           }
+
+                           f .more-info p {
+                               margin-left: 100px;
+                               margin-bottom: 0;
+                               display: flex;
+                           }
+
+                           .more-info-details {
+                               margin-left: 0!important;
+                               margin-bottom: 0;
+                               width: 100%;
+                               align-items: center;
+                               display: flex;
+                               justify-content: space-evenly;
+                           }
+
+                           .more-info_deets {
+                               display: flex;
+                               justify-content: space-between;
+                           }
+
+                           .more-info-text {
+                               width: 125px;
+                           }
+                           /* ====================== */
+
+                           .check-deets-container {
+                               display: flex;
+                               width: 75%;
+                               justify-content: flex-start;
+                               gap: 20%;
+                           }
+
+                           .check-deets-container div {
+                               width: 150px;
+                               display: flex;
+                           }
+
+                           .check-deets {
+                               display: flex;
+                               margin-top: 15px;
+                               margin-bottom: 15px;
+                               width: 100%;
+                               padding: 0px;
+                           }
+
+                           .check-in-out {
+                               display: flex;
+                               flex-direction: row;
+                               align-items: center;
+                               justify-content: space-between;
+                           }
+                           /*
+                                               =================== */
+
+                           .terms-deets-container {
+                               display: flex;
+                               width: 75%;
+                               justify-content: flex-start;
+                               gap: 20%;
+                           }
+
+                           .terms-deets {
+                               display: flex;
+                               margin-top: 15px;
+                               margin-bottom: 15px;
+                               flex-direction: column;
+                               justify-content: flex-start;
+                               align-items: flex-start;
+                               max-width: 300px;
+                               padding: 0px;
+                               /* margin-left: 110px; */
+                           }
+
+                           .room-name-container {
+                               width: 100%!important;
+                               gap: 20px;
+                               align-items: flex-start;
+                               justify-content: flex-start;
+                           }
+
+                           .terms {
+                               display: flex;
+                               flex-direction: row;
+                               align-items: center;
+                               justify-content: space-between;
+                           }
+
+                           .terms a {
+                               color: #000;
+                               text-decoration: underline;
+                           }
+
+                           .terms a:hover {
+                               color: #333;
+                           }
+                           /* Custom CSS to remove the label background color */
+
+                           .form-floating .form-control:focus~label::after,
+                           .form-floating .form-control:not(:placeholder-shown)~label::after,
+                           .form-floating .form-control-plaintext~label::after,
+                           .form-floating .form-select~label::after {
+                               background-color: transparent !important;
+                               /* Remove the background color */
+                           }
+
+                           .i_content i {
+                               font-size: 25px;
+                               padding: 5px;
+                           }
+
+                           .i_content i {
+                               font-size: 25px;
+                               padding: 5px;
+                           }
+                           /* =================================== */
+                           /* to display towel image  */
+
+                           .i_content {
+                               display: flex;
+                               align-items: center;
+                           }
+
+                           .icon {
+                               width: 25px;
+                               height: 25px;
+                           }
+
+                           #downpayment .modal-dialog {
+                               transform: translate(0, 30%)!important;
+                           }
+
+                           #fullpayment .modal-dialog {
+                               transform: translate(0, 60%)!important;
+                           }
+
+                           .modal-body label {
+                               position: static;
+                               display: block;
+                               font-weight: bolder;
+                               font-size: 12px;
+                           }
+
+                           .dashboard-nav {
+                               height: 100vh;
+                           }
+
+                           .profile-section {
+                               padding-left: 1.5rem!important;
+                               padding-right: 0!important;
+                           }
+                           /* ========= */
+                           /* ========= */
+                           /* 720p Viewport */
+
+                           @media screen and (min-width: 601px) {
+                               section {
+                                   width: 75%;
                                }
-
-                               .room-image img {
-                                   width: 100%;
-                                   height: 100%;
-                                   object-fit: cover;
-                                   /* Crop or stretch the image to fit the container */
-                                   border-radius: 2px;
+                               .about * {
+                                   margin: auto;
+                                   width: 75%;
+                                   font-size: 20px;
+                                   margin-bottom: 0;
                                }
-                               /* ----------------- */
-
-                               .room-container {
-                                   position: relative;
+                               .rooms {
+                                   width: 75%;
                                }
-
-                               .room-image {
-                                   position: relative;
-                                   overflow: hidden;
-                               }
-
-                               .more-info-hov {
-                                   text-align: center;
-                                   position: absolute;
-                                   bottom: -40px;
-                                   right: 0;
-                                   width: 30%;
-                                   padding: 10px;
-                                   background-color: rgba(0, 0, 0, 0.8);
-                                   color: #fff;
-                                   opacity: 0;
-                                   /* transition: opacity 0.3s ease; */
-                                   transition: transform 0.3s ease-in-out;
-                                   pointer-events: none;
-                                   cursor: pointer;
-                               }
-
-                               .room-image:hover .more-info-hov {
-                                   transform: translateY(-40px);
-                                   opacity: 1;
-                               }
-
-                               .room-image:not(:hover) .more-info-hov {
-                                   opacity: 1;
-                                   transform: translateY(40px);
-                               }
-                               /* --------------- */
-
-                               #room-name {
-                                   font-size: 24px;
-                                   margin-bottom: 10px;
-                               }
-
-                               .room-description {
-                                   font-size: 16px;
-                                   margin-bottom: 10px;
-                               }
-
-                               .room-features {
-                                   font-size: 16px;
-                                   margin-bottom: 10px;
-                               }
-
-                               .room-price {
-                                   font-size: 30px;
-                                   font-weight: 50;
-                                   margin-bottom: 10px;
-                               }
-
-                               .room-beds {
-                                   font-size: 16px;
-                                   margin-bottom: 10px;
-                               }
-
-                               .divider {
-                                   border: none;
-                                   border-top: 1px solid #7a7474;
+                               .about {
                                    margin-bottom: 30px;
-                                   margin-right: 30px;
-                                   margin: 20px 0px;
                                }
+                               .gallery-card h5 {
+                                   color: black;
+                                   font-weight: bolder;
+                               }
+                               .gallery-card p {
+                                   color: #737373;
+                                   line-height: 32px;
+                               }
+                               .gallery-card .card {
+                                   text-align: justify;
+                               }
+                           }
+                           /* Adjust the Datepicker's position */
 
-                               .more-info {
+                           @media only screen and (max-width: 768px) {
+                               g .room-details-container {
+                                   flex-direction: column;
+                               }
+                               .room-details-deets {
+                                   width: 100%;
+                                   overflow: hidden;
+                                   margin: 0;
+                               }
+                               .room-details-deets .properties-deets-container {
+                                   flex-direction: column;
+                               }
+                               .room-details-deets {
                                    margin-top: 20px;
-                                   background-color: #000;
-                                   padding: 5px;
-                                   text-align: center;
+                                   width: 100%;
                                }
+                               .room-details-content {
+                                   width: 100%;
+                                   margin: 0;
+                               }
+                               .room-details-content {
+                                   margin-top: 20px;
+                               }
+                               .room-details-con {
+                                   margin-left: 0;
+                                   margin-right: 0;
+                               }
+                               .room-details-deets img {
+                                   max-width: 100%;
+                               }
+                               .room-details-deets {
+                                   max-width: 100%;
+                               }
+                               .room-details-box {
+                                   max-width: 100%;
+                               }
+                               .map-container {
+                                   width: 100%;
+                               }
+                               .amenit,
+                               .prop-menu,
+                               .check-deets,
+                               .terms-deets {
+                                   margin-left: 0;
+                               }
+                           }
+                           /* Mobile Viewport */
 
-                               .more-info-button {
-                                   color: #fff;
-                                   background-color: transparent;
-                                   border: none;
-                                   font-size: 16px;
-                                   font-weight: bold;
-                                   cursor: pointer;
+                           @media screen and (max-width: 600px) {
+                               .home .fst-italic {
+                                   font-size: 25px;
+                               }
+                               .about * {
+                                   font-family: 'Poppins';
+                                   font-size: 25px;
+                                   width: 100%;
+                               }
+                               .about i {
+                                   line-height: 50px;
+                                   font-weight: lighter!important;
+                                   font-size: 30px;
+                               }
+                               .about h1 {
+                                   font-size: 30px!important;
+                                   margin-bottom: 0;
+                               }
+                               .about div {
+                                   width: 80%!important;
+                               }
+                               .fixed-icons {
+                                   display: none;
+                               }
+                               .gallery {
+                                   width: 80%;
+                                   margin-top: 37vh;
+                               }
+                               .carousel-image {
+                                   height: 320px;
+                               }
+                               .rooms .container .card {
+                                   width: 75%;
+                               }
+                               .rooms h4,
+                               i {
+                                   font-size: 25px;
+                               }
+                               .rooms .btn-book-room {
+                                   width: 90%;
+                                   padding: 20px!important;
+                                   font-size: 25px;
+                               }
+                               .gallery-card {
+                                   flex-direction: column;
+                               }
+                               .gallery-card p,
+                               .gallery-card h5 {
+                                   font-size: 25px;
+                                   line-height: 50px;
+                               }
+                               .gallery-card b {
+                                   color: #737373;
                                    white-space: nowrap;
                                }
-
-                               .circle {
-                                   display: inline-block;
-                                   width: 7px;
-                                   height: 7px;
-                                   background-color: black;
-                                   border-radius: 50%;
-                                   margin-right: 5px;
-                               }
-
-                               dialog {
-                                   border: 0;
-                               }
-
-                               .room-details-price:before {
-                                   position: absolute;
-                                   content: "₱";
-                                   left: 20px;
-                               }
-
-                               .room-details-con h5 {
-                                   min-width: 150px;
-                               }
-                               /* *********************************  Room Details Styles  *********************************************** */
-
-                               dialog {
-                                   z-index: 10;
-                                   margin-top: 10px;
-                                   background: white;
-                                   border: 1px solid grey;
-                                   position: absolute;
-                                   top: 18%;
-                                   right: -130%;
-                                   max-width: 300px;
-                               }
-
-                               .room-details-back {
-                                   /* position: absolute; */
-                                   top: 20px;
-                                   left: 20px;
-                                   display: flex;
-                                   align-items: center;
-                                   color: black;
-                                   cursor: pointer;
-                                   font-size: 20px;
-                                   z-index: 2;
-                               }
-
-                               .room-details-back span {
-                                   font-size: 30px;
-                               }
-                               /* Room Details Styling */
-
-                               .room-details-container {
-                                   margin: 30px;
-                                   display: flex;
-                                   align-items: center;
-                                   position: relative;
-                                   /* Adjust this value based on your preference */
-                               }
-
-                               .room-details-deets {
-                                   max-width: 70%;
-                               }
-
-                               .room-details-content {
-                                   position: absolute;
-                                   top: 70px;
-                                   right: 0px;
-                                   width: 25%;
-                               }
-
-                               .room-details-deets img {
-                                   width: 100%;
-                                   height: auto;
-                               }
-
-                               .room-details-back i {
-                                   margin-right: 5px;
-                                   /* margin-bottom: 20px; */
-                                   font-size: 30px;
-                               }
-
-                               .v-line {
-                                   margin-left: 20px;
-                                   margin-right: 20px;
-                                   color: grey;
-                               }
-                               /* Box Styling */
-
-                               .room-details-box {
-                                   border: 1px solid grey;
-                                   padding: 20px;
-                                   margin-top: 20px;
-                               }
-
-                               .room-details-box p {
-                                   margin: 0;
-                               }
-
-                               .room-details-box hr {
-                                   margin: 20px 0;
-                               }
-
-                               .additional-details {
-                                   display: flex;
-                                   justify-content: space-between;
-                               }
-
-                               table {
-                                   width: 100%;
-                               }
-
-                               table td {
-                                   padding: 8px;
-                               }
-
-                               table tr:nth-child(even) {
-                                   background-color: #f2f2f2;
-                               }
-                               /*
-                ============= */
-
-                               .room-details-con {
-                                   max-width: 100%;
-                                   margin-left: auto;
-                                   margin-right: auto;
-                                   font-size: 15px;
-                               }
-
-                               .property-details,
-                               .more-info,
-                               .amenities,
-                               .check-in-out,
-                               .terms {
-                                   margin-bottom: 20px;
-                               }
-
-                               .property-details p,
-                               .more-info p,
-                               .check-in-out p,
-                               .terms p {
-                                   margin: 0;
-                               }
-
-                               .amenities ul {
-                                   list-style-type: none;
-                                   padding: 0;
-                               }
-
-                               .amenities ul li {
-                                   display: inline-block;
-                                   margin-right: 10px;
-                               }
-                               /* ================== */
-
-                               .amenities {
-                                   display: flex;
-                                   align-items: center;
-                                   justify-content: space-between;
-                               }
-
-                               .amenit {
-                                   display: flex;
-                                   flex-direction: column;
-                                   justify-content: flex-start;
-                                   align-items: flex-start;
-                               }
-
-                               .amenit li {
-                                   list-style-type: none;
-                                   margin-left: 20px;
-                               }
-
-                               .amenit div {
-                                   width: 150px;
-                                   display: flex;
-                                   align-items: center;
-                               }
-
-                               .amenit div:nth-child(2) {
-                                   margin-top: 20px;
-                               }
-
-                               .amenit div i,
-                               .amenit div li {
-                                   display: inline-block;
-                               }
-
-                               .amenit-icons-container {
-                                   display: flex;
-                                   justify-content: flex-start;
-                                   width: 75%;
-                                   gap: 20%;
-                               }
-
-                               h5 {
-                                   font-size: 16px;
-                                   font-weight: bold;
-                               }
-                               /* ============== */
-
-                               .properties-deets-container {
-                                   display: flex;
-                                   width: 75%;
-                                   align-items: center;
-                                   justify-content: flex-start;
-                                   gap: 20%;
-                               }
-
-                               .properties-deets-container div {
-                                   width: 150px;
-                                   display: flex;
-                               }
-
-                               .property-details {
-                                   display: flex;
-                                   flex-direction: row;
-                                   align-items: center;
-                                   justify-content: space-between;
-                               }
-
-                               .property-details p {
-                                   margin-right: 20px;
-                               }
-
-                               .prop-menu {
-                                   display: flex;
-                                   margin: 15px 0;
-                                   width: 100%;
-                                   max-width: 300px;
-                                   padding: 0px;
-                               }
-
-                               .more-info {
-                                   display: flex;
-                                   flex-direction: row;
-                                   align-items: center;
-                                   justify-content: center;
-                                   margin-bottom: 0;
-                               }
-
-                               f .more-info p {
-                                   margin-left: 100px;
-                                   margin-bottom: 0;
-                                   display: flex;
-                               }
-
-                               .more-info-details {
-                                   margin-left: 0!important;
-                                   margin-bottom: 0;
-                                   width: 100%;
-                                   align-items: center;
-                                   display: flex;
-                                   justify-content: space-evenly;
-                               }
-
-                               .more-info_deets {
-                                   display: flex;
-                                   justify-content: space-between;
-                               }
-
-                               .more-info-text {
-                                   width: 125px;
-                               }
-                               /* ====================== */
-
-                               .check-deets-container {
-                                   display: flex;
-                                   width: 75%;
-                                   justify-content: flex-start;
-                                   gap: 20%;
-                               }
-
-                               .check-deets-container div {
-                                   width: 150px;
-                                   display: flex;
-                               }
-
-                               .check-deets {
-                                   display: flex;
-                                   margin-top: 15px;
-                                   margin-bottom: 15px;
-                                   width: 100%;
-                                   padding: 0px;
-                               }
-
-                               .check-in-out {
-                                   display: flex;
-                                   flex-direction: row;
-                                   align-items: center;
-                                   justify-content: space-between;
-                               }
-                               /*
-                =================== */
-
-                               .terms-deets-container {
-                                   display: flex;
-                                   width: 75%;
-                                   justify-content: flex-start;
-                                   gap: 20%;
-                               }
-
-                               .terms-deets {
-                                   display: flex;
-                                   margin-top: 15px;
-                                   margin-bottom: 15px;
-                                   flex-direction: column;
-                                   justify-content: flex-start;
-                                   align-items: flex-start;
-                                   max-width: 300px;
-                                   padding: 0px;
-                                   /* margin-left: 110px; */
-                               }
-
-                               .room-name-container {
-                                   width: 100%!important;
-                                   gap: 20px;
-                                   align-items: flex-start;
-                                   justify-content: flex-start;
-                               }
-
-                               .terms {
-                                   display: flex;
-                                   flex-direction: row;
-                                   align-items: center;
-                                   justify-content: space-between;
-                               }
-
-                               .terms a {
+                               .gallery-card h5 {
+                                   font-weight: bolder!important;
                                    color: #000;
-                                   text-decoration: underline;
+                                   font-size: 30px;
                                }
-
-                               .terms a:hover {
-                                   color: #333;
-                               }
-                               /* Custom CSS to remove the label background color */
-
-                               .form-floating .form-control:focus~label::after,
-                               .form-floating .form-control:not(:placeholder-shown)~label::after,
-                               .form-floating .form-control-plaintext~label::after,
-                               .form-floating .form-select~label::after {
-                                   background-color: transparent !important;
-                                   /* Remove the background color */
-                               }
-
-                               .i_content i {
-                                   font-size: 25px;
-                                   padding: 5px;
-                               }
-
-                               .i_content i {
-                                   font-size: 25px;
-                                   padding: 5px;
-                               }
-                               /* =================================== */
-                               /* to display towel image  */
-
-                               .i_content {
+                               .contact-details {
                                    display: flex;
-                                   align-items: center;
+                                   flex-direction: column;
+                                   width: 75%;
                                }
-
-                               .icon {
+                               .contact h2 {
+                                   font-size: 40px;
+                                   font-weight: bolder;
+                                   text-transform: uppercase;
+                               }
+                               .contact-details h5 {
+                                   line-height: 36px;
+                                   text-align: center;
+                                   font-size: 24px;
+                                   margin: 25px;
+                                   font-style: italic;
+                                   white-space: nowrap;
+                               }
+                               .contact .container {
+                                   width: 75%;
+                                   margin: auto;
+                               }
+                               .contact .container label {
+                                   font-size: 25px;
+                                   font-style: italic;
+                               }
+                               .contact-form button[type="submit"] {
+                                   padding: 15px;
+                                   font-size: 25px;
+                               }
+                               .room {
+                                   width: 90%;
+                                   margin: auto;
+                               }
+                               .room-price {
+                                   white-space: nowrap;
+                               }
+                               .room-container {
+                                   flex-direction: column;
+                               }
+                               .room-details {
+                                   flex-direction: column;
+                                   margin: auto;
+                                   width: 95%;
+                                   justify-content: center;
+                                   align-items: center;
+                                   text-align: center;
+                               }
+                               .i_content {
+                                   justify-content: center;
+                               }
+                               .book_t_content p {
+                                   text-align: center;
+                               }
+                               .room-image {
+                                   width: 95%;
+                                   margin: auto;
+                               }
+                               .room-details * {
+                                   line-height: 32px;
+                               }
+                               .room-details h2 {
+                                   margin-bottom: 20px;
+                                   margin-top: 20px;
+                               }
+                               .room-details p,
+                               .room-details h2 {
+                                   font-size: 30px;
+                               }
+                               .book_t_content p {
+                                   font-size: 30px!important;
+                               }
+                               .room-details-container {
+                                   flex-direction: column;
+                                   margin: auto!important;
+                                   width: 98%!important;
+                                   max-width: unset;
+                               }
+                               .room-details-content {
+                                   position: unset!important;
+                                   width: 100%!important;
+                               }
+                               .room-details-box {
+                                   width: 100%!important;
+                               }
+                               .room-details-deets {
+                                   max-width: unset!important;
+                                   width: 100%;
+                               }
+                               #room-name {
+                                   white-space: nowrap;
+                               }
+                               .room-name-container a {
+                                   padding-left: 20px;
+                               }
+                               .separator {
+                                   display: block;
                                    width: 25px;
                                    height: 25px;
                                }
-
-                               #downpayment .modal-dialog {
-                                   transform: translate(0, 30%)!important;
+                               .property-details {
+                                   align-items: stretch;
                                }
-
-                               #fullpayment .modal-dialog {
-                                   transform: translate(0, 60%)!important;
+                               .properties-deets-container {
+                                   flex-direction: row!important;
                                }
-
-                               .modal-body label {
-                                   position: static;
-                                   display: block;
-                                   font-weight: bolder;
-                                   font-size: 12px;
+                               .properties-deets-container .prop-menu {
+                                   margin-left: 0!important;
                                }
-
-                               .dashboard-nav {
-                                   height: 100vh;
+                               .ms-4 {
+                                   margin: 0!important;
                                }
+                           }
 
-                               .profile-section {
-                                   padding-left: 1.5rem!important;
-                                   padding-right: 0!important;
+                           @media screen and (max-width: 426px) {
+                               .nav-item .nav-link {
+                                   margin-left: 10px!important;
+                                   margin-right: 1px!important;
                                }
-                               /* ========= */
-                               /* ========= */
-                               /* 720p Viewport */
-
-                               @media screen and (min-width: 601px) {
-                                   section {
-                                       width: 75%;
-                                   }
-                                   .about * {
-                                       margin: auto;
-                                       width: 75%;
-                                       font-size: 20px;
-                                       margin-bottom: 0;
-                                   }
-                                   .rooms {
-                                       width: 75%;
-                                   }
-                                   .about {
-                                       margin-bottom: 30px;
-                                   }
-                                   .gallery-card h5 {
-                                       color: black;
-                                       font-weight: bolder;
-                                   }
-                                   .gallery-card p {
-                                       color: #737373;
-                                       line-height: 32px;
-                                   }
-                                   .gallery-card .card {
-                                       text-align: justify;
-                                   }
+                               .nav-item button {
+                                   margin-right: 30px!important;
                                }
-                               /* Adjust the Datepicker's position */
-
-                               @media only screen and (max-width: 768px) {
-                                   g .room-details-container {
-                                       flex-direction: column;
-                                   }
-                                   .room-details-deets {
-                                       width: 100%;
-                                       overflow: hidden;
-                                       margin: 0;
-                                   }
-                                   .room-details-deets .properties-deets-container {
-                                       flex-direction: column;
-                                   }
-                                   .room-details-deets {
-                                       margin-top: 20px;
-                                       width: 100%;
-                                   }
-                                   .room-details-content {
-                                       width: 100%;
-                                       margin: 0;
-                                   }
-                                   .room-details-content {
-                                       margin-top: 20px;
-                                   }
-                                   .room-details-con {
-                                       margin-left: 0;
-                                       margin-right: 0;
-                                   }
-                                   .room-details-deets img {
-                                       max-width: 100%;
-                                   }
-                                   .room-details-deets {
-                                       max-width: 100%;
-                                   }
-                                   .room-details-box {
-                                       max-width: 100%;
-                                   }
-                                   .map-container {
-                                       width: 100%;
-                                   }
-                                   .amenit,
-                                   .prop-menu,
-                                   .check-deets,
-                                   .terms-deets {
-                                       margin-left: 0;
-                                   }
-                               }
-                               /* Mobile Viewport */
-
-                               @media screen and (max-width: 600px) {
-                                   .home .fst-italic {
-                                       font-size: 25px;
-                                   }
-                                   .about * {
-                                       font-family: 'Poppins';
-                                       font-size: 25px;
-                                       width: 100%;
-                                   }
-                                   .about i {
-                                       line-height: 50px;
-                                       font-weight: lighter!important;
-                                       font-size: 30px;
-                                   }
-                                   .about h1 {
-                                       font-size: 30px!important;
-                                       margin-bottom: 0;
-                                   }
-                                   .about div {
-                                       width: 80%!important;
-                                   }
-                                   .fixed-icons {
-                                       display: none;
-                                   }
-                                   .gallery {
-                                       width: 80%;
-                                       margin-top: 37vh;
-                                   }
-                                   .carousel-image {
-                                       height: 320px;
-                                   }
-                                   .rooms .container .card {
-                                       width: 75%;
-                                   }
-                                   .rooms h4,
-                                   i {
-                                       font-size: 25px;
-                                   }
-                                   .rooms .btn-book-room {
-                                       width: 90%;
-                                       padding: 20px!important;
-                                       font-size: 25px;
-                                   }
-                                   .gallery-card {
-                                       flex-direction: column;
-                                   }
-                                   .gallery-card p,
-                                   .gallery-card h5 {
-                                       font-size: 25px;
-                                       line-height: 50px;
-                                   }
-                                   .gallery-card b {
-                                       color: #737373;
-                                       white-space: nowrap;
-                                   }
-                                   .gallery-card h5 {
-                                       font-weight: bolder!important;
-                                       color: #000;
-                                       font-size: 30px;
-                                   }
-                                   .contact-details {
-                                       display: flex;
-                                       flex-direction: column;
-                                       width: 75%;
-                                   }
-                                   .contact h2 {
-                                       font-size: 40px;
-                                       font-weight: bolder;
-                                       text-transform: uppercase;
-                                   }
-                                   .contact-details h5 {
-                                       line-height: 36px;
-                                       text-align: center;
-                                       font-size: 24px;
-                                       margin: 25px;
-                                       font-style: italic;
-                                       white-space: nowrap;
-                                   }
-                                   .contact .container {
-                                       width: 75%;
-                                       margin: auto;
-                                   }
-                                   .contact .container label {
-                                       font-size: 25px;
-                                       font-style: italic;
-                                   }
-                                   .contact-form button[type="submit"] {
-                                       padding: 15px;
-                                       font-size: 25px;
-                                   }
-                                   .room {
-                                       width: 90%;
-                                       margin: auto;
-                                   }
-                                   .room-price {
-                                       white-space: nowrap;
-                                   }
-                                   .room-container {
-                                       flex-direction: column;
-                                   }
-                                   .room-details {
-                                       flex-direction: column;
-                                       margin: auto;
-                                       width: 95%;
-                                       justify-content: center;
-                                       align-items: center;
-                                       text-align: center;
-                                   }
-                                   .i_content {
-                                       justify-content: center;
-                                   }
-                                   .book_t_content p {
-                                       text-align: center;
-                                   }
-                                   .room-image {
-                                       width: 95%;
-                                       margin: auto;
-                                   }
-                                   .room-details * {
-                                       line-height: 32px;
-                                   }
-                                   .room-details h2 {
-                                       margin-bottom: 20px;
-                                       margin-top: 20px;
-                                   }
-                                   .room-details p,
-                                   .room-details h2 {
-                                       font-size: 30px;
-                                   }
-                                   .book_t_content p {
-                                       font-size: 30px!important;
-                                   }
-                                   .room-details-container {
-                                       flex-direction: column;
-                                       margin: auto!important;
-                                       width: 98%!important;
-                                       max-width: unset;
-                                   }
-                                   .room-details-content {
-                                       position: unset!important;
-                                       width: 100%!important;
-                                   }
-                                   .room-details-box {
-                                       width: 100%!important;
-                                   }
-                                   .room-details-deets {
-                                       max-width: unset!important;
-                                       width: 100%;
-                                   }
-                                   #room-name {
-                                       white-space: nowrap;
-                                   }
-                                   .room-name-container a {
-                                       padding-left: 20px;
-                                   }
-                                   .separator {
-                                       display: block;
-                                       width: 25px;
-                                       height: 25px;
-                                   }
-                                   .property-details {
-                                       align-items: stretch;
-                                   }
-                                   .properties-deets-container {
-                                       flex-direction: row!important;
-                                   }
-                                   .properties-deets-container .prop-menu {
-                                       margin-left: 0!important;
-                                   }
-                                   .ms-4 {
-                                       margin: 0!important;
-                                   }
-                               }
-
-                               @media screen and (max-width: 426px) {
-                                   .nav-item .nav-link {
-                                       margin-left: 10px!important;
-                                       margin-right: 1px!important;
-                                   }
-                                   .nav-item button {
-                                       margin-right: 30px!important;
-                                   }
-                                   .property-details,
-                                   .more-info_deets,
-                                   .amenities,
-                                   .check-in-out,
-                                   .terms {
-                                       flex-direction: column;
-                                       justify-content: center;
-                                       align-items: center;
-                                       margin-top: 20px;
-                                   }
-                                   .properties-deets-container {
-                                       width: 100%!important;
-                                   }
-                                   .more-info-details .room-description {
-                                       text-align: justify;
-                                       line-height: 32px;
-                                       margin-top: 10px;
-                                   }
-                                   .room-details-con h5 {
-                                       font-weight: bolder;
-                                       text-align: center;
-                                   }
-                                   .amenities div {
-                                       width: 100%!important;
-                                   }
-                                   .amenit-icons-container {
-                                       margin-top: 15px;
-                                   }
-                                   .check-deets-container {
-                                       width: 100%;
-                                       justify-content: center;
-                                       align-items: center;
-                                   }
-                                   .terms-deets-container {
-                                       width: 100%;
-                                       justify-content: center;
-                                       align-items: center;
-                                   }
-                                   .room-name-container {
-                                       width: 100%!important;
-                                       justify-content: flex-start!important;
-                                       align-items: flex-start!important;
-                                       gap: 20px;
-                                   }
-                                   .input-container i {
-                                       font-size: 15px;
-                                   }
-                                   dialog {
-                                       bottom: 52vh;
-                                       right: 50%;
-                                       top: unset;
-                                       width: 100%;
-                                       max-width: unset!important;
-                                   }
-                                   .modal-content {
-                                       width: unset!important;
-                                       margin: auto;
-                                       bottom: 50%;
-                                   }
-                                   .modal-dialog {
-                                       bottom: 0;
-                                   }
-                                   body {
-                                       padding: 0!important;
-                                   }
-                                   .modal.show .modal-dialog {
-                                       transform: unset!important;
-                                   }
-                                   #downpayment .modal-dialog {
-                                       transition: transform 0.3s ease-out;
-                                       transform: translate(0, 100%)!important;
-                                       width: 90%;
-                                       margin: auto;
-                                   }
-                                   .room-name {
-                                       font-weight: bolder;
-                                       font-size: 30px;
-                                   }
-                                   .l_content .room-description {
-                                       font-size: 20px;
-                                       line-height: 40px;
-                                   }
-                                   .room-beds {
-                                       font-size: 20px!important;
-                                   }
-                                   .i_content {
-                                       gap: 25px;
-                                   }
-                                   .book_t_content {
-                                       width: 100%;
-                                   }
-                                   .about i {
-                                       font-size: 24px;
-                                       font-style: normal;
-                                   }
-                                   .home {
-                                       margin: 0!important;
-                                   }
-                                   .home .text-center {
-                                       font-size: 40px;
-                                   }
-                                   .home .fst-italic {
-                                       font-size: 18px;
-                                   }
-                                   .rooms .card {
-                                       background-color: white;
-                                       display: flex;
-                                       justify-content: center;
-                                       width: fit-content;
-                                       padding: 20px;
-                                       font-family: 'Poppins'!important;
-                                       width: 80%;
-                                       margin: auto;
-                                   }
-                                   .gallery {
-                                       width: 90%;
-                                       overflow-y: hidden;
-                                   }
-                                   .gallery-card h5 {
-                                       text-align: center;
-                                       font-size: 40px;
-                                   }
-                                   .gallery-card p {
-                                       width: 300px;
-                                       font-size: 18px;
-                                   }
-                                   .gallery-card b {
-                                       width: 300px;
-                                       white-space: normal;
-                                       font-size: 25px;
-                                   }
-                                   .guest-review {
-                                       width: 100%!important;
-                                   }
-                                   .guest-review .card {
-                                       width: 350px;
-                                       padding: 0;
-                                       height: 300px;
-                                   }
-                                   .guest-review {
-                                       background-size: cover;
-                                       width: 100%;
-                                   }
-                                   .container-xl.position-relative {
-                                       height: 750px;
-                                   }
-                               }
-
-                               @media screen and (max-width: 1440px) {
-                                   .dashboard-nav {
-                                       height: 110vh;
-                                   }
-                                   .content {
-                                       height: 110vh!important;
-                                   }
-                               }
-
-                               .btn-black-hover {
-                                   background-color: transparent;
-                                   color: #000;
-                                   border: 1px solid #000;
-                                   transition: background-color 0.3s, color 0.3s;
-                               }
-
-                               .btn-black-hover:hover {
-                                   color: #fff;
-                               }
-
-                               #fullImageContainer {
-                                   display: none;
-                                   position: fixed;
-                                   top: 0;
-                                   left: 0;
-                                   bottom: 0;
-                                   width: 100%;
-                                   height: 100%;
-                                   background: rgba(0, 0, 0, 0.8);
+                               .property-details,
+                               .more-info_deets,
+                               .amenities,
+                               .check-in-out,
+                               .terms {
+                                   flex-direction: column;
                                    justify-content: center;
                                    align-items: center;
-                                   z-index: 2;
+                                   margin-top: 20px;
                                }
+                               .properties-deets-container {
+                                   width: 100%!important;
+                               }
+                               .more-info-details .room-description {
+                                   text-align: justify;
+                                   line-height: 32px;
+                                   margin-top: 10px;
+                               }
+                               .room-details-con h5 {
+                                   font-weight: bolder!important;
+                                   text-align: center;
+                               }
+                               .amenities div {
+                                   width: 100%!important;
+                               }
+                               .amenit-icons-container {
+                                   margin-top: 15px;
+                               }
+                               .check-deets-container {
+                                   width: 100%;
+                                   justify-content: center;
+                                   align-items: center;
+                               }
+                               .terms-deets-container {
+                                   width: 100%;
+                                   justify-content: center;
+                                   align-items: center;
+                               }
+                               .room-name-container {
+                                   width: 100%!important;
+                                   justify-content: flex-start!important;
+                                   align-items: flex-start!important;
+                                   gap: 20px;
+                               }
+                               .input-container i {
+                                   font-size: 15px;
+                               }
+                               dialog {
+                                   bottom: 52vh;
+                                   right: 50%;
+                                   top: unset;
+                                   width: 100%;
+                                   max-width: unset!important;
+                               }
+                               .modal-content {
+                                   width: unset!important;
+                                   margin: auto;
+                                   bottom: 50%;
+                               }
+                               .modal-dialog {
+                                   bottom: 0;
+                               }
+                               body {
+                                   padding: 0!important;
+                               }
+                               .modal.show .modal-dialog {
+                                   transform: unset!important;
+                               }
+                               #downpayment .modal-dialog {
+                                   transition: transform 0.3s ease-out;
+                                   transform: translate(0, 100%)!important;
+                                   width: 90%;
+                                   margin: auto;
+                               }
+                               .room-name {
+                                   font-weight: bolder;
+                                   font-size: 30px;
+                               }
+                               .l_content .room-description {
+                                   font-size: 20px;
+                                   line-height: 40px;
+                               }
+                               .room-beds {
+                                   font-size: 20px!important;
+                               }
+                               .i_content {
+                                   gap: 25px;
+                               }
+                               .book_t_content {
+                                   width: 100%;
+                               }
+                               .about i {
+                                   font-size: 24px;
+                                   font-style: normal;
+                               }
+                               .home {
+                                   margin: 0!important;
+                               }
+                               .home .text-center {
+                                   font-size: 40px;
+                               }
+                               .home .fst-italic {
+                                   font-size: 18px;
+                               }
+                               .rooms .card {
+                                   background-color: white;
+                                   display: flex;
+                                   justify-content: center;
+                                   width: fit-content;
+                                   padding: 20px;
+                                   font-family: 'Poppins'!important;
+                                   width: 80%;
+                                   margin: auto;
+                               }
+                               .gallery {
+                                   width: 90%;
+                                   overflow-y: hidden;
+                               }
+                               .gallery-card h5 {
+                                   text-align: center;
+                                   font-size: 40px;
+                               }
+                               .gallery-card p {
+                                   width: 300px;
+                                   font-size: 18px;
+                               }
+                               .gallery-card b {
+                                   width: 300px;
+                                   white-space: normal;
+                                   font-size: 25px;
+                               }
+                               .guest-review {
+                                   width: 100%!important;
+                               }
+                               .guest-review .card {
+                                   width: 350px;
+                                   padding: 0;
+                                   height: 300px;
+                               }
+                               .guest-review {
+                                   background-size: cover;
+                                   width: 100%;
+                               }
+                               .container-xl.position-relative {
+                                   height: 750px;
+                               }
+                           }
 
-                               #fullImage {
-                                   max-width: 80%;
-                                   max-height: 100%;
+                           @media screen and (max-width: 1440px) {
+                               .dashboard-nav {
+                                   height: 110vh;
                                }
+                               .content {
+                                   height: 110vh!important;
+                               }
+                           }
+
+                           .btn-black-hover {
+                               background-color: transparent;
+                               color: #000;
+                               border: 1px solid #000;
+                               transition: background-color 0.3s, color 0.3s;
+                           }
+
+                           .btn-black-hover:hover {
+                               color: #fff;
+                           }
+
+                           #fullImageContainer {
+                               display: none;
+                               position: fixed;
+                               top: 0;
+                               left: 0;
+                               bottom: 0;
+                               width: 100%;
+                               height: 100%;
+                               background: rgba(0, 0, 0, 0.8);
+                               justify-content: center;
+                               align-items: center;
+                               z-index: 2;
+                           }
+
+                           #fullImage {
+                               max-width: 80%;
+                           }

@@ -37,6 +37,10 @@ Route::get('/policy',function(){
     return view('policy');
 })->name('policy');
 
+
+Route::get('/terms-and-conditions',function(){
+    return view('terms_and_conditions');
+})->name('terms_and_conditions');
 Route::get('/login', [PersonnelController::class, 'showlogin'])->name('showlogin');
 
 Route::post('/login', [PersonnelController::class, 'login'])->name('login');
@@ -101,6 +105,7 @@ Route::post('/reservations/checkUserByEmail', [ReservationController::class, 'ch
     Route::get('/dashboard/personnel/{id}/edit', [PersonnelController::class, 'edit'])->name('personnel.edit');
     Route::delete('/dashboard/personnel/{id}', [PersonnelController::class, 'destroy'])->name('personnel.destroy');
 
+    Route::get('/dashboard/reserved-dates/{room_id}', [ReservationController::class, 'getReservedDatesByRoom'])->name('dashboard.reservedDatesByRoom');
     // Create room
 Route::post('/rooms', [RoomController::class, 'store'])->name('rooms.store');
 
@@ -166,3 +171,5 @@ Route::post('/submit-review', [ReviewController::class, 'submitReview'])->name('
 // <!-- <form action="{{ route('submit-review', ['reservation' => $reservation->id]) }}" method="post" id="review-form"> -->
 Route::get('/get-room-id/{room_name}', [ReviewController::class, 'getRoomId']);
 Route::get('/more_info/{room_name}', [ReviewController::class, 'showAllReviewsForRoom'])->name('more_info');
+
+
