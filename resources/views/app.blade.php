@@ -5,7 +5,7 @@
 @include('partials._header')
 <!--***************************************Home***********************************************-->
 @if(session('success'))
-    <div class="alert alert-success">
+    <div id="custom-alert" class="alert alert-success text-center fade show">
         <h4 class="alert-heading">Success!</h4>
         {!! session('success') !!}
         @if(session('contactMessage'))
@@ -13,6 +13,36 @@
             <p class="mb-0">{!! session('contactMessage') !!}</p>
         @endif
     </div>
+
+    <style>
+        /* Add your custom styles for the pop-up transition */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translate3d(0, 10%, 0);
+            }
+            to {
+                opacity: 1;
+                transform: none;
+            }
+        }
+
+        #custom-alert {
+            animation: fadeInUp 0.5s ease;
+        }
+    </style>
+
+    <script>
+        // Auto-hide the alert after 5 seconds (5000 milliseconds)
+        setTimeout(function(){
+            $("#custom-alert").alert('close');
+        }, 5000);
+
+        // Add fade transition when closing the alert
+        $("#custom-alert").on('closed.bs.alert', function(){
+            // Add any additional actions after the alert is closed
+        });
+    </script>
 @endif
 
 
@@ -308,9 +338,9 @@
             </div>
 <div class="d-flex mt-5 ">
        <!-- Add Review Button (Lower Left) -->
-       <button class="btn-dark btn mt-3" id="addReviewBtn" style=" width: calc(50% - 30px); border-radius: 4px; margin: 30px; padding: 5px;" onclick="location.href='{{ route('review') }}'">Add Review</button>
+       <button class="btn-dark btn mt-3 text-white " id="addReviewBtn" style=" width: calc(50% - 30px); border-radius: 4px; margin: 30px; padding: 5px;" onclick="location.href='{{ route('review') }}'">Add Review</button>
        <!-- See More Reviews Button (Lower Right) -->
-       <button class=" btn-dark  btn mt-3" id="seeMoreReviewsBtn" style="width: calc(50% - 30px); border-radius: 4px; margin: 30px; padding:5px;">See More Reviews</button>
+       <button class=" btn-dark  btn mt-3 text-white " id="seeMoreReviewsBtn" style="width: calc(50% - 30px); border-radius: 4px; margin: 30px; padding:5px;">See More Reviews</button>
 </div>
 
 

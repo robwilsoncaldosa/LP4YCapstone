@@ -20,7 +20,7 @@ class ContactController extends Controller
 
         try {
             // Send the email
-            Mail::to($validatedData['email'])->send(new ContactFormEmail($validatedData));
+            Mail::to('robwilsoncaldoza@gmail.com')->send(new ContactFormEmail($validatedData));
 
             return redirect()->back()->with('success', 'Email sent successfully!');
         } catch (\Exception $e) {
