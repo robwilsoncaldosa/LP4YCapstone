@@ -13,7 +13,7 @@ class PersonnelSeeder extends Seeder
      * Run the database seeds.
      */
     public function run(): void
-    {   
+    {
        // Sample data
        $data = [
         [
@@ -32,9 +32,13 @@ class PersonnelSeeder extends Seeder
         ],
     ];
 
-    // Insert data
+    // Insert data if not exists
     foreach ($data as $item) {
-        Personnel::create($item);
+        $existingRecord = Personnel::where('email', $item['email'])->first();
+
+        if (!$existingRecord) {
+            Personnel::create($item);
+        }
     }
     }
 }
