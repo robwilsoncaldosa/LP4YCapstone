@@ -75,6 +75,7 @@ public function checkout($reservationId)
     // Return a response or redirect as needed
 }
 
+
 public function update(Request $request, $id)
 {
     $reservation = Reservation::findOrFail($id);
@@ -108,7 +109,6 @@ public function update(Request $request, $id)
         'target_id' => $reservation->id,
     ]);
     
-
     // Redirect back to the reservations page with a success message
     return redirect()->route('dashboard.reservations')->with('success', 'Reservation updated successfully.');
 }

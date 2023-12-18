@@ -18,7 +18,6 @@ return new class extends Migration
             $table->decimal('amount', 8, 2);
             $table->string('payment_method');
             $table->timestamps();
-
             $table->foreign('reservation_id')->references('id')->on('reservations')->onDelete('cascade');
         });
     }
