@@ -42,23 +42,21 @@ class ReservationController extends Controller
 
     // return view('dashboard', ['reservations' => $reservations]);
 }
-
-
 public function homeView()
 {
     // Calculate the total number of bookings
     $totalBookings = Reservation::count();
 
     // Calculate new clients this month
-    $newClientsThisMonth = Reservation::whereMonth('check_in_date', '=', Carbon::now()->month)->count();
+    $newClientsThisMonth = Reservation::whereMonth('check_in_date', '=', now()->month)->count();
 
     // Calculate returning clients
     $returningClients = Reservation::distinct('user_id')
-        ->where('check_in_date', '<', Carbon::now())
+        ->where('check_in_date', '<', now())
         ->count();
 
     // Fetch room status data
-    $roomStatuses = Room::select('room_name', DB::raw("CASE WHEN reservations.check_out_date >= NOW() THEN CONCAT('Occupied until ', DATE_FORMAT(reservations.check_out_date, '%M %e, %Y at %l:%i %p')) ELSE 'Available' END as status"))
+    $roomStatuses = Room::select('room_name', DB::raw("CASE WHEN reservations.check_out_date >= CURRENT_TIMESTAMP THEN CONCAT('Occupied until ', TO_CHAR(reservations.check_out_date, 'FMMonth FMDD, YYYY at HH12:MI AM')) ELSE 'Available' END as status"))
         ->leftJoin('reservations', function ($join) {
             $join->on('rooms.id', '=', 'reservations.room_id')
                 ->where('reservations.check_out_date', '=', DB::raw('(SELECT MAX(check_out_date) FROM reservations WHERE room_id = rooms.id)'));
@@ -76,6 +74,7 @@ public function homeView()
         'roomStatuses' => $roomStatuses,
     ]);
 }
+
 
 
 

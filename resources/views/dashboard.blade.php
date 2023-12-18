@@ -329,59 +329,7 @@
                     <h4 class="p-2" style="color:#776061">Here's what's happening in your account today.</h4>
                 </div>
 
-                <!-- Updated Notification Icon -->
-                <div class="notification p-4" id="notificationContainer">
-                    <ul class="navbar-nav flex-row p-4">
-                        <li class="nav-item p-3">
-                            <a class="nav-link" href="#" onclick="showReservations()">
-                                <i class="far fa-bell" style="color:black; font-size: 35px;"></i>
-                                <span class="notification-count" id="notificationCount">
-                                    {{ $reservations->count() }}
-                                </span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-
-                <!-- Pop-up Modal for Reservations -->
-                <div id="reservationModal" class="custom-modal">
-                    <h4 class="p-2 m-2" style="font-size:16px">Notifications</h4>
-                    <div class="modal-content">
-                        <?php
-                        // Sort reservations by creation date in descending order
-                        $sortedReservations = $reservations->sortByDesc('created_at');
-                        ?>
-                        @foreach ($sortedReservations as $reservation)
-                            <div class="reservationRow d-flex justify-content-evenly align-items-center ">
-                                <div class="">
-                                    <p>{{ $reservation->user->name }}</p>
-                                </div>
-                                <div>
-                                    <p>{{ $reservation->room->room_name }}</p>
-
-                                </div>
-                                <div>
-                                    <p>{{ $reservation->check_in_date }}
-                                        {{ date('g:i A', strtotime($reservation->check_in_time)) }}</p>
-                                    <p>{{ $reservation->check_out_date }}
-                                        {{ date('g:i A', strtotime($reservation->check_out_time)) }}</p>
-                                </div>
-
-                            </div>
-                        @endforeach
-                    </div>
-                </div>
-                <script>
-                    function showReservations() {
-                        var modal = document.getElementById("reservationModal");
-
-                        // Check if the modal is currently visible
-                        var isVisible = window.getComputedStyle(modal).display !== "none";
-
-                        // Toggle the display based on the current state
-                        modal.style.display = isVisible ? "none" : "block";
-                    }
-                </script>
+             
 
 
 
