@@ -17,7 +17,6 @@ class CreateActivitiesTable extends Migration
             $table->id();
             $table->string('personnel_name');
             $table->string('activity');
-            $table->enum('status', ['recently_active', 'active']);
             $table->timestamp('datetime');
             $table->timestamps();
         });

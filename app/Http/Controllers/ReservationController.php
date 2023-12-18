@@ -10,6 +10,7 @@ use App\Models\Room;
 use App\Models\Activity;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
+
 class ReservationController extends Controller
 {
 
@@ -103,7 +104,6 @@ public function update(Request $request, $id)
     Activity::create([
         'personnel_name' => auth()->user()->name,
         'activity' => 'Updated Reservation', // or 'delete'
-        'status' => 'active', // or 'recently_active' or any other valid value
         'datetime' => now(), // or provide a valid timestamp
         'target_model' => 'Reservation',
         'target_id' => $reservation->id,
@@ -125,7 +125,6 @@ public function cancelReservation($id)
     Activity::create([
         'personnel_name' => auth()->user()->name,
         'activity' => 'Cancelled Reservation', // or 'delete'
-        'status' => 'active', // or 'recently_active' or any other valid value
         'datetime' => now(), // or provide a valid timestamp
         'target_model' => 'Reservation',
         'target_id' => $reservation->id,
@@ -148,7 +147,7 @@ public function storeReservation(Request $request)
     $request->validate([
         'name' => 'required|string',
         'email' => 'required|email',
-        'phone3' => 'nullable|string', // Change to nullable
+        'phone3' => 'nullable|string', 
         'room_id' => 'required|exists:rooms,id',
         'amount' => 'required|numeric|min:0',
         'payment_method' => 'required|string',
@@ -197,7 +196,6 @@ public function storeReservation(Request $request)
     Activity::create([
         'personnel_name' => auth()->user()->name,
         'activity' => 'Created Reservation',
-        'status' => 'active',
         'datetime' => now(),
         'target_model' => 'Reservation',
         'target_id' => $reservation->id,

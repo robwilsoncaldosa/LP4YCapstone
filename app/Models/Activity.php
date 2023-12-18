@@ -24,7 +24,6 @@ class Activity extends Model
     protected $fillable = [
         'personnel_name',
         'activity',
-        'status',
         'datetime',
     ];
 

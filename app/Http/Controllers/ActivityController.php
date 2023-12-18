@@ -23,16 +23,13 @@ class ActivityController extends Controller
 
     // Other methods remain unchanged
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy($id)
     {
 
         $activity = Activity::findOrFail($id);
         $activity->delete();
 
-        return redirect()->route('dashboard.activities')->with('success', 'Payment deleted successfully.');
+        return redirect()->route('dashboard')->with('success', 'Payment deleted successfully.');
 
 
 

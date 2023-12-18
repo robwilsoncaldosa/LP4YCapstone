@@ -1469,7 +1469,6 @@ aria-hidden="true">
             <tr>
                 <th>Personnel Name</th>
                 <th>Activity</th>
-                <th>Status</th>
                 <th>Datetime</th>
                 <th>Action</th>
             </tr>
@@ -1479,7 +1478,6 @@ aria-hidden="true">
                 <tr class="activityRow">
                     <td>{{ $activity->personnel_name }}</td>
                     <td>{{ $activity->activity }}</td>
-                    <td>{{ $activity->status }}</td>
                     <td>{{ $activity->datetime }}</td>
                     <td>
                         <form action="{{ route('dashboard.activities.destroy', $activity->id) }}" method="POST">
