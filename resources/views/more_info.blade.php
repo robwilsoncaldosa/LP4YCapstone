@@ -252,7 +252,7 @@
 <div class="card d-flex p-2 text-center alert alert-danger ">
     <p> <i class="fas fa-info-circle" style="font-size:15px"></i>
    <strong>
-    Check-out is available from Tuesday to Saturday, and the maximum stay is 4 nights.
+    Check-in/out is available from Tuesday to Saturday, and the maximum stay is 4 nights.
     </strong>
     </p>
 </div>
