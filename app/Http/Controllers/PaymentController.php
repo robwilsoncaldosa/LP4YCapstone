@@ -215,6 +215,7 @@ public function storeTransaction(Request $request)
 
 
     // Create a payment for the reservation
+
      Payment::create([
         'reservation_id' => $reservation->id,
         'remaining_total' => $remainingTotal,
