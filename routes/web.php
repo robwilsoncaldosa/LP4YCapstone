@@ -105,7 +105,6 @@ Route::post('/reservations/checkUserByEmail', [ReservationController::class, 'ch
     Route::get('/dashboard/personnel/{id}/edit', [PersonnelController::class, 'edit'])->name('personnel.edit');
     Route::delete('/dashboard/personnel/{id}', [PersonnelController::class, 'destroy'])->name('personnel.destroy');
 
-    Route::get('/dashboard/reserved-dates/{room_id}', [ReservationController::class, 'getReservedDatesByRoom'])->name('dashboard.reservedDatesByRoom');
     // Create room
 Route::post('/rooms', [RoomController::class, 'store'])->name('rooms.store');
 
@@ -140,6 +139,7 @@ Route::put('dashboard/rooms/{id}', [RoomController::class, 'update'])->name('roo
 
 
 
+Route::get('/dashboard/reserved-dates/{room_id}', [ReservationController::class, 'getReservedDatesByRoom'])->name('dashboard.reservedDatesByRoom');
 
 
 
