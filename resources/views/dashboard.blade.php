@@ -329,7 +329,7 @@
                     <h4 class="p-2" style="color:#776061">Here's what's happening in your account today.</h4>
                 </div>
 
-             
+
 
 
 
@@ -1224,24 +1224,7 @@
                                         <td>{{ $payment->remaining_total }}</td>
                                         <td>{{ $payment->payment_method }}</td>
                                         <td>{{ $payment->created_at }}</td>
-                                        <td>
-                                            <!-- Trigger modal for editing -->
-                                            <button class="btn btn-edit btn-primary" data-bs-toggle="modal"
-                                                data-bs-target="#editPaymentModal{{ $payment->id }}">
-                                                Update
-                                            </button>
 
-                                            <!-- Delete button -->
-                                            <form
-                                                action="{{ route('dashboard.transactions.destroy', ['id' => $payment->id]) }}"
-                                                method="post" style="display: inline;">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-delete btn-danger"
-                                                    onclick="return confirm('Are you sure you want to delete this payment?')">Delete</button>
-                                            </form>
-
-                                        </td>
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -1431,14 +1414,7 @@ aria-hidden="true">
                                 <td>{{ $review->rating }}</td>
                                 <td>{{ $review->comment }}</td>
                                 <td>{{ $review->room_comment }}</td>
-                                <td>
-                                <form action="{{ route('dashboard.reviews.delete', ['id' => $review->id]) }}" method="post">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this review?')">Delete</button>
-                                </form>
-
-                                </td>
+                            
                             </tr>
                         @endforeach
                     </tbody>
