@@ -1212,7 +1212,6 @@
                                     <th>Remaining Balance</th>
                                     <th>Payment Method</th>
                                     <th>Date</th>
-                                    <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -1403,7 +1402,6 @@ aria-hidden="true">
                             <th>Rating</th>
                             <th>Comment</th>
                             <th>Room Comment</th>
-                            <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -1414,7 +1412,7 @@ aria-hidden="true">
                                 <td>{{ $review->rating }}</td>
                                 <td>{{ $review->comment }}</td>
                                 <td>{{ $review->room_comment }}</td>
-                            
+
                             </tr>
                         @endforeach
                     </tbody>
